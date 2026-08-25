@@ -13,22 +13,30 @@ export default function Icon() {
     (
       <div
         style={{
-          fontSize: 16,
-          background: '#0A0A0A',
           width: '100%',
           height: '100%',
+          background: '#0A0A0A',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          color: '#C84B2F',
-          fontWeight: 900,
-          fontFamily: 'sans-serif',
-          letterSpacing: '-1px',
           borderRadius: 6,
           border: '1.5px solid #C84B2F',
         }}
       >
-        K
+        <span
+          style={{
+            color: '#F0ECE5',
+            fontSize: 22,
+            fontWeight: 900,
+            fontFamily: 'system-ui, -apple-system, sans-serif',
+            letterSpacing: '-1.5px',
+            lineHeight: 1,
+            display: 'flex',
+            transform: 'translateY(-0.5px)',
+          }}
+        >
+          K
+        </span>
       </div>
     ),
     {

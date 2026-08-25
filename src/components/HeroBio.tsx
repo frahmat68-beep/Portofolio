@@ -3,10 +3,8 @@
 import React, { useState } from 'react';
 import { usePortfolio } from '@/context/PortfolioContext';
 import { 
-  MessageCircle, Mail, Instagram, 
-  Play, Share2, Check, DownloadCloud, ShieldCheck
+  Play, Share2, Check, DownloadCloud
 } from 'lucide-react';
-import Link from 'next/link';
 import { motion } from 'framer-motion';
 import ShowreelModal from './ShowreelModal';
 
@@ -16,8 +14,6 @@ export default function HeroBio() {
 
   const [isShowreelOpen, setIsShowreelOpen] = useState(false);
   const [copied, setCopied] = useState(false);
-
-  const waUrl = `https://wa.me/${profile.contact.whatsapp}?text=Halo%20Kiki,%20saya%20tertarik%20untuk%20berkolaborasi%20dalam%20proyek%20produksi.`;
 
   const handleShare = () => {
     if (navigator.share) {
@@ -34,188 +30,136 @@ export default function HeroBio() {
     const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    a.href = url; a.download = 'Fikri-Mulya-Rachmat.vcf'; a.click();
+    a.href = url; a.download = 'Kiki-Rachmat.vcf'; a.click();
   };
 
   return (
-    <header className="relative w-full min-h-screen bg-[#0A0A0A] flex flex-col overflow-hidden" id="top">
-      {/* Subtle burnt red ambient glow in hero */}
+    <header className="relative w-full min-h-screen bg-[#0A0A0A] flex flex-col justify-between overflow-hidden" id="top">
+      {/* Ambient background glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80vw] h-[60vh] bg-[#C84B2F]/8 blur-[120px] rounded-full pointer-events-none -z-0" />
       <div className="absolute bottom-0 right-0 w-[40vw] h-[40vh] bg-[#C84B2F]/5 blur-[80px] rounded-full pointer-events-none -z-0" />
 
-      {/* ── Sticky Nav ──────────────────────────────── */}
+      {/* ── Minimal Top Nav ──────────────────────────── */}
       <nav className="w-full flex items-center justify-between px-5 sm:px-8 pt-6 pb-0 z-20 relative">
-        {/* Left: Signature/initials logo */}
+        {/* Left: Pure Kiki Name */}
         <div className="flex items-center gap-3">
           <span 
-            className="text-[#F0ECE5]/90 hover:text-[#C84B2F] transition-colors font-display font-bold text-xl uppercase tracking-wider select-none"
+            className="text-[#F0ECE5]/90 hover:text-[#C84B2F] transition-colors font-display font-black text-2xl uppercase tracking-wider select-none"
             style={{ fontFamily: 'var(--font-syne)' }}
           >
-            KIKI™
+            KIKI
           </span>
         </div>
 
-        {/* Right: Nav links */}
-        <div className="flex items-center gap-5 sm:gap-7">
+        {/* Right: Works & Gallery Links */}
+        <div className="flex items-center gap-6 sm:gap-8">
           <a
             href="#works"
-            className="hover-link text-[#F0ECE5]/60 hover:text-[#F0ECE5] transition-colors t-label tracking-widest text-[11px]"
+            className="hover-link text-[#F0ECE5]/70 hover:text-[#F0ECE5] transition-colors t-label tracking-widest text-[11px]"
           >
-            WORK
+            WORKS
           </a>
           <a
-            href="#services"
-            className="hover-link text-[#F0ECE5]/60 hover:text-[#F0ECE5] transition-colors t-label tracking-widest text-[11px]"
+            href="#bts"
+            className="hover-link text-[#F0ECE5]/70 hover:text-[#F0ECE5] transition-colors t-label tracking-widest text-[11px]"
           >
-            SERVICES
+            ON-SET
+          </a>
+          <a
+            href="#filmography"
+            className="hover-link text-[#F0ECE5]/70 hover:text-[#F0ECE5] transition-colors t-label tracking-widest text-[11px]"
+          >
+            ARCHIVE
           </a>
           <a
             href="#contact"
-            className="hover-link text-[#F0ECE5]/60 hover:text-[#F0ECE5] transition-colors t-label tracking-widest text-[11px]"
+            className="hover-link text-[#F0ECE5]/70 hover:text-[#F0ECE5] transition-colors t-label tracking-widest text-[11px]"
           >
             CONTACT
           </a>
           <button
             onClick={handleShare}
-            className="text-[#F0ECE5]/40 hover:text-[#F0ECE5]/80 transition-colors"
-            title="Share"
+            className="text-[#F0ECE5]/40 hover:text-[#F0ECE5]/80 transition-colors p-1"
+            title="Share Portfolio"
           >
             {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Share2 className="w-4 h-4" />}
           </button>
-          <Link href="/admin" className="text-[#F0ECE5]/30 hover:text-[#C84B2F] transition-colors" title="Admin">
-            <ShieldCheck className="w-4 h-4" />
-          </Link>
         </div>
       </nav>
 
-      {/* ── Main Hero Content ────────────────────── */}
-      <div className="flex-1 flex flex-col items-center justify-center relative z-10 px-4 text-center">
-        {/* Status pill */}
+      {/* ── Main Hero Display ────────────────────── */}
+      <div className="flex-1 flex flex-col items-center justify-center relative z-10 px-4 text-center my-auto py-12">
+        {/* Giant KIKI Display */}
         <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#C84B2F]/30 bg-[#C84B2F]/10 mb-6 sm:mb-10"
-        >
-          <span className="w-1.5 h-1.5 rounded-full bg-[#C84B2F] animate-pulse" />
-          <span className="t-mono text-[#C84B2F] text-[10px] tracking-widest">
-            {profile.statusText || 'AVAILABLE FOR PRODUCTION'}
-          </span>
-        </motion.div>
-
-        {/* ── KIKI — Giant Display Name ─────────── */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="relative select-none"
         >
-          {/* Main name: KIKI in massive Syne */}
-          <h1 className="hero-kiki leading-none text-center">
-            <span className="block">KIKI</span>
+          <h1 
+            className="hero-kiki leading-none text-center"
+            style={{ fontFamily: 'var(--font-syne)', letterSpacing: '-0.04em' }}
+          >
+            KIKI
           </h1>
-          {/* Red accent: full name small below */}
-          <div className="text-center mt-2 sm:mt-3">
-            <span className="t-label text-[#C84B2F] tracking-[0.25em] text-[11px] sm:text-[13px]">
+          <div className="text-center mt-2 sm:mt-4">
+            <span className="t-label text-[#C84B2F] tracking-[0.3em] text-xs sm:text-sm font-bold">
               FIKRI MULYA RACHMAT
             </span>
           </div>
         </motion.div>
 
-        {/* Tagline below */}
+        {/* Roles Context (Show-Off Headline) */}
         <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-          className="mt-4 sm:mt-6 text-[#F0ECE5]/50 t-label tracking-[0.18em] text-[11px] sm:text-[12px]"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.25, duration: 0.6 }}
+          className="mt-5 text-[#F0ECE5]/60 t-label tracking-[0.2em] text-[11px] sm:text-xs max-w-xl leading-relaxed"
         >
-          FILM PRODUCER  ·  LINE PRODUCER  ·  UNIT PRODUCTION MANAGER  ·  ART DIRECTOR
+          PRODUCER  ·  LINE PRODUCER  ·  UPM  ·  PRODUCTION ASSISTANT  ·  SOFTWARE ENGINEER
         </motion.p>
 
-        {/* ── CTA Buttons ─────────────────────── */}
+        {/* Action: Play Showreel */}
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.45 }}
-          className="flex flex-wrap items-center justify-center gap-3 mt-8 sm:mt-10"
+          transition={{ delay: 0.4, duration: 0.6 }}
+          className="flex items-center justify-center gap-4 mt-8 sm:mt-10"
         >
-          {/* Play Showreel */}
           <button
             onClick={() => setIsShowreelOpen(true)}
-            data-cursor="PLAY"
-            className="group flex items-center gap-2 px-6 py-3 rounded-full bg-[#C84B2F] hover:bg-[#D9614A] text-white text-xs font-bold font-display uppercase tracking-widest transition-all shadow-glowRed hover:shadow-glowRed hover:-translate-y-0.5"
+            className="group flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-[#C84B2F] hover:bg-[#D9614A] text-white text-xs font-bold font-display uppercase tracking-widest transition-all shadow-glowRed hover:-translate-y-0.5"
           >
             <Play className="w-3.5 h-3.5 fill-white group-hover:scale-110 transition-transform" />
-            PLAY SHOWREEL
+            <span>PLAY SHOWREEL</span>
           </button>
 
-          {/* WhatsApp */}
           <a
-            href={waUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-cursor="CHAT"
-            className="flex items-center gap-2 px-6 py-3 rounded-full border border-[#F0ECE5]/15 hover:border-[#F0ECE5]/35 text-[#F0ECE5]/70 hover:text-[#F0ECE5] text-xs font-bold font-display uppercase tracking-widest transition-all"
+            href="#works"
+            className="flex items-center gap-2 px-7 py-3.5 rounded-full border border-[#F0ECE5]/20 hover:border-[#F0ECE5]/40 text-[#F0ECE5]/80 hover:text-white text-xs font-bold font-display uppercase tracking-widest transition-all hover:-translate-y-0.5"
           >
-            <MessageCircle className="w-3.5 h-3.5" />
-            WHATSAPP
+            EXPLORE WORKS
           </a>
-        </motion.div>
-
-        {/* ── Quick contact pills ──────────────── */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
-          className="flex flex-wrap items-center justify-center gap-4 mt-6"
-        >
-          <a
-            href={`mailto:${profile.contact.email}`}
-            className="hover-link flex items-center gap-1.5 text-[#F0ECE5]/35 hover:text-[#F0ECE5]/70 transition-colors t-mono text-[10px]"
-          >
-            <Mail className="w-3 h-3" />
-            {profile.contact.email}
-          </a>
-          <span className="text-[#F0ECE5]/15 text-xs">·</span>
-          <a
-            href={`https://instagram.com/${profile.contact.instagram}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover-link flex items-center gap-1.5 text-[#F0ECE5]/35 hover:text-[#F0ECE5]/70 transition-colors t-mono text-[10px]"
-          >
-            <Instagram className="w-3 h-3" />
-            @{profile.contact.instagram}
-          </a>
-          <span className="text-[#F0ECE5]/15 text-xs">·</span>
-          <button
-            onClick={handleDownloadVCard}
-            className="hover-link flex items-center gap-1.5 text-[#F0ECE5]/35 hover:text-[#F0ECE5]/70 transition-colors t-mono text-[10px]"
-          >
-            <DownloadCloud className="w-3 h-3" />
-            SAVE CONTACT
-          </button>
         </motion.div>
       </div>
 
-      {/* ── Bottom: Location + SAE strip ─── */}
+      {/* ── Bottom Bar ──────────────────────────── */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.7 }}
-        className="w-full px-5 sm:px-8 pb-6 flex items-center justify-between z-20 relative"
+        transition={{ delay: 0.6 }}
+        className="w-full px-5 sm:px-8 pb-6 flex items-center justify-between z-20 relative text-[#F0ECE5]/30 t-mono text-[10px]"
       >
-        <span className="t-mono text-[#F0ECE5]/25 text-[10px]">
-          JAKARTA & DEPOK, INDONESIA
-        </span>
-        <span className="t-mono text-[#F0ECE5]/25 text-[10px]">
-          SAE INSTITUTE JAKARTA — DIPLOMA OF FILM
-        </span>
+        <span>JAKARTA / DEPOK, INDONESIA</span>
+        <button
+          onClick={handleDownloadVCard}
+          className="hover-link text-[#F0ECE5]/40 hover:text-[#F0ECE5]/80 flex items-center gap-1.5 transition-colors"
+        >
+          <DownloadCloud className="w-3 h-3" />
+          SAVE CONTACT (VCARD)
+        </button>
+        <span className="hidden sm:inline">SAE INSTITUTE JAKARTA ALUMNI</span>
       </motion.div>
-
-      {/* ── Scroll indicator ─────────────── */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1 opacity-30">
-        <div className="w-[1px] h-8 bg-[#F0ECE5]/40 animate-float" />
-        <span className="t-mono text-[#F0ECE5] text-[9px] tracking-widest">SCROLL</span>
-      </div>
 
       <ShowreelModal
         isOpen={isShowreelOpen}

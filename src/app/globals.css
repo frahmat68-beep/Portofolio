@@ -32,10 +32,7 @@
   }
 }
 
-/* ─── CUSTOM CURSOR ─────────────────────────────────── */
-* {
-  cursor: none !important;
-}
+/* ─── CUSTOM SCROLL & SELECTION ─────────────────────── */
 
 /* ─── SCROLLBAR ─────────────────────────────────────── */
 ::-webkit-scrollbar { width: 4px; }

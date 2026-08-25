@@ -49,7 +49,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="id" className={`${syne.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>
-      <body className="bg-background text-gray-100 font-sans min-h-screen antialiased overflow-x-hidden cursor-none">
+      <body className="bg-background text-gray-100 font-sans min-h-screen antialiased overflow-x-hidden">
         <PortfolioProvider>
           {children}
         </PortfolioProvider>
