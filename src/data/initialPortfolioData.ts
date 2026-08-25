@@ -23,7 +23,7 @@ export const initialPortfolioData: PortfolioData = {
     contact: {
       whatsapp: "6285156649015",
       whatsappDisplay: "+62 851-5664-9015",
-      email: "frahmat68@gmail.com",
+      email: "kikirachmat214@gmail.com",
       instagram: "kikiirch",
       linkedin: "https://www.linkedin.com/in/fikrimulyarachmat",
       showreelUrl: "https://www.youtube.com",
