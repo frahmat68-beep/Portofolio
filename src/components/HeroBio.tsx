@@ -14,8 +14,8 @@ import {
   ShieldCheck, 
   Check, 
   DownloadCloud,
-  ExternalLink,
-  Film
+  Clapperboard,
+  Sparkles
 } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -64,62 +64,66 @@ END:VCARD`;
   };
 
   return (
-    <header className="relative w-full pt-6 md:pt-10 pb-6">
+    <header className="relative w-full pt-8 md:pt-12 pb-8 border-b border-white/5">
       {/* Background ambient lighting */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-64 bg-cinemaAmber/15 blur-3xl -z-10 rounded-full pointer-events-none" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-72 bg-gradient-to-b from-cinemaAmber/15 via-cinemaAmber/5 to-transparent blur-3xl -z-10 rounded-full pointer-events-none" />
 
       <div className="w-full max-w-6xl mx-auto px-4 sm:px-6">
         
-        {/* Top Control Bar */}
-        <div className="w-full flex justify-between items-center mb-6 md:mb-8">
-          <motion.div 
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium glass-pill text-gray-300 shadow-sm"
-          >
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
-            <span>{profile.statusText || 'Available for Projects'}</span>
-          </motion.div>
+        {/* Top A24 Production Slate Header Bar */}
+        <div className="w-full flex justify-between items-center mb-8 border-b border-white/10 pb-3 font-mono text-[11px] uppercase tracking-widest text-gray-400">
+          <div className="flex items-center gap-3">
+            <span className="text-cinemaAmber font-bold flex items-center gap-1.5">
+              <Clapperboard className="w-3.5 h-3.5" />
+              SLATE NO. 2026 // PRODUCTION HUB
+            </span>
+            <span className="hidden sm:inline text-gray-600">|</span>
+            <span className="hidden sm:inline-flex items-center gap-1 text-gray-300">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              {profile.statusText || 'Available for Projects'}
+            </span>
+          </div>
 
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-2">
             <button
               onClick={handleShare}
-              className="text-xs text-gray-400 hover:text-white transition-all flex items-center gap-1.5 px-3 py-1.5 rounded-xl glass-pill active:scale-95"
+              className="text-gray-400 hover:text-white transition-all flex items-center gap-1.5 px-3 py-1 rounded-lg glass-pill active:scale-95 text-[11px]"
               title="Bagikan / Salin Link"
             >
               {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Share2 className="w-3.5 h-3.5" />}
-              <span>{copied ? 'Tersalin!' : 'Share'}</span>
+              <span>{copied ? 'Tersalin' : 'Share'}</span>
             </button>
 
             <Link
               href="/admin"
-              className="text-xs text-gray-400 hover:text-cinemaAmber transition-colors flex items-center gap-1.5 px-3 py-1.5 rounded-xl glass-pill"
+              className="text-gray-400 hover:text-cinemaAmber transition-colors flex items-center gap-1.5 px-3 py-1 rounded-lg glass-pill text-[11px]"
               title="Admin CMS"
             >
               <ShieldCheck className="w-3.5 h-3.5" />
-              <span>Admin CMS</span>
+              <span>Admin</span>
             </Link>
           </div>
         </div>
 
-        {/* Hero Content: Mobile Centered, Desktop Wide Split / Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        {/* Hero Content: A24 Director Split Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
           {/* Avatar Column */}
           <div className="lg:col-span-4 flex flex-col items-center lg:items-start text-center lg:text-left">
             <motion.div 
-              initial={{ scale: 0.85, opacity: 0 }}
+              initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.4 }}
+              transition={{ duration: 0.5 }}
+              data-cursor="WATCH REEL"
               className="relative group cursor-pointer"
               onClick={() => setIsShowreelOpen(true)}
             >
-              <div className="w-32 h-32 sm:w-40 sm:h-40 lg:w-48 lg:h-48 rounded-full lg:rounded-3xl p-1 bg-gradient-to-tr from-cinemaAmber via-amber-500/40 to-cinemaCyan shadow-glowAmber transition-transform duration-300 group-hover:scale-105">
+              <div className="w-36 h-36 sm:w-44 sm:h-44 lg:w-56 lg:h-56 rounded-3xl p-1 bg-gradient-to-tr from-cinemaAmber via-amber-500/30 to-cinemaCyan shadow-glowAmber transition-transform duration-500 group-hover:scale-105 overflow-hidden">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={profile.avatarUrl}
                   alt={profile.name}
-                  className="w-full h-full object-cover rounded-full lg:rounded-2xl bg-surface"
+                  className="w-full h-full object-cover rounded-[22px] bg-surface"
                   onError={(e) => {
                     e.currentTarget.src = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop";
                   }}
@@ -127,48 +131,62 @@ END:VCARD`;
               </div>
 
               {/* Verified Badge */}
-              <div className="absolute bottom-1 right-1 lg:-bottom-2 lg:-right-2 bg-surface p-1.5 rounded-full border border-surfaceBorder shadow-lg">
+              <div className="absolute -bottom-2 -right-2 bg-surface p-1.5 rounded-full border border-surfaceBorder shadow-xl">
                 <CheckCircle2 className="w-5 h-5 lg:w-6 lg:h-6 text-cinemaAmber fill-cinemaAmber/20" />
               </div>
 
-              {/* Hover Play Prompt */}
-              <div className="absolute inset-0 rounded-full lg:rounded-2xl bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity backdrop-blur-[2px]">
-                <Play className="w-8 h-8 text-cinemaAmber fill-cinemaAmber" />
+              {/* Hover Play Reel Overlay */}
+              <div className="absolute inset-0 rounded-3xl bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity backdrop-blur-[2px]">
+                <div className="p-3 rounded-full bg-cinemaAmber text-black shadow-glowAmber">
+                  <Play className="w-6 h-6 fill-black" />
+                </div>
               </div>
             </motion.div>
 
-            {/* vCard Button under avatar on desktop */}
-            <button
-              onClick={handleDownloadVCard}
-              className="hidden lg:inline-flex items-center gap-1.5 px-4 py-2 mt-4 rounded-xl text-xs font-medium text-gray-300 hover:text-white glass-pill transition-colors"
-            >
-              <DownloadCloud className="w-4 h-4 text-cinemaCyan" />
-              <span>Simpan Kontak (vCard)</span>
-            </button>
+            {/* Quick action buttons under avatar */}
+            <div className="hidden lg:flex flex-col gap-2 mt-5 w-full max-w-[224px]">
+              <button
+                onClick={() => setIsShowreelOpen(true)}
+                className="w-full py-2.5 px-3 rounded-xl bg-cinemaAmber/15 hover:bg-cinemaAmber/25 text-amber-300 border border-cinemaAmber/30 text-xs font-bold font-mono uppercase tracking-wider flex items-center justify-center gap-2 transition-all hover:scale-[1.02]"
+              >
+                <Play className="w-3.5 h-3.5 fill-amber-300" />
+                <span>Play Showreel</span>
+              </button>
+
+              <button
+                onClick={handleDownloadVCard}
+                className="w-full py-2 px-3 rounded-xl text-xs font-medium text-gray-400 hover:text-white glass-pill transition-colors flex items-center justify-center gap-1.5"
+              >
+                <DownloadCloud className="w-3.5 h-3.5 text-cinemaCyan" />
+                <span>Simpan Kontak (vCard)</span>
+              </button>
+            </div>
           </div>
 
           {/* Details & Action Column */}
           <div className="lg:col-span-8 flex flex-col items-center lg:items-start text-center lg:text-left">
             
+            {/* Location & SAE Meta */}
             <motion.div
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              className="flex flex-wrap items-center justify-center lg:justify-start gap-2 text-xs text-gray-400 mb-2"
+              className="flex flex-wrap items-center justify-center lg:justify-start gap-2 text-xs font-mono uppercase tracking-wider text-gray-400 mb-2"
             >
-              <span className="flex items-center gap-1 glass-pill px-3 py-1 rounded-full">
-                <MapPin className="w-3.5 h-3.5 text-cinemaCyan" />
+              <span className="flex items-center gap-1 glass-pill px-3 py-1 rounded-full text-cinemaCyan">
+                <MapPin className="w-3.5 h-3.5" />
                 {profile.location}
               </span>
-              <span className="flex items-center gap-1 glass-pill px-3 py-1 rounded-full">
-                <GraduationCap className="w-3.5 h-3.5 text-cinemaAmber" />
-                {profile.education.degree} ({profile.education.institution})
+              <span className="flex items-center gap-1 glass-pill px-3 py-1 rounded-full text-cinemaAmber">
+                <GraduationCap className="w-3.5 h-3.5" />
+                {profile.education.degree} • {profile.education.institution}
               </span>
             </motion.div>
 
+            {/* Main Title: Cinzel Serif for A24 Vibe */}
             <motion.h1 
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-3xl sm:text-4xl lg:text-5xl font-bold font-display tracking-tight text-white mb-2"
+              className="text-3xl sm:text-5xl lg:text-6xl font-bold font-display tracking-tight text-white mb-2 leading-tight uppercase"
             >
               {profile.name}
             </motion.h1>
@@ -177,17 +195,17 @@ END:VCARD`;
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.1 }}
-              className="text-sm sm:text-base font-semibold text-cinemaAmber mb-4"
+              className="text-sm sm:text-base font-semibold text-cinemaAmber mb-4 font-mono tracking-wide"
             >
               {profile.tagline}
             </motion.p>
 
             {/* Roles Badges */}
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 mb-4">
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 mb-5">
               {profile.roles.map((role, idx) => (
                 <span
                   key={idx}
-                  className="text-xs px-3.5 py-1 rounded-full font-medium badge-producer transition-all hover:scale-105"
+                  className="text-xs px-3.5 py-1.5 rounded-full font-medium badge-producer transition-all hover:scale-105 font-mono"
                 >
                   {role}
                 </span>
@@ -200,13 +218,14 @@ END:VCARD`;
             </p>
 
             {/* Action Buttons Grid */}
-            <div className="w-full grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl">
+            <div className="w-full grid grid-cols-2 sm:grid-cols-3 gap-3 max-w-xl">
               {/* WhatsApp Direct */}
               <a
                 href={waUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 py-3 px-4 rounded-2xl bg-emerald-600/90 hover:bg-emerald-500 text-white text-xs sm:text-sm font-semibold transition-all shadow-lg hover:shadow-emerald-600/30 hover:-translate-y-0.5 active:translate-y-0"
+                data-cursor="CHAT"
+                className="flex items-center justify-center gap-2 py-3 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs sm:text-sm font-semibold transition-all shadow-lg hover:shadow-emerald-600/30 hover:-translate-y-0.5 active:translate-y-0"
               >
                 <MessageCircle className="w-4 h-4 fill-white" />
                 <span>WhatsApp</span>
@@ -215,6 +234,7 @@ END:VCARD`;
               {/* Email */}
               <a
                 href={`mailto:${profile.contact.email}?subject=Project%20Inquiry%20-%20Film%20Production`}
+                data-cursor="EMAIL"
                 className="flex items-center justify-center gap-2 py-3 px-4 rounded-2xl bg-surfaceElevated hover:bg-surfaceBorder text-gray-200 hover:text-white text-xs sm:text-sm font-semibold border border-surfaceBorder transition-all hover:-translate-y-0.5"
               >
                 <Mail className="w-4 h-4 text-cinemaAmber" />
@@ -226,30 +246,30 @@ END:VCARD`;
                 href={`https://instagram.com/${profile.contact.instagram}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 py-3 px-4 rounded-2xl bg-surfaceElevated hover:bg-surfaceBorder text-gray-200 hover:text-white text-xs sm:text-sm font-semibold border border-surfaceBorder transition-all hover:-translate-y-0.5"
+                data-cursor="INSTAGRAM"
+                className="col-span-2 sm:col-span-1 flex items-center justify-center gap-2 py-3 px-4 rounded-2xl bg-surfaceElevated hover:bg-surfaceBorder text-gray-200 hover:text-white text-xs sm:text-sm font-semibold border border-surfaceBorder transition-all hover:-translate-y-0.5"
               >
                 <Instagram className="w-4 h-4 text-pink-400" />
                 <span>@{profile.contact.instagram}</span>
               </a>
-
-              {/* Showreel Button */}
-              <button
-                onClick={() => setIsShowreelOpen(true)}
-                className="flex items-center justify-center gap-2 py-3 px-4 rounded-2xl bg-cinemaAmber/15 hover:bg-cinemaAmber/25 text-amber-300 border border-cinemaAmber/30 text-xs sm:text-sm font-semibold transition-all hover:-translate-y-0.5"
-              >
-                <Play className="w-3.5 h-3.5 fill-amber-300" />
-                <span>Showreel</span>
-              </button>
             </div>
 
-            {/* Mobile vCard button */}
-            <div className="w-full flex justify-center lg:hidden mt-3">
+            {/* Mobile Actions: Play Showreel & vCard */}
+            <div className="w-full flex sm:hidden gap-2 mt-3">
+              <button
+                onClick={() => setIsShowreelOpen(true)}
+                className="flex-1 py-2.5 px-3 rounded-xl bg-cinemaAmber/15 text-amber-300 border border-cinemaAmber/30 text-xs font-bold flex items-center justify-center gap-1.5"
+              >
+                <Play className="w-3.5 h-3.5 fill-amber-300" />
+                <span>Play Showreel</span>
+              </button>
+
               <button
                 onClick={handleDownloadVCard}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-medium text-gray-400 hover:text-white glass-pill transition-colors"
+                className="py-2.5 px-3 rounded-xl glass-pill text-xs font-medium text-gray-300 flex items-center justify-center gap-1.5"
               >
                 <DownloadCloud className="w-3.5 h-3.5 text-cinemaCyan" />
-                <span>Simpan Kontak Fikri ke HP (vCard)</span>
+                <span>vCard</span>
               </button>
             </div>
 
