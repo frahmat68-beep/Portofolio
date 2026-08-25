@@ -37,20 +37,19 @@ export default function FilmographySection() {
   return (
     <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 py-6" id="filmography">
       
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+      {/* A24 Section Header */}
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-6 border-b border-white/10 pb-4">
         <div>
-          <h2 className="text-xl sm:text-2xl font-bold font-display text-white flex items-center gap-2.5">
-            <ScrollText className="w-6 h-6 text-cinemaCyan" />
-            <span>Complete Filmography Log</span>
+          <span className="text-[11px] font-mono uppercase tracking-widest text-cinemaCyan flex items-center gap-1.5 mb-1">
+            <ScrollText className="w-3.5 h-3.5" />
+            RECORDS // COMPLETE FILMOGRAPHY
+          </span>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-display text-white uppercase tracking-tight">
+            Production Archive
           </h2>
-          <p className="text-xs sm:text-sm text-gray-400 mt-0.5">
-            Daftar rekam jejak 30+ produksi & kolaborasi
-          </p>
         </div>
-
-        <span className="text-xs font-semibold px-3 py-1 rounded-full glass-pill text-cinemaCyan border border-cinemaCyan/30 self-start sm:self-auto">
-          {filteredList.length} Kredit
+        <span className="text-xs font-mono text-gray-400 self-start sm:self-auto">
+          {filteredList.length} CREDITS ON RECORD
         </span>
       </div>
 

@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { usePortfolio } from '@/context/PortfolioContext';
 import { BTSPhoto } from '@/types/portfolio';
-import { Camera, X, ZoomIn } from 'lucide-react';
+import { Camera, X, ZoomIn, Aperture } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function BTSGallerySection() {
@@ -17,20 +17,19 @@ export default function BTSGallerySection() {
   return (
     <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 py-6" id="bts">
       
-      {/* Header */}
-      <div className="flex items-center justify-between mb-6">
+      {/* A24 Section Header */}
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 mb-6 border-b border-white/10 pb-4">
         <div>
-          <h2 className="text-xl sm:text-2xl font-bold font-display text-white flex items-center gap-2.5">
-            <Camera className="w-6 h-6 text-pink-400" />
-            <span>Behind The Scenes (On-Set)</span>
+          <span className="text-[11px] font-mono uppercase tracking-widest text-pink-400 flex items-center gap-1.5 mb-1">
+            <Aperture className="w-3.5 h-3.5" />
+            DOCUMENTATION // ON-SET ARCHIVE
+          </span>
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-display text-white uppercase tracking-tight">
+            Behind The Scenes
           </h2>
-          <p className="text-xs sm:text-sm text-gray-400 mt-0.5">
-            Dokumentasi proses syuting & aktivitas di set produksi
-          </p>
         </div>
-
-        <span className="text-xs font-semibold px-3 py-1 rounded-full glass-pill text-pink-400 border border-pink-400/30">
-          {btsPhotos.length} Foto
+        <span className="text-xs font-mono text-gray-400 self-start md:self-auto">
+          {btsPhotos.length} FRAMES CAPTURED
         </span>
       </div>
 
