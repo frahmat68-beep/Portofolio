@@ -3,6 +3,7 @@
 import React from 'react';
 import { usePortfolio } from '@/context/PortfolioContext';
 import { Film, Music2, Clapperboard, Award } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function StatsBar() {
   const { data } = usePortfolio();
@@ -40,25 +41,31 @@ export default function StatsBar() {
   ];
 
   return (
-    <section className="w-full max-w-2xl mx-auto px-4 my-4">
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+    <section className="w-full max-w-6xl mx-auto px-4 sm:px-6 my-4">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
         {statItems.map((item, idx) => {
           const Icon = item.icon;
           return (
-            <div
+            <motion.div
               key={idx}
-              className="glass-panel rounded-2xl p-3.5 flex flex-col items-center justify-center text-center transition-all hover:border-white/20"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.05 }}
+              className="glass-panel rounded-3xl p-4 sm:p-5 flex items-center gap-4 transition-all hover:border-white/20"
             >
-              <div className={`p-2 rounded-xl ${item.bg} mb-1.5`}>
-                <Icon className={`w-4 h-4 ${item.color}`} />
+              <div className={`p-3 rounded-2xl ${item.bg} flex-shrink-0`}>
+                <Icon className={`w-5 h-5 sm:w-6 sm:h-6 ${item.color}`} />
               </div>
-              <span className="text-xl font-bold font-display text-white tracking-tight">
-                {item.value}
-              </span>
-              <span className="text-[11px] text-gray-400 font-medium">
-                {item.label}
-              </span>
-            </div>
+              <div>
+                <span className="text-xl sm:text-2xl lg:text-3xl font-bold font-display text-white tracking-tight block">
+                  {item.value}
+                </span>
+                <span className="text-xs text-gray-400 font-medium">
+                  {item.label}
+                </span>
+              </div>
+            </motion.div>
           );
         })}
       </div>

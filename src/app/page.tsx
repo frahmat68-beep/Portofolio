@@ -27,10 +27,10 @@ export default function HomePage() {
   return (
     <main className="relative min-h-screen cinematic-bg text-gray-100 selection:bg-cinemaAmber/30 selection:text-amber-200">
       {/* Subtle Grid Ambient Overlay */}
-      <div className="fixed inset-0 bg-[linear-gradient(to_right,#1f293712_1px,transparent_1px),linear-gradient(to_bottom,#1f293712_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none -z-10" />
+      <div className="fixed inset-0 bg-[linear-gradient(to_right,#1f293712_1px,transparent_1px),linear-gradient(to_bottom,#1f293712_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none -z-10" />
 
-      {/* Main Container tailored for Mobile-First & Desktop */}
-      <div className="w-full max-w-2xl mx-auto flex flex-col min-h-screen">
+      {/* Main Container: Full width flexible container on Desktop & Mobile */}
+      <div className="w-full flex flex-col min-h-screen">
         <HeroBio />
         <StatsBar />
         <BentoShowcase />
