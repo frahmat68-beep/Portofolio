@@ -4,6 +4,8 @@ import React from 'react';
 import HeroBio from '@/components/HeroBio';
 import StatsBar from '@/components/StatsBar';
 import BentoShowcase from '@/components/BentoShowcase';
+import ServicesSection from '@/components/ServicesSection';
+import BTSGallerySection from '@/components/BTSGallerySection';
 import FilmographySection from '@/components/FilmographySection';
 import ContactSection from '@/components/ContactSection';
 import StickyMobileBar from '@/components/StickyMobileBar';
@@ -32,6 +34,8 @@ export default function HomePage() {
         <HeroBio />
         <StatsBar />
         <BentoShowcase />
+        <ServicesSection />
+        <BTSGallerySection />
         <FilmographySection />
         <ContactSection />
         <StickyMobileBar />

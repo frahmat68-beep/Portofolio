@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { usePortfolio } from '@/context/PortfolioContext';
-import { Project, FilmographyEntry, ProfileData, ProjectCategory } from '@/types/portfolio';
+import { Project, FilmographyEntry, ProfileData, ProjectCategory, ServiceOffering, BTSPhoto } from '@/types/portfolio';
 import { 
   ShieldCheck, 
   User, 
@@ -17,25 +17,38 @@ import {
   Check, 
   ArrowLeft, 
   Save, 
-  ExternalLink,
   Eye,
   KeyRound,
   AlertCircle,
   Sparkles,
-  Link as LinkIcon
+  ArrowUp,
+  ArrowDown,
+  Camera,
+  Briefcase,
+  Image as ImageIcon,
+  Lock
 } from 'lucide-react';
 import Link from 'next/link';
 
 export default function AdminPage() {
   const { 
     data, 
+    adminPin,
+    updateAdminPin,
     updateProfile, 
     addProject, 
     updateProject, 
     deleteProject, 
+    moveProjectOrder,
     addFilmography, 
     updateFilmography, 
     deleteFilmography, 
+    addService,
+    updateService,
+    deleteService,
+    addBTSPhoto,
+    updateBTSPhoto,
+    deleteBTSPhoto,
     resetToDefaults,
     exportDataJson,
     importDataJson
@@ -45,10 +58,9 @@ export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [pinInput, setPinInput] = useState<string>('');
   const [pinError, setPinError] = useState<string>('');
-  const DEFAULT_PIN = '1234'; // Default master PIN
 
   // Navigation tab
-  const [activeTab, setActiveTab] = useState<'profile' | 'projects' | 'filmography' | 'sync'>('projects');
+  const [activeTab, setActiveTab] = useState<'projects' | 'profile' | 'services' | 'bts' | 'filmography' | 'sync'>('projects');
 
   // Notification Toast
   const [toastMessage, setToastMessage] = useState<string>('');
@@ -68,12 +80,12 @@ export default function AdminPage() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    if (pinInput === DEFAULT_PIN || pinInput === '2024' || pinInput === 'kiki') {
+    if (pinInput === adminPin || pinInput === '1234' || pinInput === '2024' || pinInput === 'kiki') {
       setIsAuthenticated(true);
       sessionStorage.setItem('fikri_admin_auth', 'true');
       setPinError('');
     } else {
-      setPinError('PIN salah! Silakan coba lagi (Default PIN: 1234)');
+      setPinError(`PIN salah! Silakan masukkan PIN yang benar (Default: 1234)`);
     }
   };
 
@@ -83,9 +95,10 @@ export default function AdminPage() {
   };
 
   // ----------------------------------------------------
-  // PROFILE FORM STATE
+  // PROFILE & PIN FORM STATE
   // ----------------------------------------------------
   const [profileForm, setProfileForm] = useState<ProfileData>(data.profile);
+  const [newPinForm, setNewPinForm] = useState<string>('');
 
   useEffect(() => {
     setProfileForm(data.profile);
@@ -94,7 +107,13 @@ export default function AdminPage() {
   const handleSaveProfile = (e: React.FormEvent) => {
     e.preventDefault();
     updateProfile(profileForm);
-    showToast('✅ Data Profil berhasil diperbarui!');
+    if (newPinForm.trim()) {
+      updateAdminPin(newPinForm.trim());
+      setNewPinForm('');
+      showToast('✅ Profil & PIN Admin berhasil diperbarui!');
+    } else {
+      showToast('✅ Data Profil berhasil diperbarui!');
+    }
   };
 
   // ----------------------------------------------------
@@ -102,6 +121,15 @@ export default function AdminPage() {
   // ----------------------------------------------------
   const [isProjectModalOpen, setIsProjectModalOpen] = useState<boolean>(false);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
+
+  const curatedPosters = [
+    { label: 'Moody Cinematic (Dark)', url: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=1000&auto=format&fit=crop' },
+    { label: 'Neon Music Video', url: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1000&auto=format&fit=crop' },
+    { label: 'Indie Film Drama', url: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=1000&auto=format&fit=crop' },
+    { label: 'Documentary Story', url: 'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?q=80&w=1000&auto=format&fit=crop' },
+    { label: 'Commercial & Brand', url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop' },
+    { label: 'Action & Gritty Set', url: 'https://images.unsplash.com/photo-1509281373149-e957c6296406?q=80&w=1000&auto=format&fit=crop' },
+  ];
 
   const defaultNewProject: Omit<Project, 'id'> = {
     title: '',
@@ -113,7 +141,7 @@ export default function AdminPage() {
     director: '',
     client: '',
     synopsis: '',
-    posterUrl: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=1000&auto=format&fit=crop',
+    posterUrl: curatedPosters[0].url,
     videoUrl: '',
     featured: false,
     order: data.projects.length + 1,
@@ -183,6 +211,105 @@ export default function AdminPage() {
   };
 
   // ----------------------------------------------------
+  // SERVICES MODAL & FORM STATE
+  // ----------------------------------------------------
+  const [isServiceModalOpen, setIsServiceModalOpen] = useState<boolean>(false);
+  const [editingService, setEditingService] = useState<ServiceOffering | null>(null);
+
+  const defaultNewService: Omit<ServiceOffering, 'id'> = {
+    title: '',
+    role: 'Producer',
+    description: '',
+    deliverables: ['Production Planning', 'Budget Sheet'],
+    iconName: 'Clapperboard',
+  };
+
+  const [serviceFormData, setServiceFormData] = useState<Omit<ServiceOffering, 'id'>>(defaultNewService);
+  const [deliverablesInput, setDeliverablesInput] = useState<string>('');
+
+  const openNewServiceModal = () => {
+    setEditingService(null);
+    setServiceFormData(defaultNewService);
+    setDeliverablesInput('Production Planning, Budget Sheet');
+    setIsServiceModalOpen(true);
+  };
+
+  const openEditServiceModal = (srv: ServiceOffering) => {
+    setEditingService(srv);
+    setServiceFormData({
+      title: srv.title,
+      role: srv.role,
+      description: srv.description,
+      deliverables: srv.deliverables,
+      iconName: srv.iconName,
+    });
+    setDeliverablesInput(srv.deliverables.join(', '));
+    setIsServiceModalOpen(true);
+  };
+
+  const handleSaveService = (e: React.FormEvent) => {
+    e.preventDefault();
+    const parsedDeliverables = deliverablesInput.split(',').map((d) => d.trim()).filter(Boolean);
+    const payload = {
+      ...serviceFormData,
+      deliverables: parsedDeliverables,
+    };
+
+    if (editingService) {
+      updateService({ ...payload, id: editingService.id });
+      showToast(`✅ Layanan "${serviceFormData.title}" berhasil diperbarui!`);
+    } else {
+      addService(payload);
+      showToast(`✅ Layanan "${serviceFormData.title}" berhasil ditambahkan!`);
+    }
+    setIsServiceModalOpen(false);
+  };
+
+  // ----------------------------------------------------
+  // BTS MODAL & FORM STATE
+  // ----------------------------------------------------
+  const [isBTSModalOpen, setIsBTSModalOpen] = useState<boolean>(false);
+  const [editingBTS, setEditingBTS] = useState<BTSPhoto | null>(null);
+
+  const defaultNewBTS: Omit<BTSPhoto, 'id'> = {
+    title: '',
+    caption: '',
+    imageUrl: curatedPosters[1].url,
+    tag: 'Set Operations',
+  };
+
+  const [btsFormData, setBTSFormData] = useState<Omit<BTSPhoto, 'id'>>(defaultNewBTS);
+
+  const openNewBTSModal = () => {
+    setEditingBTS(null);
+    setBTSFormData(defaultNewBTS);
+    setIsBTSModalOpen(true);
+  };
+
+  const openEditBTSModal = (bts: BTSPhoto) => {
+    setEditingBTS(bts);
+    setBTSFormData({
+      title: bts.title,
+      caption: bts.caption,
+      imageUrl: bts.imageUrl,
+      tag: bts.tag,
+    });
+    setIsBTSModalOpen(true);
+  };
+
+  const handleSaveBTS = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (editingBTS) {
+      updateBTSPhoto({ ...btsFormData, id: editingBTS.id });
+      showToast(`✅ Foto BTS "${btsFormData.title}" berhasil diperbarui!`);
+    } else {
+      addBTSPhoto(btsFormData);
+      showToast(`✅ Foto BTS "${btsFormData.title}" berhasil ditambahkan!`);
+    }
+    setIsBTSModalOpen(false);
+  };
+
+  // ----------------------------------------------------
   // FILMOGRAPHY MODAL & FORM STATE
   // ----------------------------------------------------
   const [isFilmModalOpen, setIsFilmModalOpen] = useState<boolean>(false);
@@ -246,7 +373,7 @@ export default function AdminPage() {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = `portfolio-backup-${new Date().toISOString().slice(0, 10)}.json`;
+    link.download = `fikri-portfolio-backup-${new Date().toISOString().slice(0, 10)}.json`;
     link.click();
     showToast('📥 Backup JSON berhasil didownload!');
   };
@@ -263,7 +390,7 @@ export default function AdminPage() {
   };
 
   // ====================================================
-  // LOGIN SCREEN (If not authenticated)
+  // LOGIN SCREEN
   // ====================================================
   if (!isAuthenticated) {
     return (
@@ -406,6 +533,30 @@ export default function AdminPage() {
           </button>
 
           <button
+            onClick={() => setActiveTab('services')}
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
+              activeTab === 'services'
+                ? 'bg-cinemaAmber text-black shadow-glowAmber'
+                : 'glass-panel text-gray-300 hover:text-white'
+            }`}
+          >
+            <Briefcase className="w-4 h-4" />
+            <span>Layanan ({data.services?.length || 0})</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('bts')}
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
+              activeTab === 'bts'
+                ? 'bg-cinemaAmber text-black shadow-glowAmber'
+                : 'glass-panel text-gray-300 hover:text-white'
+            }`}
+          >
+            <Camera className="w-4 h-4" />
+            <span>Foto BTS ({data.btsPhotos?.length || 0})</span>
+          </button>
+
+          <button
             onClick={() => setActiveTab('filmography')}
             className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all ${
               activeTab === 'filmography'
@@ -437,8 +588,8 @@ export default function AdminPage() {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-base font-bold text-white">Daftar Proyek Unggulan</h2>
-                <p className="text-xs text-gray-400">Kelola film, music video, dan iklan yang tampil di Bento Grid</p>
+                <h2 className="text-base font-bold text-white">Daftar Proyek Unggulan (Bento Grid)</h2>
+                <p className="text-xs text-gray-400">Gunakan panah naik/turun untuk mengatur urutan tampilan</p>
               </div>
               <button
                 onClick={openNewProjectModal}
@@ -450,7 +601,7 @@ export default function AdminPage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
-              {data.projects.map((proj) => (
+              {data.projects.map((proj, idx) => (
                 <div
                   key={proj.id}
                   className="glass-panel rounded-2xl p-4 flex gap-3.5 items-start justify-between border border-white/5 hover:border-white/15 transition-all"
@@ -472,6 +623,11 @@ export default function AdminPage() {
                       <span className="text-[10px] text-gray-400">
                         {proj.year}
                       </span>
+                      {proj.featured && (
+                        <span className="text-[9px] px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300">
+                          Featured
+                        </span>
+                      )}
                     </div>
 
                     <h3 className="text-sm font-bold text-white truncate">
@@ -485,26 +641,48 @@ export default function AdminPage() {
                     </p>
                   </div>
 
-                  <div className="flex flex-col gap-1.5 flex-shrink-0">
-                    <button
-                      onClick={() => openEditProjectModal(proj)}
-                      className="p-2 rounded-lg bg-surfaceElevated hover:bg-surfaceBorder text-gray-300 hover:text-white transition-colors"
-                      title="Edit Proyek"
-                    >
-                      <Edit3 className="w-3.5 h-3.5" />
-                    </button>
-                    <button
-                      onClick={() => {
-                        if (confirm(`Yakin ingin menghapus proyek "${proj.title}"?`)) {
-                          deleteProject(proj.id);
-                          showToast('🗑️ Proyek berhasil dihapus');
-                        }
-                      }}
-                      className="p-2 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 transition-colors"
-                      title="Hapus Proyek"
-                    >
-                      <Trash2 className="w-3.5 h-3.5" />
-                    </button>
+                  {/* Action Column with Move Up/Down */}
+                  <div className="flex flex-col gap-1 flex-shrink-0">
+                    <div className="flex gap-1">
+                      <button
+                        onClick={() => moveProjectOrder(proj.id, 'up')}
+                        disabled={idx === 0}
+                        className="p-1.5 rounded-lg bg-surfaceElevated hover:bg-surfaceBorder text-gray-300 disabled:opacity-30"
+                        title="Geser ke Atas"
+                      >
+                        <ArrowUp className="w-3 h-3" />
+                      </button>
+                      <button
+                        onClick={() => moveProjectOrder(proj.id, 'down')}
+                        disabled={idx === data.projects.length - 1}
+                        className="p-1.5 rounded-lg bg-surfaceElevated hover:bg-surfaceBorder text-gray-300 disabled:opacity-30"
+                        title="Geser ke Bawah"
+                      >
+                        <ArrowDown className="w-3 h-3" />
+                      </button>
+                    </div>
+
+                    <div className="flex gap-1 mt-1">
+                      <button
+                        onClick={() => openEditProjectModal(proj)}
+                        className="p-1.5 rounded-lg bg-surfaceElevated hover:bg-surfaceBorder text-gray-300 hover:text-white transition-colors"
+                        title="Edit Proyek"
+                      >
+                        <Edit3 className="w-3.5 h-3.5" />
+                      </button>
+                      <button
+                        onClick={() => {
+                          if (confirm(`Yakin ingin menghapus proyek "${proj.title}"?`)) {
+                            deleteProject(proj.id);
+                            showToast('🗑️ Proyek berhasil dihapus');
+                          }
+                        }}
+                        className="p-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 transition-colors"
+                        title="Hapus Proyek"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -519,7 +697,7 @@ export default function AdminPage() {
           <form onSubmit={handleSaveProfile} className="glass-panel rounded-3xl p-6 space-y-6 border border-white/10">
             <div>
               <h2 className="text-base font-bold text-white">Informasi Profil & Kontak</h2>
-              <p className="text-xs text-gray-400">Perbarui identitas, status ketersediaan, WhatsApp, dan sosial media</p>
+              <p className="text-xs text-gray-400">Perbarui identitas, bio, nomor WhatsApp, email, dan ganti PIN keamanan</p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -592,7 +770,7 @@ export default function AdminPage() {
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-gray-300 block mb-1.5">Email Kontak</label>
+                <label className="text-xs font-semibold text-gray-300 block mb-1.5">Email Kontak Publik</label>
                 <input
                   type="email"
                   value={profileForm.contact.email}
@@ -619,7 +797,7 @@ export default function AdminPage() {
               </div>
 
               <div>
-                <label className="text-xs font-semibold text-gray-300 block mb-1.5">Link Showreel / Video Deck</label>
+                <label className="text-xs font-semibold text-gray-300 block mb-1.5">Link Showreel Video (YouTube/Vimeo)</label>
                 <input
                   type="text"
                   value={profileForm.contact.showreelUrl || ''}
@@ -628,6 +806,21 @@ export default function AdminPage() {
                     contact: { ...profileForm.contact, showreelUrl: e.target.value }
                   })}
                   className="w-full px-3.5 py-2.5 rounded-xl bg-surfaceElevated border border-surfaceBorder text-xs text-white focus:border-cinemaAmber focus:outline-none"
+                />
+              </div>
+
+              {/* Master PIN Customization */}
+              <div className="sm:col-span-2 pt-3 border-t border-white/5">
+                <label className="text-xs font-semibold text-amber-300 block mb-1.5 flex items-center gap-1">
+                  <Lock className="w-3.5 h-3.5" />
+                  <span>Ganti Master PIN Admin (Kosongkan jika tidak ingin ganti)</span>
+                </label>
+                <input
+                  type="text"
+                  value={newPinForm}
+                  onChange={(e) => setNewPinForm(e.target.value)}
+                  placeholder={`PIN saat ini: ${adminPin}`}
+                  className="w-full sm:w-1/2 px-3.5 py-2.5 rounded-xl bg-surfaceElevated border border-amber-500/30 text-xs text-white focus:border-cinemaAmber focus:outline-none"
                 />
               </div>
             </div>
@@ -645,7 +838,141 @@ export default function AdminPage() {
         )}
 
         {/* ==================================================== */}
-        {/* TAB 3: FILMOGRAPHY MANAGER */}
+        {/* TAB 3: SERVICES MANAGER */}
+        {/* ==================================================== */}
+        {activeTab === 'services' && (
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-base font-bold text-white">Layanan & Jasa Produksi</h2>
+                <p className="text-xs text-gray-400">Atur tawaran jasa producing, line producing, dan art direction</p>
+              </div>
+              <button
+                onClick={openNewServiceModal}
+                className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-cinemaAmber hover:bg-amber-400 text-black text-xs font-bold transition-all shadow-glowAmber"
+              >
+                <Plus className="w-4 h-4" />
+                <span>Tambah Layanan</span>
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+              {data.services?.map((srv) => (
+                <div
+                  key={srv.id}
+                  className="glass-panel rounded-2xl p-4 flex flex-col justify-between border border-white/5 hover:border-white/15 transition-all"
+                >
+                  <div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full badge-producer">
+                        {srv.role}
+                      </span>
+                      <div className="flex items-center gap-1">
+                        <button
+                          onClick={() => openEditServiceModal(srv)}
+                          className="p-1.5 rounded-lg bg-surfaceElevated hover:bg-surfaceBorder text-gray-300"
+                        >
+                          <Edit3 className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                          onClick={() => {
+                            if (confirm(`Hapus layanan "${srv.title}"?`)) {
+                              deleteService(srv.id);
+                              showToast('🗑️ Layanan dihapus');
+                            }
+                          }}
+                          className="p-1.5 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </div>
+
+                    <h3 className="text-sm font-bold text-white mb-1">{srv.title}</h3>
+                    <p className="text-xs text-gray-400 line-clamp-2 mb-2">{srv.description}</p>
+                    
+                    <div className="flex flex-wrap gap-1">
+                      {srv.deliverables?.map((d, i) => (
+                        <span key={i} className="text-[10px] px-2 py-0.5 rounded bg-white/5 text-gray-300">
+                          ✓ {d}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ==================================================== */}
+        {/* TAB 4: BTS PHOTOS MANAGER */}
+        {/* ==================================================== */}
+        {activeTab === 'bts' && (
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="text-base font-bold text-white">Galeri Foto BTS (On-Set)</h2>
+                <p className="text-xs text-gray-400">Tampilkan foto dokumentasi proses syuting di balik layar</p>
+              </div>
+              <button
+                onClick={openNewBTSModal}
+                className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-pink-500 hover:bg-pink-400 text-black text-xs font-bold transition-all"
+              >
+                <Plus className="w-4 h-4" />
+                <span>Tambah Foto BTS</span>
+              </button>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              {data.btsPhotos?.map((bts) => (
+                <div
+                  key={bts.id}
+                  className="glass-panel rounded-2xl overflow-hidden flex flex-col border border-white/5"
+                >
+                  <div className="aspect-[4/3] bg-black relative">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={bts.imageUrl}
+                      alt={bts.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="p-2.5 flex flex-col justify-between flex-1">
+                    <div>
+                      <span className="text-[9px] px-1.5 py-0.2 rounded bg-pink-500/20 text-pink-300 font-semibold">
+                        {bts.tag}
+                      </span>
+                      <h4 className="text-xs font-bold text-white truncate mt-1">{bts.title}</h4>
+                    </div>
+                    <div className="flex items-center justify-end gap-1 mt-2 pt-2 border-t border-white/5">
+                      <button
+                        onClick={() => openEditBTSModal(bts)}
+                        className="p-1 rounded bg-surfaceElevated hover:bg-surfaceBorder text-gray-300"
+                      >
+                        <Edit3 className="w-3 h-3" />
+                      </button>
+                      <button
+                        onClick={() => {
+                          if (confirm(`Hapus foto "${bts.title}"?`)) {
+                            deleteBTSPhoto(bts.id);
+                            showToast('🗑️ Foto BTS dihapus');
+                          }
+                        }}
+                        className="p-1 rounded bg-red-500/10 hover:bg-red-500/20 text-red-400"
+                      >
+                        <Trash2 className="w-3 h-3" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ==================================================== */}
+        {/* TAB 5: FILMOGRAPHY MANAGER */}
         {/* ==================================================== */}
         {activeTab === 'filmography' && (
           <div className="space-y-4">
@@ -714,7 +1041,7 @@ export default function AdminPage() {
         )}
 
         {/* ==================================================== */}
-        {/* TAB 4: BACKUP & SYNC */}
+        {/* TAB 6: BACKUP & SYNC */}
         {/* ==================================================== */}
         {activeTab === 'sync' && (
           <div className="space-y-6">
@@ -884,6 +1211,7 @@ export default function AdminPage() {
                 />
               </div>
 
+              {/* Poster URL with Preset Picker */}
               <div>
                 <label className="font-semibold text-gray-300 block mb-1">URL Poster Gambar</label>
                 <input
@@ -891,9 +1219,27 @@ export default function AdminPage() {
                   value={projectFormData.posterUrl}
                   onChange={(e) => setProjectFormData({ ...projectFormData, posterUrl: e.target.value })}
                   placeholder="https://..."
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-surfaceElevated border border-surfaceBorder text-white focus:border-cinemaAmber focus:outline-none"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-surfaceElevated border border-surfaceBorder text-white focus:border-cinemaAmber focus:outline-none mb-1.5"
                   required
                 />
+                
+                {/* Preset Picker Buttons */}
+                <div className="flex flex-wrap items-center gap-1.5 pt-1">
+                  <span className="text-[10px] text-gray-400 flex items-center gap-1">
+                    <ImageIcon className="w-3 h-3 text-cinemaAmber" />
+                    Pilih Preset Poster:
+                  </span>
+                  {curatedPosters.map((p, i) => (
+                    <button
+                      key={i}
+                      type="button"
+                      onClick={() => setProjectFormData({ ...projectFormData, posterUrl: p.url })}
+                      className="text-[10px] px-2 py-0.5 rounded-md glass-pill text-gray-300 hover:text-white hover:border-cinemaAmber"
+                    >
+                      {p.label}
+                    </button>
+                  ))}
+                </div>
               </div>
 
               <div>
@@ -955,6 +1301,179 @@ export default function AdminPage() {
                   className="px-5 py-2 rounded-xl bg-cinemaAmber hover:bg-amber-400 text-black font-bold shadow-glowAmber"
                 >
                   Simpan Proyek
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* ==================================================== */}
+      {/* MODAL: ADD / EDIT SERVICE */}
+      {/* ==================================================== */}
+      {isServiceModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in">
+          <div className="relative w-full max-w-lg bg-surface border border-surfaceBorder rounded-3xl p-6 shadow-2xl space-y-4">
+            <h3 className="text-lg font-bold text-white">
+              {editingService ? 'Edit Layanan Produksi' : 'Tambah Layanan Baru'}
+            </h3>
+
+            <form onSubmit={handleSaveService} className="space-y-4 text-xs">
+              <div>
+                <label className="font-semibold text-gray-300 block mb-1">Nama Layanan</label>
+                <input
+                  type="text"
+                  value={serviceFormData.title}
+                  onChange={(e) => setServiceFormData({ ...serviceFormData, title: e.target.value })}
+                  placeholder="Contoh: Film & Narrative Producing"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-surfaceElevated border border-surfaceBorder text-white focus:border-cinemaAmber focus:outline-none"
+                  required
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="font-semibold text-gray-300 block mb-1">Peran Utama</label>
+                  <input
+                    type="text"
+                    value={serviceFormData.role}
+                    onChange={(e) => setServiceFormData({ ...serviceFormData, role: e.target.value })}
+                    placeholder="Creative Producer"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-surfaceElevated border border-surfaceBorder text-white focus:border-cinemaAmber focus:outline-none"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="font-semibold text-gray-300 block mb-1">Icon</label>
+                  <select
+                    value={serviceFormData.iconName}
+                    onChange={(e) => setServiceFormData({ ...serviceFormData, iconName: e.target.value as any })}
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-surfaceElevated border border-surfaceBorder text-white focus:border-cinemaAmber focus:outline-none"
+                  >
+                    <option value="Clapperboard">Clapperboard</option>
+                    <option value="Film">Film</option>
+                    <option value="Briefcase">Briefcase</option>
+                    <option value="Palette">Palette</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label className="font-semibold text-gray-300 block mb-1">Deskripsi Layanan</label>
+                <textarea
+                  rows={3}
+                  value={serviceFormData.description}
+                  onChange={(e) => setServiceFormData({ ...serviceFormData, description: e.target.value })}
+                  placeholder="Jelaskan bagaimana lu mengeksekusi layanan ini untuk klien..."
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-surfaceElevated border border-surfaceBorder text-white focus:border-cinemaAmber focus:outline-none"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="font-semibold text-gray-300 block mb-1">Deliverables / Output (Pisahkan dengan koma)</label>
+                <input
+                  type="text"
+                  value={deliverablesInput}
+                  onChange={(e) => setDeliverablesInput(e.target.value)}
+                  placeholder="Budget Sheet, Call Sheets, Crew Hiring, Master File"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-surfaceElevated border border-surfaceBorder text-white focus:border-cinemaAmber focus:outline-none"
+                />
+              </div>
+
+              <div className="flex justify-end gap-2.5 pt-4 border-t border-white/10">
+                <button
+                  type="button"
+                  onClick={() => setIsServiceModalOpen(false)}
+                  className="px-4 py-2 rounded-xl glass-panel text-gray-300 hover:text-white"
+                >
+                  Batal
+                </button>
+                <button
+                  type="submit"
+                  className="px-5 py-2 rounded-xl bg-cinemaAmber hover:bg-amber-400 text-black font-bold shadow-glowAmber"
+                >
+                  Simpan Layanan
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* ==================================================== */}
+      {/* MODAL: ADD / EDIT BTS PHOTO */}
+      {/* ==================================================== */}
+      {isBTSModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in">
+          <div className="relative w-full max-w-lg bg-surface border border-surfaceBorder rounded-3xl p-6 shadow-2xl space-y-4">
+            <h3 className="text-lg font-bold text-white">
+              {editingBTS ? 'Edit Foto BTS' : 'Tambah Foto BTS Baru'}
+            </h3>
+
+            <form onSubmit={handleSaveBTS} className="space-y-4 text-xs">
+              <div>
+                <label className="font-semibold text-gray-300 block mb-1">Judul / Proyek</label>
+                <input
+                  type="text"
+                  value={btsFormData.title}
+                  onChange={(e) => setBTSFormData({ ...btsFormData, title: e.target.value })}
+                  placeholder="Contoh: Behind The Scenes: Keepsakes"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-surfaceElevated border border-surfaceBorder text-white focus:border-pink-400 focus:outline-none"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="font-semibold text-gray-300 block mb-1">Tag Kategori Foto</label>
+                <input
+                  type="text"
+                  value={btsFormData.tag}
+                  onChange={(e) => setBTSFormData({ ...btsFormData, tag: e.target.value })}
+                  placeholder="Directing / Lighting / Set Operations"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-surfaceElevated border border-surfaceBorder text-white focus:border-pink-400 focus:outline-none"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="font-semibold text-gray-300 block mb-1">URL Gambar Foto</label>
+                <input
+                  type="text"
+                  value={btsFormData.imageUrl}
+                  onChange={(e) => setBTSFormData({ ...btsFormData, imageUrl: e.target.value })}
+                  placeholder="https://..."
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-surfaceElevated border border-surfaceBorder text-white focus:border-pink-400 focus:outline-none"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="font-semibold text-gray-300 block mb-1">Keterangan Foto</label>
+                <input
+                  type="text"
+                  value={btsFormData.caption}
+                  onChange={(e) => setBTSFormData({ ...btsFormData, caption: e.target.value })}
+                  placeholder="Deskripsi singkat momen yang terjadi di set..."
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-surfaceElevated border border-surfaceBorder text-white focus:border-pink-400 focus:outline-none"
+                  required
+                />
+              </div>
+
+              <div className="flex justify-end gap-2.5 pt-4 border-t border-white/10">
+                <button
+                  type="button"
+                  onClick={() => setIsBTSModalOpen(false)}
+                  className="px-4 py-2 rounded-xl glass-panel text-gray-300 hover:text-white"
+                >
+                  Batal
+                </button>
+                <button
+                  type="submit"
+                  className="px-5 py-2 rounded-xl bg-pink-500 hover:bg-pink-400 text-black font-bold"
+                >
+                  Simpan Foto BTS
                 </button>
               </div>
             </form>

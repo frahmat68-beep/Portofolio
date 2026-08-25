@@ -31,6 +31,23 @@ export interface FilmographyEntry {
   notes?: string;
 }
 
+export interface ServiceOffering {
+  id: string;
+  title: string;
+  role: string;
+  description: string;
+  deliverables: string[];
+  iconName: 'Clapperboard' | 'Film' | 'Briefcase' | 'Palette';
+}
+
+export interface BTSPhoto {
+  id: string;
+  title: string;
+  caption: string;
+  imageUrl: string;
+  tag: string;
+}
+
 export interface ProfileData {
   name: string;
   tagline: string;
@@ -50,7 +67,7 @@ export interface ProfileData {
     email: string;
     instagram: string; // e.g. "kikiirch"
     linkedin?: string;
-    showreelUrl?: string;
+    showreelUrl?: string; // YouTube/Vimeo showreel
     cvPdfUrl?: string;
   };
   stats: {
@@ -67,4 +84,6 @@ export interface PortfolioData {
   profile: ProfileData;
   projects: Project[];
   filmography: FilmographyEntry[];
+  services: ServiceOffering[];
+  btsPhotos: BTSPhoto[];
 }

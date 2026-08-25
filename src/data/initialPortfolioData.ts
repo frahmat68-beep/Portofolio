@@ -26,7 +26,7 @@ export const initialPortfolioData: PortfolioData = {
       email: "kikirachmat214@gmail.com",
       instagram: "kikiirch",
       linkedin: "https://www.linkedin.com/in/fikrimulyarachmat",
-      showreelUrl: "https://www.youtube.com",
+      showreelUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
       cvPdfUrl: "#"
     },
     stats: {
@@ -38,6 +38,70 @@ export const initialPortfolioData: PortfolioData = {
     availableForWork: true,
     statusText: "Available for New Projects & Collaborations"
   },
+  services: [
+    {
+      id: "srv-1",
+      title: "Film & Narrative Producing",
+      role: "Creative Producer",
+      description: "Menangani keseluruhan lifecycle produksi film dari pra-produksi, budgeting, casting talent, manajemen kru, perizinan lokasi, hingga delivery file master ke festival atau platform distribusi.",
+      deliverables: ["Comprehensive Budget Sheet", "Crew & Equipment Hiring", "Production Timeline & Schedule", "Post-production Supervision"],
+      iconName: "Clapperboard"
+    },
+    {
+      id: "srv-2",
+      title: "Line Producing & Set Management",
+      role: "Line Producer / UPM",
+      description: "Pengawasan operasional harian di set syuting untuk memastikan jadwal berjalan tepat waktu (on-time), efisiensi biaya, keselamatan kru, katering, serta koordinasi teknis antar departemen.",
+      deliverables: ["Daily Call Sheets & Script Breakdown", "On-Set Logistics & Transport", "Location Permits & Legal", "Department Problem Solving"],
+      iconName: "Film"
+    },
+    {
+      id: "srv-3",
+      title: "Music Video & Brand Commercials",
+      role: "Commercial Producer / UPM",
+      description: "Eksekusi visual dinamis untuk label musik, musisi independen, dan brand agensi dengan timeline cepat, manajemen artis, dan standar estetika sinematik tinggi.",
+      deliverables: ["Visual Mood & Treatment Planning", "Artist & Talent Care", "Agency & Client Coordination", "Fast-Turnaround Delivery"],
+      iconName: "Briefcase"
+    },
+    {
+      id: "srv-4",
+      title: "Art Direction & Production Design",
+      role: "Art Director / Stylist",
+      description: "Perancangan konsep visual latar, set dressing, props styling, serta wardrobe untuk membangun identitas visual karakter dan suasana cerita yang otentik.",
+      deliverables: ["Set Concept & Moodboards", "Prop Sourcing & Fabrication", "Wardrobe & Styling Guide", "On-Set Dressing & Maintenance"],
+      iconName: "Palette"
+    }
+  ],
+  btsPhotos: [
+    {
+      id: "bts-1",
+      title: "Behind The Scenes: Keepsakes",
+      caption: "Diskusi sutradara dan monitoring blocking adegan emosional di set indoor.",
+      imageUrl: "https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=800&auto=format&fit=crop",
+      tag: "Directing & Monitoring"
+    },
+    {
+      id: "bts-2",
+      title: "Lighting Setup: Music Video Shoot",
+      caption: "Pengaturan lighting mood dan rigging kamera sinematik untuk adegan malam.",
+      imageUrl: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=800&auto=format&fit=crop",
+      tag: "Lighting & Cinematography"
+    },
+    {
+      id: "bts-3",
+      title: "On-Set Operations: Seven Production",
+      caption: "Koordinasi logistik dan timeline syuting bersama tim kru Seven Production.",
+      imageUrl: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?q=80&w=800&auto=format&fit=crop",
+      tag: "Set Logistics"
+    },
+    {
+      id: "bts-4",
+      title: "Art Dept & Props Styling: Bullet In A Gun",
+      caption: "Detailing wardrobe antagonis dan penataan ruang set bertema gritty action.",
+      imageUrl: "https://images.unsplash.com/photo-1509281373149-e957c6296406?q=80&w=800&auto=format&fit=crop",
+      tag: "Art Direction"
+    }
+  ],
   projects: [
     {
       id: "keepsakes",
