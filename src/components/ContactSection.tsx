@@ -53,7 +53,7 @@ export default function ContactSection() {
               className="font-display font-black text-[#F0ECE5] uppercase leading-none select-none"
               style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(4rem, 14vw, 12rem)', letterSpacing: '-0.04em', lineHeight: 0.88 }}
             >
-              FMR<span className="text-[#C84B2F]">™</span>
+              KIKI<span className="text-[#C84B2F]">™</span>
             </motion.div>
             <p className="t-label text-[#F0ECE5]/30 text-[10px] tracking-[0.25em] mt-3">
               © {new Date().getFullYear()} FIKRI MULYA RACHMAT

@@ -48,10 +48,10 @@ export default function HeroBio() {
         {/* Left: Signature/initials logo */}
         <div className="flex items-center gap-3">
           <span 
-            className="text-[#F0ECE5]/80 hover:text-[#C84B2F] transition-colors font-display font-bold text-xl uppercase tracking-tight select-none"
+            className="text-[#F0ECE5]/90 hover:text-[#C84B2F] transition-colors font-display font-bold text-xl uppercase tracking-wider select-none"
             style={{ fontFamily: 'var(--font-syne)' }}
           >
-            FMR™
+            KIKI™
           </span>
         </div>
 
