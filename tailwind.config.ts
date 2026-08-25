@@ -9,37 +9,55 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#050608",
-        surface: "#0D0E12",
-        surfaceBorder: "#1C1F28",
-        surfaceElevated: "#14161E",
-        cinemaAmber: "#F59E0B",
-        cinemaCyan: "#06B6D4",
-        cinemaGold: "#D4AF37",
-        a24Red: "#E11D48",
+        // Dark hero
+        background: "#0A0A0A",
+        surface: "#111111",
+        surfaceBorder: "#222222",
+        surfaceElevated: "#191919",
+        // Light editorial
+        cream: "#F0ECE5",
+        creamDark: "#E3DDD5",
+        creamBorder: "#D5CFC7",
+        ink: "#111111",
+        inkLight: "#555555",
+        // Accent
+        filmRed: "#C84B2F",
+        filmRedLight: "#D9614A",
+        cinemaAmber: "#C84B2F",
+        cinemaCyan: "#5B8FA8",
+        cinemaGold: "#C8A84B",
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        display: ["var(--font-cinzel)", "var(--font-syne)", "serif"],
-        mono: ["var(--font-mono)", "monospace"],
+        sans: ["var(--font-space-grotesk)", "system-ui", "sans-serif"],
+        display: ["var(--font-syne)", "system-ui", "sans-serif"],
+        mono: ["var(--font-jetbrains)", "monospace"],
       },
       boxShadow: {
-        glass: "0 8px 32px 0 rgba(0, 0, 0, 0.45)",
-        glowAmber: "0 0 35px -5px rgba(245, 158, 11, 0.3)",
-        glowCyan: "0 0 35px -5px rgba(6, 182, 212, 0.3)",
-        glowCinema: "0 0 50px -10px rgba(212, 175, 55, 0.2)",
+        editorial: "0 1px 0 0 rgba(0,0,0,0.12)",
+        card: "0 4px 24px 0 rgba(0,0,0,0.08)",
+        glowRed: "0 0 40px -8px rgba(200, 75, 47, 0.4)",
+        glowAmber: "0 0 40px -8px rgba(200, 75, 47, 0.3)",
+        glowCyan: "0 0 40px -8px rgba(91, 143, 168, 0.3)",
+        glass: "0 8px 32px rgba(0,0,0,0.45)",
+        glowCinema: "0 0 50px -10px rgba(200, 75, 47, 0.2)",
+      },
+      fontSize: {
+        "display-hero": ["clamp(5rem,22vw,22rem)", { lineHeight: "0.9", letterSpacing: "-0.03em" }],
       },
       animation: {
-        'film-flicker': 'flicker 0.15s infinite',
-        'pulse-subtle': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'float': 'float 4s ease-in-out infinite',
+        "float": "float 4s ease-in-out infinite",
+        "marquee": "marquee 20s linear infinite",
       },
       keyframes: {
         float: {
-          '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-6px)' },
-        }
-      }
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-6px)" },
+        },
+        marquee: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
+      },
     },
   },
   plugins: [],

@@ -1,59 +1,77 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 export default function CustomCinemaCursor() {
-  const [mousePosition, setMousePosition] = useState({ x: -100, y: -100 });
-  const [cursorText, setCursorText] = useState('');
-  const [isHovered, setIsHovered] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
+  const [pos, setPos] = useState({ x: -100, y: -100 });
+  const [label, setLabel] = useState('');
+  const [expanded, setExpanded] = useState(false);
+  const [isLight, setIsLight] = useState(false);
 
   useEffect(() => {
-    // Only enable on desktop with fine pointer
-    if (window.matchMedia('(pointer: fine)').matches) {
-      setIsVisible(true);
-    }
+    if (!window.matchMedia('(pointer: fine)').matches) return;
 
-    const onMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+    const onMove = (e: MouseEvent) => {
+      setPos({ x: e.clientX, y: e.clientY });
 
-      // Check if hovering over clickable or video cards
       const target = e.target as HTMLElement;
-      const interactiveEl = target.closest('[data-cursor]');
-      if (interactiveEl) {
-        setCursorText(interactiveEl.getAttribute('data-cursor') || '');
-        setIsHovered(true);
+      const dataEl = target.closest('[data-cursor]');
+      if (dataEl) {
+        setLabel(dataEl.getAttribute('data-cursor') || '');
+        setExpanded(true);
+        // Detect if we're over a light section
+        const bg = window.getComputedStyle(dataEl.closest('section') || dataEl).backgroundColor;
+        const isLightBg = bg.includes('240') || bg.includes('232') || bg.includes('248');
+        setIsLight(isLightBg);
       } else {
-        setCursorText('');
-        setIsHovered(false);
+        setLabel('');
+        setExpanded(false);
+        setIsLight(false);
       }
     };
 
-    window.addEventListener('mousemove', onMouseMove);
-    return () => window.removeEventListener('mousemove', onMouseMove);
+    window.addEventListener('mousemove', onMove);
+    return () => window.removeEventListener('mousemove', onMove);
   }, []);
 
-  if (!isVisible) return null;
-
   return (
-    <motion.div
-      className="fixed top-0 left-0 pointer-events-none z-50 flex items-center justify-center -translate-x-1/2 -translate-y-1/2 rounded-full transition-colors"
-      animate={{
-        x: mousePosition.x,
-        y: mousePosition.y,
-        width: isHovered ? 72 : 12,
-        height: isHovered ? 72 : 12,
-        backgroundColor: isHovered ? 'rgba(245, 158, 11, 0.9)' : 'rgba(255, 255, 255, 0.6)',
-        backdropFilter: isHovered ? 'blur(4px)' : 'none',
-      }}
-      transition={{ type: 'spring', damping: 28, stiffness: 350, mass: 0.5 }}
-    >
-      {isHovered && cursorText && (
-        <span className="text-[10px] font-bold text-black uppercase tracking-wider text-center font-mono px-1 select-none">
-          {cursorText}
-        </span>
-      )}
-    </motion.div>
+    <>
+      {/* Outer ring */}
+      <motion.div
+        className="fixed top-0 left-0 pointer-events-none z-[9999] rounded-full -translate-x-1/2 -translate-y-1/2 flex items-center justify-center"
+        animate={{
+          x: pos.x,
+          y: pos.y,
+          width: expanded ? 80 : 32,
+          height: expanded ? 80 : 32,
+          backgroundColor: expanded
+            ? (isLight ? 'rgba(17,17,17,0.9)' : 'rgba(200,75,47,0.9)')
+            : 'transparent',
+          border: expanded ? 'none' : `1.5px solid ${isLight ? '#111' : 'rgba(240,236,229,0.6)'}`,
+        }}
+        transition={{ type: 'spring', damping: 24, stiffness: 300, mass: 0.4 }}
+      >
+        {expanded && label && (
+          <span className="text-[9px] font-bold text-white uppercase tracking-wider text-center leading-tight px-1 select-none font-mono">
+            {label}
+          </span>
+        )}
+      </motion.div>
+
+      {/* Inner dot */}
+      <motion.div
+        className="fixed top-0 left-0 pointer-events-none z-[9999] rounded-full -translate-x-1/2 -translate-y-1/2"
+        animate={{
+          x: pos.x,
+          y: pos.y,
+          width: expanded ? 0 : 5,
+          height: expanded ? 0 : 5,
+          backgroundColor: isLight ? '#111' : '#F0ECE5',
+          opacity: expanded ? 0 : 1,
+        }}
+        transition={{ type: 'spring', damping: 40, stiffness: 500, mass: 0.2 }}
+      />
+    </>
   );
 }

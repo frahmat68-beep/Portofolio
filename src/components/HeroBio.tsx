@@ -3,19 +3,8 @@
 import React, { useState } from 'react';
 import { usePortfolio } from '@/context/PortfolioContext';
 import { 
-  MessageCircle, 
-  Mail, 
-  Instagram, 
-  Play, 
-  MapPin, 
-  GraduationCap, 
-  CheckCircle2, 
-  Share2, 
-  ShieldCheck, 
-  Check, 
-  DownloadCloud,
-  Clapperboard,
-  Sparkles
+  MessageCircle, Mail, Instagram, 
+  Play, Share2, Check, DownloadCloud, ShieldCheck
 } from 'lucide-react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -28,15 +17,11 @@ export default function HeroBio() {
   const [isShowreelOpen, setIsShowreelOpen] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  const waUrl = `https://wa.me/${profile.contact.whatsapp}?text=Halo%20Fikri,%20saya%20tertarik%20untuk%20berkolaborasi%20dalam%20proyek%20produksi%20film/video.`;
+  const waUrl = `https://wa.me/${profile.contact.whatsapp}?text=Halo%20Kiki,%20saya%20tertarik%20untuk%20berkolaborasi%20dalam%20proyek%20produksi.`;
 
   const handleShare = () => {
     if (navigator.share) {
-      navigator.share({
-        title: `${profile.name} - Film Producer Portfolio`,
-        text: profile.tagline,
-        url: window.location.href,
-      }).catch(() => {});
+      navigator.share({ title: `${profile.name}`, url: window.location.href }).catch(() => {});
     } else {
       navigator.clipboard.writeText(window.location.href);
       setCopied(true);
@@ -45,241 +30,193 @@ export default function HeroBio() {
   };
 
   const handleDownloadVCard = () => {
-    const vCardData = `BEGIN:VCARD
-VERSION:3.0
-FN:${profile.name}
-TITLE:${profile.tagline}
-TEL;TYPE=CELL:${profile.contact.whatsappDisplay || profile.contact.whatsapp}
-EMAIL;TYPE=INTERNET:${profile.contact.email}
-URL:${window.location.origin}
-NOTE:Film Producer, Line Producer, UPM (SAE Jakarta Alum)
-END:VCARD`;
-
-    const blob = new Blob([vCardData], { type: 'text/vcard;charset=utf-8;' });
+    const vcard = `BEGIN:VCARD\nVERSION:3.0\nFN:${profile.name}\nTITLE:${profile.tagline}\nTEL;TYPE=CELL:${profile.contact.whatsappDisplay}\nEMAIL:${profile.contact.email}\nURL:${typeof window !== 'undefined' ? window.location.origin : ''}\nEND:VCARD`;
+    const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `Fikri-Mulya-Rachmat.vcf`;
-    link.click();
+    const a = document.createElement('a');
+    a.href = url; a.download = 'Fikri-Mulya-Rachmat.vcf'; a.click();
   };
 
   return (
-    <header className="relative w-full pt-8 md:pt-12 pb-8 border-b border-white/5">
-      {/* Background ambient lighting */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-5xl h-72 bg-gradient-to-b from-cinemaAmber/15 via-cinemaAmber/5 to-transparent blur-3xl -z-10 rounded-full pointer-events-none" />
+    <header className="relative w-full min-h-screen bg-[#0A0A0A] flex flex-col overflow-hidden" id="top">
+      {/* Subtle burnt red ambient glow in hero */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80vw] h-[60vh] bg-[#C84B2F]/8 blur-[120px] rounded-full pointer-events-none -z-0" />
+      <div className="absolute bottom-0 right-0 w-[40vw] h-[40vh] bg-[#C84B2F]/5 blur-[80px] rounded-full pointer-events-none -z-0" />
 
-      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6">
-        
-        {/* Top A24 Production Slate Header Bar */}
-        <div className="w-full flex justify-between items-center mb-8 border-b border-white/10 pb-3 font-mono text-[11px] uppercase tracking-widest text-gray-400">
-          <div className="flex items-center gap-3">
-            <span className="text-cinemaAmber font-bold flex items-center gap-1.5">
-              <Clapperboard className="w-3.5 h-3.5" />
-              SLATE NO. 2026 // PRODUCTION HUB
-            </span>
-            <span className="hidden sm:inline text-gray-600">|</span>
-            <span className="hidden sm:inline-flex items-center gap-1 text-gray-300">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              {profile.statusText || 'Available for Projects'}
-            </span>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <button
-              onClick={handleShare}
-              className="text-gray-400 hover:text-white transition-all flex items-center gap-1.5 px-3 py-1 rounded-lg glass-pill active:scale-95 text-[11px]"
-              title="Bagikan / Salin Link"
-            >
-              {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Share2 className="w-3.5 h-3.5" />}
-              <span>{copied ? 'Tersalin' : 'Share'}</span>
-            </button>
-
-            <Link
-              href="/admin"
-              className="text-gray-400 hover:text-cinemaAmber transition-colors flex items-center gap-1.5 px-3 py-1 rounded-lg glass-pill text-[11px]"
-              title="Admin CMS"
-            >
-              <ShieldCheck className="w-3.5 h-3.5" />
-              <span>Admin</span>
-            </Link>
-          </div>
+      {/* ── Sticky Nav ──────────────────────────────── */}
+      <nav className="w-full flex items-center justify-between px-5 sm:px-8 pt-6 pb-0 z-20 relative">
+        {/* Left: Signature/initials logo */}
+        <div className="flex items-center gap-3">
+          <span 
+            className="text-[#F0ECE5]/80 hover:text-[#C84B2F] transition-colors font-display font-bold text-xl uppercase tracking-tight select-none"
+            style={{ fontFamily: 'var(--font-syne)' }}
+          >
+            FMR™
+          </span>
         </div>
 
-        {/* Hero Content: A24 Director Split Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          
-          {/* Avatar Column */}
-          <div className="lg:col-span-4 flex flex-col items-center lg:items-start text-center lg:text-left">
-            <motion.div 
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.5 }}
-              data-cursor="WATCH REEL"
-              className="relative group cursor-pointer"
-              onClick={() => setIsShowreelOpen(true)}
-            >
-              <div className="w-36 h-36 sm:w-44 sm:h-44 lg:w-56 lg:h-56 rounded-3xl p-1 bg-gradient-to-tr from-cinemaAmber via-amber-500/30 to-cinemaCyan shadow-glowAmber transition-transform duration-500 group-hover:scale-105 overflow-hidden">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={profile.avatarUrl}
-                  alt={profile.name}
-                  className="w-full h-full object-cover rounded-[22px] bg-surface"
-                  onError={(e) => {
-                    e.currentTarget.src = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop";
-                  }}
-                />
-              </div>
-
-              {/* Verified Badge */}
-              <div className="absolute -bottom-2 -right-2 bg-surface p-1.5 rounded-full border border-surfaceBorder shadow-xl">
-                <CheckCircle2 className="w-5 h-5 lg:w-6 lg:h-6 text-cinemaAmber fill-cinemaAmber/20" />
-              </div>
-
-              {/* Hover Play Reel Overlay */}
-              <div className="absolute inset-0 rounded-3xl bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity backdrop-blur-[2px]">
-                <div className="p-3 rounded-full bg-cinemaAmber text-black shadow-glowAmber">
-                  <Play className="w-6 h-6 fill-black" />
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Quick action buttons under avatar */}
-            <div className="hidden lg:flex flex-col gap-2 mt-5 w-full max-w-[224px]">
-              <button
-                onClick={() => setIsShowreelOpen(true)}
-                className="w-full py-2.5 px-3 rounded-xl bg-cinemaAmber/15 hover:bg-cinemaAmber/25 text-amber-300 border border-cinemaAmber/30 text-xs font-bold font-mono uppercase tracking-wider flex items-center justify-center gap-2 transition-all hover:scale-[1.02]"
-              >
-                <Play className="w-3.5 h-3.5 fill-amber-300" />
-                <span>Play Showreel</span>
-              </button>
-
-              <button
-                onClick={handleDownloadVCard}
-                className="w-full py-2 px-3 rounded-xl text-xs font-medium text-gray-400 hover:text-white glass-pill transition-colors flex items-center justify-center gap-1.5"
-              >
-                <DownloadCloud className="w-3.5 h-3.5 text-cinemaCyan" />
-                <span>Simpan Kontak (vCard)</span>
-              </button>
-            </div>
-          </div>
-
-          {/* Details & Action Column */}
-          <div className="lg:col-span-8 flex flex-col items-center lg:items-start text-center lg:text-left">
-            
-            {/* Location & SAE Meta */}
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="flex flex-wrap items-center justify-center lg:justify-start gap-2 text-xs font-mono uppercase tracking-wider text-gray-400 mb-2"
-            >
-              <span className="flex items-center gap-1 glass-pill px-3 py-1 rounded-full text-cinemaCyan">
-                <MapPin className="w-3.5 h-3.5" />
-                {profile.location}
-              </span>
-              <span className="flex items-center gap-1 glass-pill px-3 py-1 rounded-full text-cinemaAmber">
-                <GraduationCap className="w-3.5 h-3.5" />
-                {profile.education.degree} • {profile.education.institution}
-              </span>
-            </motion.div>
-
-            {/* Main Title: Cinzel Serif for A24 Vibe */}
-            <motion.h1 
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-3xl sm:text-5xl lg:text-6xl font-bold font-display tracking-tight text-white mb-2 leading-tight uppercase"
-            >
-              {profile.name}
-            </motion.h1>
-            
-            <motion.p 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.1 }}
-              className="text-sm sm:text-base font-semibold text-cinemaAmber mb-4 font-mono tracking-wide"
-            >
-              {profile.tagline}
-            </motion.p>
-
-            {/* Roles Badges */}
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2 mb-5">
-              {profile.roles.map((role, idx) => (
-                <span
-                  key={idx}
-                  className="text-xs px-3.5 py-1.5 rounded-full font-medium badge-producer transition-all hover:scale-105 font-mono"
-                >
-                  {role}
-                </span>
-              ))}
-            </div>
-
-            {/* Bio Paragraph */}
-            <p className="text-xs sm:text-sm text-gray-300 leading-relaxed max-w-2xl mb-6 font-normal">
-              {profile.bio}
-            </p>
-
-            {/* Action Buttons Grid */}
-            <div className="w-full grid grid-cols-2 sm:grid-cols-3 gap-3 max-w-xl">
-              {/* WhatsApp Direct */}
-              <a
-                href={waUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-cursor="CHAT"
-                className="flex items-center justify-center gap-2 py-3 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs sm:text-sm font-semibold transition-all shadow-lg hover:shadow-emerald-600/30 hover:-translate-y-0.5 active:translate-y-0"
-              >
-                <MessageCircle className="w-4 h-4 fill-white" />
-                <span>WhatsApp</span>
-              </a>
-
-              {/* Email */}
-              <a
-                href={`mailto:${profile.contact.email}?subject=Project%20Inquiry%20-%20Film%20Production`}
-                data-cursor="EMAIL"
-                className="flex items-center justify-center gap-2 py-3 px-4 rounded-2xl bg-surfaceElevated hover:bg-surfaceBorder text-gray-200 hover:text-white text-xs sm:text-sm font-semibold border border-surfaceBorder transition-all hover:-translate-y-0.5"
-              >
-                <Mail className="w-4 h-4 text-cinemaAmber" />
-                <span>Email</span>
-              </a>
-
-              {/* Instagram */}
-              <a
-                href={`https://instagram.com/${profile.contact.instagram}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-cursor="INSTAGRAM"
-                className="col-span-2 sm:col-span-1 flex items-center justify-center gap-2 py-3 px-4 rounded-2xl bg-surfaceElevated hover:bg-surfaceBorder text-gray-200 hover:text-white text-xs sm:text-sm font-semibold border border-surfaceBorder transition-all hover:-translate-y-0.5"
-              >
-                <Instagram className="w-4 h-4 text-pink-400" />
-                <span>@{profile.contact.instagram}</span>
-              </a>
-            </div>
-
-            {/* Mobile Actions: Play Showreel & vCard */}
-            <div className="w-full flex sm:hidden gap-2 mt-3">
-              <button
-                onClick={() => setIsShowreelOpen(true)}
-                className="flex-1 py-2.5 px-3 rounded-xl bg-cinemaAmber/15 text-amber-300 border border-cinemaAmber/30 text-xs font-bold flex items-center justify-center gap-1.5"
-              >
-                <Play className="w-3.5 h-3.5 fill-amber-300" />
-                <span>Play Showreel</span>
-              </button>
-
-              <button
-                onClick={handleDownloadVCard}
-                className="py-2.5 px-3 rounded-xl glass-pill text-xs font-medium text-gray-300 flex items-center justify-center gap-1.5"
-              >
-                <DownloadCloud className="w-3.5 h-3.5 text-cinemaCyan" />
-                <span>vCard</span>
-              </button>
-            </div>
-
-          </div>
-
+        {/* Right: Nav links */}
+        <div className="flex items-center gap-5 sm:gap-7">
+          <a
+            href="#works"
+            className="hover-link text-[#F0ECE5]/60 hover:text-[#F0ECE5] transition-colors t-label tracking-widest text-[11px]"
+          >
+            WORK
+          </a>
+          <a
+            href="#services"
+            className="hover-link text-[#F0ECE5]/60 hover:text-[#F0ECE5] transition-colors t-label tracking-widest text-[11px]"
+          >
+            SERVICES
+          </a>
+          <a
+            href="#contact"
+            className="hover-link text-[#F0ECE5]/60 hover:text-[#F0ECE5] transition-colors t-label tracking-widest text-[11px]"
+          >
+            CONTACT
+          </a>
+          <button
+            onClick={handleShare}
+            className="text-[#F0ECE5]/40 hover:text-[#F0ECE5]/80 transition-colors"
+            title="Share"
+          >
+            {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Share2 className="w-4 h-4" />}
+          </button>
+          <Link href="/admin" className="text-[#F0ECE5]/30 hover:text-[#C84B2F] transition-colors" title="Admin">
+            <ShieldCheck className="w-4 h-4" />
+          </Link>
         </div>
+      </nav>
 
+      {/* ── Main Hero Content ────────────────────── */}
+      <div className="flex-1 flex flex-col items-center justify-center relative z-10 px-4 text-center">
+        {/* Status pill */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#C84B2F]/30 bg-[#C84B2F]/10 mb-6 sm:mb-10"
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-[#C84B2F] animate-pulse" />
+          <span className="t-mono text-[#C84B2F] text-[10px] tracking-widest">
+            {profile.statusText || 'AVAILABLE FOR PRODUCTION'}
+          </span>
+        </motion.div>
+
+        {/* ── KIKI — Giant Display Name ─────────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="relative select-none"
+        >
+          {/* Main name: KIKI in massive Syne */}
+          <h1 className="hero-kiki leading-none text-center">
+            <span className="block">KIKI</span>
+          </h1>
+          {/* Red accent: full name small below */}
+          <div className="text-center mt-2 sm:mt-3">
+            <span className="t-label text-[#C84B2F] tracking-[0.25em] text-[11px] sm:text-[13px]">
+              FIKRI MULYA RACHMAT
+            </span>
+          </div>
+        </motion.div>
+
+        {/* Tagline below */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3 }}
+          className="mt-4 sm:mt-6 text-[#F0ECE5]/50 t-label tracking-[0.18em] text-[11px] sm:text-[12px]"
+        >
+          FILM PRODUCER  ·  LINE PRODUCER  ·  UNIT PRODUCTION MANAGER  ·  ART DIRECTOR
+        </motion.p>
+
+        {/* ── CTA Buttons ─────────────────────── */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.45 }}
+          className="flex flex-wrap items-center justify-center gap-3 mt-8 sm:mt-10"
+        >
+          {/* Play Showreel */}
+          <button
+            onClick={() => setIsShowreelOpen(true)}
+            data-cursor="PLAY"
+            className="group flex items-center gap-2 px-6 py-3 rounded-full bg-[#C84B2F] hover:bg-[#D9614A] text-white text-xs font-bold font-display uppercase tracking-widest transition-all shadow-glowRed hover:shadow-glowRed hover:-translate-y-0.5"
+          >
+            <Play className="w-3.5 h-3.5 fill-white group-hover:scale-110 transition-transform" />
+            PLAY SHOWREEL
+          </button>
+
+          {/* WhatsApp */}
+          <a
+            href={waUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-cursor="CHAT"
+            className="flex items-center gap-2 px-6 py-3 rounded-full border border-[#F0ECE5]/15 hover:border-[#F0ECE5]/35 text-[#F0ECE5]/70 hover:text-[#F0ECE5] text-xs font-bold font-display uppercase tracking-widest transition-all"
+          >
+            <MessageCircle className="w-3.5 h-3.5" />
+            WHATSAPP
+          </a>
+        </motion.div>
+
+        {/* ── Quick contact pills ──────────────── */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6 }}
+          className="flex flex-wrap items-center justify-center gap-4 mt-6"
+        >
+          <a
+            href={`mailto:${profile.contact.email}`}
+            className="hover-link flex items-center gap-1.5 text-[#F0ECE5]/35 hover:text-[#F0ECE5]/70 transition-colors t-mono text-[10px]"
+          >
+            <Mail className="w-3 h-3" />
+            {profile.contact.email}
+          </a>
+          <span className="text-[#F0ECE5]/15 text-xs">·</span>
+          <a
+            href={`https://instagram.com/${profile.contact.instagram}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover-link flex items-center gap-1.5 text-[#F0ECE5]/35 hover:text-[#F0ECE5]/70 transition-colors t-mono text-[10px]"
+          >
+            <Instagram className="w-3 h-3" />
+            @{profile.contact.instagram}
+          </a>
+          <span className="text-[#F0ECE5]/15 text-xs">·</span>
+          <button
+            onClick={handleDownloadVCard}
+            className="hover-link flex items-center gap-1.5 text-[#F0ECE5]/35 hover:text-[#F0ECE5]/70 transition-colors t-mono text-[10px]"
+          >
+            <DownloadCloud className="w-3 h-3" />
+            SAVE CONTACT
+          </button>
+        </motion.div>
       </div>
 
-      {/* Showreel Modal */}
+      {/* ── Bottom: Location + SAE strip ─── */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.7 }}
+        className="w-full px-5 sm:px-8 pb-6 flex items-center justify-between z-20 relative"
+      >
+        <span className="t-mono text-[#F0ECE5]/25 text-[10px]">
+          JAKARTA & DEPOK, INDONESIA
+        </span>
+        <span className="t-mono text-[#F0ECE5]/25 text-[10px]">
+          SAE INSTITUTE JAKARTA — DIPLOMA OF FILM
+        </span>
+      </motion.div>
+
+      {/* ── Scroll indicator ─────────────── */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1 opacity-30">
+        <div className="w-[1px] h-8 bg-[#F0ECE5]/40 animate-float" />
+        <span className="t-mono text-[#F0ECE5] text-[9px] tracking-widest">SCROLL</span>
+      </div>
+
       <ShowreelModal
         isOpen={isShowreelOpen}
         onClose={() => setIsShowreelOpen(false)}
