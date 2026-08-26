@@ -20,29 +20,40 @@ export default function HeroBio() {
         <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/80 to-[#0A0A0A]/60" />
       </div>
 
-      {/* Ultra-Clean Iconic Hero — Pure Typography & Video */}
+      {/* Ultra-Clean Iconic Hero — Kiki Gede, Rachmat Proporsional & Rapi */}
       <div className="relative z-10 max-w-6xl mx-auto w-full">
         <motion.div
           initial={{ opacity: 0, y: 35 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, amount: 0.2 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="max-w-5xl select-none"
+          className="max-w-5xl select-none flex flex-col"
         >
+          {/* 1. KIKI (Bigger, Bold & Confident) */}
           <h1
-            className="text-white font-display font-black uppercase leading-[0.88] tracking-tighter"
+            className="text-white font-display font-black uppercase tracking-tighter leading-[0.84] block"
             style={{
               fontFamily: 'var(--font-syne)',
-              fontSize: 'clamp(3.5rem, 14vw, 11rem)',
+              fontSize: 'clamp(4.2rem, 17vw, 12.5rem)',
               wordBreak: 'keep-all',
               overflowWrap: 'normal',
             }}
           >
-            Kiki <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-100 via-gray-300 to-gray-500">
-              Rachmat.
-            </span>
+            Kiki
           </h1>
+
+          {/* 2. RACHMAT (Smaller & Perfectly Proportionate to Fit Any Screen) */}
+          <span
+            className="text-transparent bg-clip-text bg-gradient-to-r from-gray-100 via-gray-300 to-gray-500 font-display font-black uppercase tracking-tight sm:tracking-tighter leading-[0.9] block mt-1 sm:mt-2"
+            style={{
+              fontFamily: 'var(--font-syne)',
+              fontSize: 'clamp(2.1rem, 8.8vw, 6.8rem)',
+              wordBreak: 'keep-all',
+              overflowWrap: 'normal',
+            }}
+          >
+            Rachmat.
+          </span>
         </motion.div>
       </div>
 
