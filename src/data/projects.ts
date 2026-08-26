@@ -13,7 +13,7 @@ export const profileData: ProfileData = {
   ],
   location: "Jakarta & Depok, Indonesia",
   contact: {
-    email: "frahmat68@gmail.com",
+    email: "kikirachmat214@gmail.com",
     instagram: "https://instagram.com/kikiirch",
     whatsapp: "https://wa.me/6285156649015",
   }
