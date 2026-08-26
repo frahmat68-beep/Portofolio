@@ -46,7 +46,7 @@ export default function StillsCarousel() {
         </motion.div>
       </div>
 
-      {/* Infinite Dual Track Marquee with Bi-Directional Animation */}
+      {/* Infinite Dual Track Marquee with Bi-Directional Animation — Pure Clean Visuals */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -69,16 +69,9 @@ export default function StillsCarousel() {
                   src={still.imageUrl}
                   alt={still.title}
                   loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover grayscale contrast-125 group-hover/card:grayscale-0 group-hover/card:contrast-100 transition-all duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 p-3 sm:p-4 flex flex-col justify-end">
-                  <p
-                    className="text-white font-bold text-[11px] sm:text-xs uppercase truncate"
-                    style={{ fontFamily: 'var(--font-syne)' }}
-                  >
-                    {still.title}
-                  </p>
-                </div>
               </div>
             ))}
           </div>
@@ -98,16 +91,9 @@ export default function StillsCarousel() {
                   src={still.imageUrl}
                   alt={still.title}
                   loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover grayscale contrast-125 group-hover/card:grayscale-0 group-hover/card:contrast-100 transition-all duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-transparent to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 p-3 sm:p-4 flex flex-col justify-end">
-                  <p
-                    className="text-white font-bold text-[11px] sm:text-xs uppercase truncate"
-                    style={{ fontFamily: 'var(--font-syne)' }}
-                  >
-                    {still.title}
-                  </p>
-                </div>
               </div>
             ))}
           </div>
@@ -115,49 +101,38 @@ export default function StillsCarousel() {
 
       </motion.div>
 
-      {/* Fullscreen Lightbox Modal */}
+      {/* Ultra-Clean Fullscreen Lightbox Modal (No Captions, Pure Photo) */}
       <AnimatePresence>
         {selectedStill && (
           <div
-            className="fixed inset-0 z-[70] bg-black/95 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 md:p-8"
+            className="fixed inset-0 z-[70] bg-black/90 backdrop-blur-lg flex items-center justify-center p-3 sm:p-6 md:p-8"
             onClick={() => setSelectedStill(null)}
           >
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.25 }}
-              className="relative max-w-5xl w-full bg-[#111] rounded-2xl sm:rounded-3xl overflow-hidden border border-white/10 shadow-2xl"
+              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              className="relative max-w-5xl w-full bg-black/95 rounded-2xl sm:rounded-3xl overflow-hidden border border-white/15 shadow-2xl flex flex-col items-center justify-center"
               onClick={e => e.stopPropagation()}
             >
+              {/* Close Button */}
               <button
                 onClick={() => setSelectedStill(null)}
-                className="absolute top-3 right-3 sm:top-4 sm:right-4 z-20 p-2 sm:p-2.5 bg-black/80 hover:bg-black text-white rounded-full transition-colors border border-white/10"
+                className="absolute top-3.5 right-3.5 sm:top-5 sm:right-5 z-30 p-2 sm:p-2.5 bg-black/80 hover:bg-black text-white rounded-full transition-colors border border-white/20 backdrop-blur-md shadow-lg"
                 aria-label="Close image"
               >
                 <X className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
 
+              {/* Pure High-Res Photo View */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={selectedStill.imageUrl}
                 alt={selectedStill.title}
-                className="w-full max-h-[72dvh] sm:max-h-[78vh] object-contain bg-black"
+                decoding="async"
+                className="w-full max-h-[82dvh] sm:max-h-[86vh] object-contain bg-black"
               />
-
-              <div className="p-4 sm:p-6 border-t border-white/10 flex items-center justify-between">
-                <div>
-                  <span className="text-[#C84B2F] text-[9px] sm:text-[10px] font-mono tracking-widest uppercase font-bold">
-                    {selectedStill.project || 'PRODUCTION STILL'}
-                  </span>
-                  <h3
-                    className="text-white font-display font-bold text-sm sm:text-base md:text-lg uppercase mt-0.5"
-                    style={{ fontFamily: 'var(--font-syne)' }}
-                  >
-                    {selectedStill.title}
-                  </h3>
-                </div>
-              </div>
             </motion.div>
           </div>
         )}
