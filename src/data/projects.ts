@@ -15,6 +15,7 @@ export const profileData: ProfileData = {
   contact: {
     email: "frahmat68@gmail.com",
     instagram: "https://instagram.com/kikiirch",
+    whatsapp: "https://wa.me/6285156649015",
   }
 };
 
@@ -46,10 +47,10 @@ export const projects: Project[] = [
   {
     slug: "darah-nyai",
     title: "Darah Nyai",
-    category: "Short Film",
+    category: "Feature Film",
     client: "Imajinarium Pictures",
     role: "Clapper",
-    description: "Film pendek bergenre drama/horror yang mengangkat kisah 'Nyai' dengan pendekatan sinematik. Diproduksi oleh Imajinarium Pictures, film ini memadukan nuansa horor lokal dengan storytelling visual yang kuat. Ditayangkan resmi di bioskop Cinepolis.",
+    description: "Feature film bergenre drama/horror yang mengangkat kisah 'Nyai' dengan pendekatan sinematik. Diproduksi oleh Imajinarium Pictures, film ini memadukan nuansa horor lokal dengan storytelling visual yang kuat. Ditayangkan resmi di bioskop Cinepolis.",
     posterUrl: "/assets/projects/darah-nyai-imajinarium-pictures/DSC00063.JPG",
     previewVideoUrl: "/assets/projects/darah-nyai-imajinarium-pictures/YTDown.com_YouTube_Official-Trailer-DARAH-NYAI-Cinepolis-In_Media_xsxIyOvE26M_001_1080p.mp4",
     externalUrl: "https://youtu.be/xsxIyOvE26M?si=AjJftsSfPz1v8YDO",

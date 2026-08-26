@@ -5,9 +5,9 @@ import { motion } from 'framer-motion';
 
 export default function HeroBio() {
   return (
-    <section className="section-dark relative min-h-[85svh] md:min-h-[92vh] flex flex-col justify-center overflow-hidden w-full max-w-full px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+    <section className="section-dark relative min-h-[100svh] min-h-[100dvh] h-screen flex flex-col justify-center overflow-hidden w-full max-w-full px-4 sm:px-6 lg:px-8 py-12 sm:py-20">
       
-      {/* Ambient background video with subtle cinematic gradient */}
+      {/* Ambient background video with subtle cinematic gradient - 100% full bleed */}
       <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none opacity-25">
         <video
           autoPlay

@@ -1,4 +1,4 @@
-export type ProjectCategory = 'Short Film' | 'Series' | 'Commercial' | 'Music Video';
+export type ProjectCategory = 'Feature Film' | 'Short Film' | 'Series' | 'Commercial' | 'Music Video';
 
 export interface ProjectVideo {
   platform: 'youtube' | 'tiktok' | 'instagram' | 'vimeo' | 'direct';
@@ -69,6 +69,7 @@ export interface ProfileData {
   contact: {
     email: string;
     instagram: string;
+    whatsapp?: string;
   };
 }
 

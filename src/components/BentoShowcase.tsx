@@ -7,12 +7,12 @@ import ProjectModal from './ProjectModal';
 import { Eye } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const CATEGORIES: { id: string; label: string }[] = [
+const CATEGORIES: { id: string; label: string; filterTypes?: string[] }[] = [
   { id: 'all', label: 'All Works' },
-  { id: 'Short Film', label: 'Short Films' },
-  { id: 'Series', label: 'Series' },
-  { id: 'Commercial', label: 'Commercial' },
-  { id: 'Music Video', label: 'Music Videos' },
+  { id: 'films', label: 'Films', filterTypes: ['Feature Film', 'Short Film'] },
+  { id: 'Series', label: 'Series', filterTypes: ['Series'] },
+  { id: 'Commercial', label: 'Commercial', filterTypes: ['Commercial'] },
+  { id: 'Music Video', label: 'Music Videos', filterTypes: ['Music Video'] },
 ];
 
 function ProjectCard({ project, idx, isHero, onOpenModal }: {
@@ -171,7 +171,12 @@ export default function BentoShowcase() {
   const [selected, setSelected] = useState<Project | null>(null);
 
   const filtered = projects.filter(p => {
-    return activeCat === 'all' || p.category === activeCat;
+    if (activeCat === 'all') return true;
+    const catObj = CATEGORIES.find(c => c.id === activeCat);
+    if (catObj && catObj.filterTypes) {
+      return catObj.filterTypes.includes(p.category);
+    }
+    return p.category === activeCat;
   });
 
   return (
