@@ -5,6 +5,7 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    text-rendering: optimizeLegibility;
   }
 
   body {
@@ -13,6 +14,7 @@
     font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
   }
 
   /* Cream/Editorial light sections */
@@ -32,18 +34,21 @@
   }
 }
 
-/* ─── CUSTOM SCROLL & SELECTION ─────────────────────── */
-
-/* ─── SCROLLBAR ─────────────────────────────────────── */
+/* ─── CUSTOM SCROLLBAR & SELECTION ─────────────────── */
 ::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: #111; }
+::-webkit-scrollbar-track { background: #0A0A0A; }
 ::-webkit-scrollbar-thumb { background: #333; border-radius: 9999px; }
-::-webkit-scrollbar-thumb:hover { background: #555; }
+::-webkit-scrollbar-thumb:hover { background: #C84B2F; }
 
-/* ─── SELECTION ─────────────────────────────────────── */
 ::selection {
-  background: rgba(200, 75, 47, 0.25);
-  color: #C84B2F;
+  background: rgba(200, 75, 47, 0.3);
+  color: #FFFFFF;
+}
+
+/* ─── HARDWARE ACCELERATED VIDEO & MEDIA RENDERING ───── */
+video, img {
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 /* ─── EDITORIAL TYPOGRAPHY ──────────────────────────── */
@@ -55,149 +60,30 @@
   line-height: 0.92;
 }
 
-.t-label {
-  font-family: var(--font-space-grotesk), sans-serif;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 0.7rem;
-}
-
 .t-mono {
   font-family: var(--font-jetbrains), monospace;
   font-size: 0.7rem;
   letter-spacing: 0.06em;
 }
 
-/* ─── HERO KIKI TITLE ───────────────────────────────── */
-.hero-kiki {
-  font-family: var(--font-syne), sans-serif;
-  font-weight: 800;
-  text-transform: uppercase;
-  line-height: 0.88;
-  letter-spacing: -0.04em;
-  font-size: clamp(7rem, 28vw, 28rem);
-  color: #F0ECE5;
-  /* Subtle texture depth effect */
-  text-shadow:
-    2px 2px 0 rgba(0,0,0,0.3),
-    0 0 60px rgba(200, 75, 47, 0.15);
-}
-
-.hero-kiki-red {
-  color: #C84B2F;
-}
-
-/* ─── PROJECT CARD (Editorial & Responsive) ─────────── */
+/* ─── PROJECT CARD (Editorial, Luxury Glass & Performance) ─── */
 .project-card {
   position: relative;
   overflow: hidden;
   cursor: pointer;
+  will-change: transform, opacity;
 }
 
 .project-card video,
 .project-card img {
-  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
   width: 100%;
   height: 100%;
 }
 
 .project-card:hover video,
 .project-card:hover img {
-  transform: scale(1.035);
-}
-
-.project-card-meta {
-  padding: 0.75rem 0 0 0;
-}
-
-.project-card-title {
-  font-family: var(--font-syne), sans-serif;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: -0.01em;
-  font-size: clamp(1rem, 1.8vw, 1.35rem);
-  color: #111111;
-  transition: color 0.25s ease;
-}
-
-.project-card:hover .project-card-title {
-  color: #C84B2F;
-}
-
-/* ─── DIVIDER LINES ─────────────────────────────────── */
-.editorial-divider {
-  height: 1px;
-  background: rgba(17, 17, 17, 0.12);
-  width: 100%;
-}
-
-.dark-divider {
-  height: 1px;
-  background: rgba(240, 236, 229, 0.10);
-  width: 100%;
-}
-
-/* ─── HOVER LINK UNDERLINE ──────────────────────────── */
-.hover-link {
-  position: relative;
-  display: inline-block;
-}
-
-.hover-link::after {
-  content: '';
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  width: 0;
-  height: 1px;
-  background: currentColor;
-  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.hover-link:hover::after {
-  width: 100%;
-}
-
-/* ─── GLASS PANELS (keep for admin etc) ─────────────── */
-.glass-panel {
-  background: rgba(13, 14, 18, 0.75);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-}
-
-.glass-panel-interactive {
-  background: rgba(13, 14, 18, 0.7);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.glass-panel-interactive:hover {
-  background: rgba(20, 22, 30, 0.9);
-  border-color: rgba(200, 75, 47, 0.4);
-  transform: translateY(-3px);
-  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.7), 0 0 30px -5px rgba(200, 75, 47, 0.2);
-}
-
-.glass-pill {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* ─── BADGES ─────────────────────────────────────────── */
-.badge-producer {
-  background: rgba(200, 75, 47, 0.12);
-  border: 1px solid rgba(200, 75, 47, 0.35);
-  color: #C84B2F;
-}
-
-.badge-cyan {
-  background: rgba(91, 143, 168, 0.12);
-  border: 1px solid rgba(91, 143, 168, 0.35);
-  color: #5B8FA8;
+  transform: scale(1.04);
 }
 
 /* ─── NO SCROLLBAR ──────────────────────────────────── */
@@ -210,15 +96,15 @@
   overscroll-behavior: contain;
 }
 
-/* ─── MARQUEE ───────────────────────────────────────── */
+/* ─── MARQUEE PERFORMANCE ────────────────────────────── */
 @keyframes marquee {
-  0% { transform: translateX(0%); }
-  100% { transform: translateX(-50%); }
+  0% { transform: translate3d(0%, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
 }
 
 @keyframes marquee-reverse {
-  0% { transform: translateX(-50%); }
-  100% { transform: translateX(0%); }
+  0% { transform: translate3d(-50%, 0, 0); }
+  100% { transform: translate3d(0%, 0, 0); }
 }
 
 .animate-marquee {
@@ -238,9 +124,4 @@
   .animate-marquee-reverse {
     animation-duration: 25s;
   }
-}
-
-/* ─── SECTION TRANSITION ────────────────────────────── */
-.section-transition {
-  transition: background-color 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
