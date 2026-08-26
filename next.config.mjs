@@ -18,16 +18,16 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: '/assets/:path*',
+        source: '/assets/:path*(mp4|webm)',
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
+            value: 'public, max-age=3600, stale-while-revalidate=86400',
           },
         ],
       },
       {
-        source: '/:all*(svg|jpg|jpeg|png|webp|avif|mp4|webm)',
+        source: '/assets/:path*(svg|jpg|jpeg|png|webp|avif|woff2|woff)',
         headers: [
           {
             key: 'Cache-Control',
