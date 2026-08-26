@@ -13,44 +13,53 @@ export default function BrandNetwork() {
   const brandLogos = logos.filter(l => l.category === 'brand');
 
   return (
-    <section className="section-light w-full py-20 sm:py-28 border-t border-black/10" id="network">
+    <section className="section-light w-full py-20 sm:py-28 md:py-36 border-t border-black/10" id="network">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-16 border-b border-black/10 pb-8">
+        {/* Section Header */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12 sm:mb-16 border-b border-black/10 pb-8">
           <div>
-            <p className="t-label text-inkLight text-[10px] tracking-[0.25em] mb-1">NETWORK & COLLABORATORS</p>
+            <div className="flex items-center gap-2 mb-2">
+              <span className="w-2 h-2 rounded-full bg-[#C84B2F]" />
+              <p className="t-label text-inkLight text-[10px] sm:text-xs tracking-[0.25em]">
+                COLLABORATION ECOSYSTEM
+              </p>
+            </div>
             <h2
               className="text-ink font-display font-black uppercase leading-none"
-              style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(2.2rem, 5vw, 4.5rem)', letterSpacing: '-0.02em' }}
+              style={{
+                fontFamily: 'var(--font-syne)',
+                fontSize: 'clamp(2.4rem, 6.5vw, 5.5rem)',
+                letterSpacing: '-0.03em',
+              }}
             >
               Studios & Brands
             </h2>
           </div>
-          <p className="t-mono text-inkLight text-[11px]">
-            {logos.length} PRODUCTION HOUSES & COMMERCIAL CLIENTS
+          <p className="font-mono text-inkLight text-xs sm:text-sm">
+            <strong className="text-ink font-bold">{logos.length}</strong> STUDIOS & COMMERCIAL PARTNERS
           </p>
         </div>
 
         {/* 1. Production Houses Grid */}
-        <div className="mb-14">
-          <p className="t-mono text-xs uppercase tracking-widest text-[#C84B2F] font-bold mb-6">
-            PRODUCTION HOUSES & STUDIOS
+        <div className="mb-12 sm:mb-16">
+          <p className="text-[11px] sm:text-xs font-mono uppercase tracking-widest text-[#C84B2F] font-bold mb-4 sm:mb-6">
+            PRODUCTION HOUSES & CREATIVE STUDIOS
           </p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 sm:gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 lg:gap-6">
             {phLogos.map(item => (
               <div
                 key={item.id}
-                className="group relative flex flex-col items-center justify-center p-6 rounded-2xl bg-white border border-black/10 hover:border-black/30 hover:shadow-lg transition-all duration-300 min-h-[110px]"
+                className="group relative flex flex-col items-center justify-center p-4 sm:p-6 rounded-2xl bg-white border border-black/10 hover:border-black/30 hover:shadow-md transition-all duration-300 min-h-[90px] sm:min-h-[110px]"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={item.logoUrl}
                   alt={item.name}
                   loading="lazy"
-                  className="max-h-12 max-w-full object-contain grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
+                  className="max-h-8 sm:max-h-12 max-w-full object-contain grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
                 />
-                <span className="mt-3 text-[10px] font-mono text-inkLight group-hover:text-ink font-medium tracking-tight text-center line-clamp-1">
+                <span className="mt-2.5 text-[9px] sm:text-[10px] font-mono text-inkLight group-hover:text-ink font-medium tracking-tight text-center line-clamp-1">
                   {item.name}
                 </span>
               </div>
@@ -60,23 +69,23 @@ export default function BrandNetwork() {
 
         {/* 2. Commercial Brands Grid */}
         <div>
-          <p className="t-mono text-xs uppercase tracking-widest text-[#C84B2F] font-bold mb-6">
-            BRAND CAMPAIGNS & CLIENTS
+          <p className="text-[11px] sm:text-xs font-mono uppercase tracking-widest text-[#C84B2F] font-bold mb-4 sm:mb-6">
+            COMMERCIAL BRANDS & CLIENTS
           </p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 sm:gap-6">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 lg:gap-6">
             {brandLogos.map(item => (
               <div
                 key={item.id}
-                className="group relative flex flex-col items-center justify-center p-6 rounded-2xl bg-white border border-black/10 hover:border-black/30 hover:shadow-lg transition-all duration-300 min-h-[110px]"
+                className="group relative flex flex-col items-center justify-center p-4 sm:p-6 rounded-2xl bg-white border border-black/10 hover:border-black/30 hover:shadow-md transition-all duration-300 min-h-[90px] sm:min-h-[110px]"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={item.logoUrl}
                   alt={item.name}
                   loading="lazy"
-                  className="max-h-12 max-w-full object-contain grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
+                  className="max-h-8 sm:max-h-12 max-w-full object-contain grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
                 />
-                <span className="mt-3 text-[10px] font-mono text-inkLight group-hover:text-ink font-medium tracking-tight text-center line-clamp-1">
+                <span className="mt-2.5 text-[9px] sm:text-[10px] font-mono text-inkLight group-hover:text-ink font-medium tracking-tight text-center line-clamp-1">
                   {item.name}
                 </span>
               </div>

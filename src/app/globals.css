@@ -88,22 +88,23 @@
   color: #C84B2F;
 }
 
-/* ─── PROJECT CARD (Editorial) ──────────────────────── */
+/* ─── PROJECT CARD (Editorial & Responsive) ─────────── */
 .project-card {
   position: relative;
   overflow: hidden;
-  cursor: none;
+  cursor: pointer;
 }
 
+.project-card video,
 .project-card img {
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
   width: 100%;
   height: 100%;
-  object-fit: cover;
 }
 
+.project-card:hover video,
 .project-card:hover img {
-  transform: scale(1.04);
+  transform: scale(1.035);
 }
 
 .project-card-meta {
@@ -115,9 +116,9 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: -0.01em;
-  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-size: clamp(1rem, 1.8vw, 1.35rem);
   color: #111111;
-  transition: color 0.2s;
+  transition: color 0.25s ease;
 }
 
 .project-card:hover .project-card-title {
@@ -200,15 +201,43 @@
 }
 
 /* ─── NO SCROLLBAR ──────────────────────────────────── */
-.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
 .no-scrollbar::-webkit-scrollbar { display: none; }
 
+/* ─── TOUCH SMOOTH SCROLL ───────────────────────────── */
+.touch-scroll {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+
 /* ─── MARQUEE ───────────────────────────────────────── */
-.marquee-track {
-  display: flex;
-  white-space: nowrap;
-  animation: marquee 30s linear infinite;
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0%); }
+}
+
+.animate-marquee {
+  animation: marquee 35s linear infinite;
   will-change: transform;
+}
+
+.animate-marquee-reverse {
+  animation: marquee-reverse 35s linear infinite;
+  will-change: transform;
+}
+
+@media (max-width: 640px) {
+  .animate-marquee {
+    animation-duration: 25s;
+  }
+  .animate-marquee-reverse {
+    animation-duration: 25s;
+  }
 }
 
 /* ─── SECTION TRANSITION ────────────────────────────── */

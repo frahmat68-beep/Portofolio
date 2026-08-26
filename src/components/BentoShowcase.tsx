@@ -4,27 +4,27 @@ import React, { useState, useRef, useEffect } from 'react';
 import { usePortfolio } from '@/context/PortfolioContext';
 import { Project } from '@/types/portfolio';
 import ProjectModal from './ProjectModal';
-import { ArrowUpRight, Play, Images } from 'lucide-react';
+import { ArrowUpRight, Play, Eye } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const CATEGORIES: { id: string; label: string }[] = [
-  { id: 'all', label: 'ALL WORKS' },
-  { id: 'Short Film', label: 'SHORT FILM' },
-  { id: 'Series', label: 'SERIES' },
-  { id: 'Commercial', label: 'COMMERCIAL' },
-  { id: 'Music Video', label: 'MUSIC VIDEO' },
+  { id: 'all', label: 'All Works' },
+  { id: 'Short Film', label: 'Short Films' },
+  { id: 'Series', label: 'Series' },
+  { id: 'Commercial', label: 'Commercial' },
+  { id: 'Music Video', label: 'Music Videos' },
 ];
 
-function ProjectCard({ project, idx, isHero, isTall, onOpenModal }: {
+function ProjectCard({ project, idx, isHero, onOpenModal }: {
   project: Project;
   idx: number;
   isHero?: boolean;
-  isTall?: boolean;
   onOpenModal: (p: Project) => void;
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
   // Autoplay video muted loop on viewport entry (IntersectionObserver)
   useEffect(() => {
@@ -39,7 +39,7 @@ function ProjectCard({ project, idx, isHero, isTall, onOpenModal }: {
           video.pause();
         }
       },
-      { threshold: 0.25 }
+      { threshold: 0.15 }
     );
 
     if (cardRef.current) {
@@ -52,49 +52,52 @@ function ProjectCard({ project, idx, isHero, isTall, onOpenModal }: {
   }, []);
 
   const handleCardClick = () => {
-    // Always open the modal for project overview first
     onOpenModal(project);
   };
 
-  const getPlatformLabel = () => {
-    return 'VIEW PROJECT';
-  };
+  const isBrandLogo = project.posterUrl?.includes('logo-brand');
 
   return (
     <motion.div
       ref={cardRef}
       layout
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: Math.min(idx * 0.04, 0.2) }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.5, delay: Math.min(idx * 0.04, 0.25) }}
       onClick={handleCardClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`project-card group cursor-pointer ${
-        isHero ? 'sm:col-span-2 lg:col-span-2' : isTall ? 'sm:row-span-2' : ''
+      className={`project-card group cursor-pointer flex flex-col ${
+        isHero ? 'sm:col-span-2 lg:col-span-2' : 'col-span-1'
       }`}
     >
-      {/* Living Video / Visual Cover Container */}
-      <div className={`overflow-hidden bg-[#0D0D0D] relative w-full ${
-        isHero 
-          ? 'aspect-[16/9] sm:aspect-[21/9] lg:aspect-[16/9]' 
-          : isTall
-          ? 'aspect-[3/4] sm:aspect-[9/16]'
-          : 'aspect-[4/3] sm:aspect-[16/10]'
-      } rounded-3xl border border-black/10 shadow-sm group-hover:shadow-2xl transition-all duration-500 group-hover:scale-[1.01]`}>
-        
+      {/* Living Video / Visual Cover Container with Fluid Adaptive Aspect Ratios */}
+      <div className={`overflow-hidden bg-[#0F0F0F] relative w-full ${
+        isHero
+          ? 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[16/9]'
+          : 'aspect-[16/10] sm:aspect-[16/10] lg:aspect-[16/10]'
+      } rounded-2xl sm:rounded-3xl border border-black/10 shadow-sm group-hover:shadow-2xl transition-all duration-500 group-hover:scale-[1.012]`}>
+
         {/* Living Cover Video (Autoplay loop muted) */}
         {project.previewVideoUrl ? (
-          <video
-            ref={videoRef}
-            src={project.previewVideoUrl}
-            muted
-            loop
-            playsInline
-            poster={project.posterUrl}
-            className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
-          />
+          <div className="w-full h-full relative">
+            <video
+              ref={videoRef}
+              src={project.previewVideoUrl}
+              muted
+              loop
+              playsInline
+              poster={project.posterUrl}
+              onLoadedData={() => setIsVideoLoaded(true)}
+              className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+            />
+            {/* Subtle Live Video Badge */}
+            <div className="absolute top-3.5 right-3.5 z-10 hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-[9px] font-mono text-white/80">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#C84B2F] animate-pulse" />
+              <span>PREVIEW</span>
+            </div>
+          </div>
         ) : project.posterUrl ? (
           /* eslint-disable-next-line @next/next/no-img-element */
           <img
@@ -102,8 +105,8 @@ function ProjectCard({ project, idx, isHero, isTall, onOpenModal }: {
             alt={project.title}
             loading="lazy"
             className={`w-full h-full ${
-              project.posterUrl.includes('logo-brand')
-                ? 'object-contain p-10 sm:p-14 bg-[#141414]'
+              isBrandLogo
+                ? 'object-contain p-8 sm:p-14 bg-[#121212]'
                 : 'object-cover object-center filter grayscale contrast-125 group-hover:grayscale-0 group-hover:contrast-100'
             } transition-all duration-700 ease-out group-hover:scale-105`}
           />
@@ -115,54 +118,52 @@ function ProjectCard({ project, idx, isHero, isTall, onOpenModal }: {
           </div>
         )}
 
-        {/* Minimal Editorial Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-6 sm:p-8">
+        {/* Minimal Editorial Overlay on Hover / Touch */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-4 sm:p-7">
           
-          {/* Top Row: Category + Redirect Platform Badge */}
+          {/* Top Row: Category + Open Modal Cue */}
           <div className="flex items-center justify-between gap-2">
-            <span className="px-3 py-1 rounded-full bg-black/60 backdrop-blur-md text-[9px] t-mono text-white/90 uppercase tracking-widest font-semibold border border-white/10">
+            <span className="px-3 py-1 rounded-full bg-black/70 backdrop-blur-md text-[9px] sm:text-[10px] font-mono text-white/95 uppercase tracking-widest font-bold border border-white/10">
               {project.category}
             </span>
 
-            {project.externalUrl && (
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#C84B2F] text-white text-[9px] font-mono font-bold uppercase tracking-wider shadow-lg">
-                <span>{getPlatformLabel()}</span>
-                <ArrowUpRight className="w-3 h-3" />
-              </span>
-            )}
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#C84B2F] text-white text-[9px] sm:text-[10px] font-mono font-bold uppercase tracking-wider shadow-lg">
+              <Eye className="w-3 h-3" />
+              <span>Overview</span>
+            </span>
           </div>
 
           {/* Bottom Title & Client on Hover */}
-          <div>
-            <h3 
-              className="text-white font-bold text-lg sm:text-2xl uppercase tracking-tight"
+          <div className="space-y-1">
+            <h3
+              className="text-white font-bold text-base sm:text-2xl uppercase tracking-tight line-clamp-2"
               style={{ fontFamily: 'var(--font-syne)' }}
             >
               {project.title}
             </h3>
             {project.client && (
-              <p className="text-gray-300 text-xs font-mono mt-1">
-                {project.client} {project.year && `• ${project.year}`}
+              <p className="text-gray-300 text-xs font-mono line-clamp-1">
+                {project.client} {project.role && `• ${project.role}`}
               </p>
             )}
           </div>
         </div>
       </div>
 
-      {/* Clean Metadata below card */}
-      <div className="mt-3.5 flex items-center justify-between gap-3 px-1">
-        <div className="flex items-center gap-1.5 min-w-0">
-          <h3 
-            className="font-bold text-base sm:text-lg uppercase text-ink group-hover:text-[#C84B2F] transition-colors truncate"
+      {/* Clean Metadata below card (Always Visible & Accessible on Mobile/Touch) */}
+      <div className="mt-3.5 flex items-baseline justify-between gap-2 px-1">
+        <div className="min-w-0 flex-1">
+          <h3
+            className="font-bold text-sm sm:text-base md:text-lg uppercase text-ink group-hover:text-[#C84B2F] transition-colors truncate"
             style={{ fontFamily: 'var(--font-syne)' }}
           >
             {project.title}
           </h3>
-          {project.externalUrl && (
-            <ArrowUpRight className="w-4 h-4 text-inkLight group-hover:text-[#C84B2F] transition-colors shrink-0" />
-          )}
+          <p className="text-xs font-mono text-inkLight truncate mt-0.5">
+            {project.client || project.role}
+          </p>
         </div>
-        <span className="t-mono text-inkLight text-[11px] font-semibold flex-shrink-0 uppercase">
+        <span className="font-mono text-inkLight text-[10px] sm:text-[11px] font-bold shrink-0 uppercase tracking-wider px-2 py-0.5 rounded bg-black/5">
           {project.category}
         </span>
       </div>
@@ -182,35 +183,44 @@ export default function BentoShowcase() {
   });
 
   return (
-    <section className="section-light w-full py-20 sm:py-28" id="works">
+    <section className="section-light w-full py-20 sm:py-28 md:py-36" id="works">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Header Bar */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12 border-b border-[#111]/10 pb-8">
+
+        {/* Section Header */}
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 sm:mb-14 border-b border-black/10 pb-8">
           <div>
-            <p className="t-label text-inkLight text-[10px] tracking-[0.25em] mb-1">FEATURED ARCHIVE</p>
+            <div className="flex items-center gap-2 mb-2">
+              <span className="w-2 h-2 rounded-full bg-[#C84B2F]" />
+              <p className="t-label text-inkLight text-[10px] sm:text-xs tracking-[0.25em]">
+                FEATURED PRODUCTIONS
+              </p>
+            </div>
             <h2
               className="text-ink font-display font-black uppercase leading-none"
-              style={{ fontFamily: 'var(--font-syne)', fontSize: 'clamp(2.5rem, 6vw, 5rem)', letterSpacing: '-0.02em' }}
+              style={{
+                fontFamily: 'var(--font-syne)',
+                fontSize: 'clamp(2.4rem, 6.5vw, 5.5rem)',
+                letterSpacing: '-0.03em',
+              }}
             >
               Selected Works
             </h2>
           </div>
-          <p className="t-mono text-inkLight text-[11px]">
-            {filtered.length} PRODUCTIONS LOGGED
+          <p className="font-mono text-inkLight text-xs sm:text-sm">
+            <strong className="text-ink font-bold">{filtered.length}</strong> PRODUCTIONS LOGGED
           </p>
         </div>
 
         {/* Minimal Category Filter Tabs */}
-        <div className="flex items-center gap-2.5 overflow-x-auto no-scrollbar mb-14 pb-1">
+        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar mb-10 sm:mb-14 pb-1">
           {CATEGORIES.map(c => (
             <button
               key={c.id}
               onClick={() => setActiveCat(c.id)}
-              className={`px-5 py-2.5 t-label text-[10px] tracking-[0.18em] rounded-full transition-all whitespace-nowrap ${
+              className={`px-4 sm:px-5 py-2.5 text-[11px] sm:text-xs font-mono font-medium rounded-full transition-all whitespace-nowrap border ${
                 activeCat === c.id
-                  ? 'bg-ink text-[#F0ECE5]'
-                  : 'bg-black/5 text-inkLight hover:text-ink hover:bg-black/10'
+                  ? 'bg-ink text-[#F0ECE5] border-ink shadow-sm'
+                  : 'bg-white/70 text-inkLight border-black/10 hover:text-ink hover:border-black/30'
               }`}
             >
               {c.label}
@@ -218,11 +228,12 @@ export default function BentoShowcase() {
           ))}
         </div>
 
-        {/* Dynamic Bento Grid Layout */}
-        <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-12">
+        {/* Dynamic Responsive Bento Grid (1 col on mobile, 2 col on tablet/iPad, 3 col on desktop) */}
+        <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
           <AnimatePresence mode="popLayout">
             {filtered.map((project, idx) => {
-              const isHero = (idx === 0 || idx === 6) && activeCat === 'all';
+              // Highlight the first project on the grid as Hero span
+              const isHero = idx === 0 && activeCat === 'all';
               return (
                 <ProjectCard
                   key={project.slug}
