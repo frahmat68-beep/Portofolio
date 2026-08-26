@@ -117,23 +117,22 @@ export default function FilmographySection() {
         >
           <div>
             <h2
-              className="text-ink font-display font-black uppercase leading-none"
+              className="text-ink font-display font-black uppercase leading-[0.95] sm:leading-none tracking-tight sm:tracking-tighter break-words"
               style={{
                 fontFamily: 'var(--font-syne)',
-                fontSize: 'clamp(2.4rem, 6.5vw, 5.5rem)',
-                letterSpacing: '-0.03em',
+                fontSize: 'clamp(2rem, 6.2vw, 4.8rem)',
               }}
             >
-              Filmography
+              Production Archive
             </h2>
           </div>
 
-          <p className="font-mono text-inkLight text-xs sm:text-sm">
+          <p className="font-mono text-inkLight text-xs sm:text-sm shrink-0">
             <strong className="text-ink font-bold">{filtered.length}</strong> PRODUCTIONS ARCHIVED
           </p>
         </motion.div>
 
-        {/* Controls: Category Tabs & Search */}
+        {/* Controls: Category Tabs & Search (Touch Swipe Safe) */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -141,16 +140,16 @@ export default function FilmographySection() {
           transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
           className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 mb-6 sm:mb-8"
         >
-          {/* Category Tabs */}
-          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1">
+          {/* Category Tabs with safe mobile padding */}
+          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1.5 -mx-4 px-4 sm:mx-0 sm:px-0">
             {CATEGORIES.map(c => (
               <button
                 key={c.id}
                 onClick={() => handleCategoryChange(c.id)}
-                className={`px-4 py-2 text-xs font-mono font-medium rounded-full transition-all whitespace-nowrap border ${
+                className={`px-4 py-2 text-xs font-mono font-medium rounded-full transition-all whitespace-nowrap border shrink-0 ${
                   activeCategory === c.id
                     ? 'bg-ink text-[#F0ECE5] border-ink shadow-sm'
-                    : 'bg-white/70 text-inkLight border-black/10 hover:border-black/30 hover:text-ink'
+                    : 'bg-white/80 text-inkLight border-black/10 hover:border-black/30 hover:text-ink'
                 }`}
               >
                 {c.label}
@@ -180,7 +179,7 @@ export default function FilmographySection() {
         </motion.div>
 
         {/* ─── SLIDING DECK OF 10 ITEMS (Desktop Table & Mobile Cards) ─── */}
-        <div className="relative min-h-[520px] sm:min-h-[580px] flex flex-col justify-between">
+        <div className="relative min-h-[500px] sm:min-h-[560px] flex flex-col justify-between">
           <AnimatePresence mode="wait" custom={slideDirection}>
             <motion.div
               key={`${activeCategory}-${safePage}-${search}`}
@@ -263,7 +262,7 @@ export default function FilmographySection() {
                   return (
                     <div
                       key={item.id}
-                      className="p-3.5 sm:p-4 rounded-2xl bg-white border border-black/10 shadow-sm space-y-1.5 w-full min-w-0"
+                      className="p-4 rounded-2xl bg-white border border-black/10 shadow-sm space-y-2 w-full min-w-0"
                     >
                       <div className="flex items-center justify-between gap-2 text-[10px] font-mono">
                         <span className="text-inkLight/70 font-bold">
@@ -281,11 +280,11 @@ export default function FilmographySection() {
                         {item.title}
                       </h4>
 
-                      <div className="pt-1.5 border-t border-black/5 flex items-center justify-between text-[11px] font-mono">
+                      <div className="pt-2 border-t border-black/5 flex items-center justify-between text-[11px] font-mono">
                         <span className="text-ink font-semibold truncate pr-2">
                           {item.role}
                         </span>
-                        <span className="text-inkLight shrink-0">
+                        <span className="text-inkLight shrink-0 text-right">
                           {item.productionHouse}
                         </span>
                       </div>
@@ -310,7 +309,7 @@ export default function FilmographySection() {
               viewport={{ once: false, amount: 0.2 }}
               className="mt-8 pt-6 border-t border-black/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4 font-mono text-xs"
             >
-              <span className="text-inkLight text-[11px] sm:text-xs order-2 sm:order-1">
+              <span className="text-inkLight text-[11px] sm:text-xs order-2 sm:order-1 text-center sm:text-left">
                 Showing {paginatedItems.length} of {filtered.length} items (Page {safePage} of {totalPages})
               </span>
 
