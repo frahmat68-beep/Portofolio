@@ -119,6 +119,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
               </h2>
               <div className="flex flex-wrap items-center gap-2.5 mt-2 text-xs text-gray-400 t-mono">
                 {project.client && <span>{project.client}</span>}
+                {project.role && <span>• Role: <strong className="text-gray-200">{project.role}</strong></span>}
               </div>
             </div>
 
@@ -130,10 +131,10 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             )}
 
             {/* External Video Links — Primary CTA Section */}
-            {project.videos && project.videos.length > 0 && (
+            {project.videos && project.videos.length > 0 ? (
               <div className="space-y-3">
                 <span className="t-mono text-[10px] text-gray-400 uppercase tracking-wider font-semibold">
-                  WATCH
+                  WATCH / LINKS
                 </span>
                 <div className="flex flex-wrap gap-2.5">
                   {project.videos.map((video, i) => (
@@ -151,7 +152,25 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                   ))}
                 </div>
               </div>
-            )}
+            ) : project.externalUrl ? (
+              <div className="space-y-3">
+                <span className="t-mono text-[10px] text-gray-400 uppercase tracking-wider font-semibold">
+                  WATCH
+                </span>
+                <div>
+                  <a
+                    href={project.externalUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#C84B2F] hover:bg-[#D85A3F] text-white text-xs font-mono font-bold uppercase tracking-wider transition-all duration-200 hover:scale-[1.02] shadow-lg shadow-[#C84B2F]/20"
+                  >
+                    <Play className="w-3.5 h-3.5" />
+                    <span>Watch Online</span>
+                    <ExternalLink className="w-3 h-3 opacity-60" />
+                  </a>
+                </div>
+              </div>
+            ) : null}
 
             {/* Production Stills Gallery */}
             {gallery.length > 0 && (
