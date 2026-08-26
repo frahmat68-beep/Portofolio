@@ -151,7 +151,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
       {/* High-Res Gallery Still Lightbox */}
       {activeStillIdx !== null && gallery[activeStillIdx] && (
         <div
-          className="fixed inset-0 z-60 bg-black/95 backdrop-blur-lg flex items-center justify-center p-4 sm:p-8"
+          className="fixed inset-0 z-[70] bg-black/95 backdrop-blur-lg flex items-center justify-center p-4 sm:p-8"
           onClick={() => setActiveStillIdx(null)}
         >
           <div

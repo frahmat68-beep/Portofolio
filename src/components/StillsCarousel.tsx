@@ -97,7 +97,7 @@ export default function StillsCarousel() {
       <AnimatePresence>
         {selectedStill && (
           <div
-            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex items-center justify-center p-4 sm:p-8"
+            className="fixed inset-0 z-[70] bg-black/95 backdrop-blur-md flex items-center justify-center p-4 sm:p-8"
             onClick={() => setSelectedStill(null)}
           >
             <motion.div
