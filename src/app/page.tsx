@@ -7,7 +7,7 @@ import ContactSection from "@/components/ContactSection";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-background text-gray-100 flex flex-col items-center selection:bg-[#C84B2F]/20 selection:text-[#C84B2F]">
+    <main className="min-h-screen w-full max-w-full overflow-x-hidden bg-background text-gray-100 flex flex-col items-center selection:bg-[#C84B2F]/20 selection:text-[#C84B2F]">
       {/* 1. Hero Section with Full-Bleed Video Ambience & Massive Typography */}
       <HeroBio />
 

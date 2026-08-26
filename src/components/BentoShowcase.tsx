@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { usePortfolio } from '@/context/PortfolioContext';
 import { Project } from '@/types/portfolio';
 import ProjectModal from './ProjectModal';
-import { ArrowUpRight, Play, Eye } from 'lucide-react';
+import { Eye } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const CATEGORIES: { id: string; label: string }[] = [
@@ -23,7 +23,6 @@ function ProjectCard({ project, idx, isHero, onOpenModal }: {
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
-  const [isHovered, setIsHovered] = useState(false);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
   // Autoplay video muted loop on viewport entry (IntersectionObserver)
@@ -61,14 +60,12 @@ function ProjectCard({ project, idx, isHero, onOpenModal }: {
     <motion.div
       ref={cardRef}
       layout
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.5, delay: Math.min(idx * 0.04, 0.25) }}
+      viewport={{ once: false, amount: 0.15 }}
+      transition={{ duration: 0.5, delay: Math.min((idx % 3) * 0.08, 0.2), ease: [0.16, 1, 0.3, 1] }}
       onClick={handleCardClick}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      className={`project-card group cursor-pointer flex flex-col ${
+      className={`project-card group cursor-pointer flex flex-col w-full min-w-0 ${
         isHero ? 'sm:col-span-2 lg:col-span-2' : 'col-span-1'
       }`}
     >
@@ -77,7 +74,7 @@ function ProjectCard({ project, idx, isHero, onOpenModal }: {
         isHero
           ? 'aspect-[16/10] sm:aspect-[16/9] lg:aspect-[16/9]'
           : 'aspect-[16/10] sm:aspect-[16/10] lg:aspect-[16/10]'
-      } rounded-2xl sm:rounded-3xl border border-black/10 shadow-sm group-hover:shadow-2xl transition-all duration-500 group-hover:scale-[1.012]`}>
+      } rounded-2xl sm:rounded-3xl border border-black/10 shadow-sm group-hover:shadow-2xl transition-all duration-500 group-hover:scale-[1.015]`}>
 
         {/* Living Cover Video (Autoplay loop muted) */}
         {project.previewVideoUrl ? (
@@ -146,7 +143,7 @@ function ProjectCard({ project, idx, isHero, onOpenModal }: {
       </div>
 
       {/* Clean Metadata below card (Always Visible & Accessible on Mobile/Touch) */}
-      <div className="mt-3.5 flex items-baseline justify-between gap-2 px-1">
+      <div className="mt-3.5 flex items-baseline justify-between gap-2 px-1 w-full min-w-0">
         <div className="min-w-0 flex-1">
           <h3
             className="font-bold text-sm sm:text-base md:text-lg uppercase text-ink group-hover:text-[#C84B2F] transition-colors truncate"
@@ -178,11 +175,17 @@ export default function BentoShowcase() {
   });
 
   return (
-    <section className="section-light w-full py-20 sm:py-28 md:py-36" id="works">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="section-light w-full py-20 sm:py-28 md:py-36 overflow-hidden" id="works">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
 
-        {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 sm:mb-14 border-b border-black/10 pb-8">
+        {/* Section Header with Bi-Directional Scroll Animation */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 sm:mb-14 border-b border-black/10 pb-8"
+        >
           <div>
             <h2
               className="text-ink font-display font-black uppercase leading-none"
@@ -198,10 +201,16 @@ export default function BentoShowcase() {
           <p className="font-mono text-inkLight text-xs sm:text-sm">
             <strong className="text-ink font-bold">{filtered.length}</strong> PRODUCTIONS
           </p>
-        </div>
+        </motion.div>
 
-        {/* Minimal Category Filter Tabs */}
-        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar mb-10 sm:mb-14 pb-1">
+        {/* Category Filter Tabs */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+          className="flex items-center gap-2 overflow-x-auto no-scrollbar mb-10 sm:mb-14 pb-1"
+        >
           {CATEGORIES.map(c => (
             <button
               key={c.id}
@@ -215,13 +224,12 @@ export default function BentoShowcase() {
               {c.label}
             </button>
           ))}
-        </div>
+        </motion.div>
 
-        {/* Dynamic Responsive Bento Grid (1 col on mobile, 2 col on tablet/iPad, 3 col on desktop) */}
-        <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
+        {/* Dynamic Responsive Bento Grid (1 col mobile, 2 col iPad/tablet, 3 col desktop) */}
+        <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 w-full">
           <AnimatePresence mode="popLayout">
             {filtered.map((project, idx) => {
-              // Highlight the first project on the grid as Hero span
               const isHero = idx === 0 && activeCat === 'all';
               return (
                 <ProjectCard
