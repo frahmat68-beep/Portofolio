@@ -1,51 +1,34 @@
-export type ProjectCategory = 'short-film' | 'music-video' | 'commercial' | 'art-dept';
+export type ProjectCategory = 'Short Film' | 'Series' | 'Commercial' | 'Music Video';
+
+export interface ProjectVideo {
+  platform: 'youtube' | 'tiktok' | 'instagram' | 'vimeo' | 'direct';
+  url: string;
+  label: string;
+}
 
 export interface Project {
-  id: string;
+  slug: string;
   title: string;
   category: ProjectCategory;
-  categoryLabel: string;
-  role: string; // e.g. "Producer", "Line Producer", "Unit Production Manager", "Art Director"
-  year: string;
-  productionHouse?: string; // e.g. "Seven Production", "Sunyata Studio", "Bloom Pictures"
-  director?: string;
-  client?: string;
-  synopsis: string;
-  posterUrl: string;
-  videoUrl?: string; // YouTube / Vimeo embed or link
-  featured: boolean;
-  order: number;
-  awards?: string[];
-  tags: string[];
-  gallery?: string[];
+  client: string | null;
+  role: string;
+  year?: string;
+  description: string;
+  posterUrl?: string;
+  videos: ProjectVideo[];
+  featured?: boolean;
+  order?: number;
+  tags?: string[];
 }
 
 export interface FilmographyEntry {
   id: string;
   year: string;
   title: string;
-  type: 'Short Film' | 'Music Video' | 'Commercial' | 'Documentary' | 'Other';
-  role: string;
+  type: 'Short Film' | 'Series' | 'Music Video' | 'Commercial' | 'Documentary';
   productionHouse: string;
   directorOrArtist?: string;
   notes?: string;
-}
-
-export interface ServiceOffering {
-  id: string;
-  title: string;
-  role: string;
-  description: string;
-  deliverables: string[];
-  iconName: 'Clapperboard' | 'Film' | 'Briefcase' | 'Palette';
-}
-
-export interface BTSPhoto {
-  id: string;
-  title: string;
-  caption: string;
-  imageUrl: string;
-  tag: string;
 }
 
 export interface ProfileData {
@@ -55,20 +38,14 @@ export interface ProfileData {
   avatarUrl: string;
   roles: string[];
   location: string;
-  education: {
-    institution: string;
-    degree: string;
-    period: string;
-    details: string;
-  };
   contact: {
-    whatsapp: string; // e.g. "6285156649015"
-    whatsappDisplay: string; // e.g. "+62 851-5664-9015"
+    whatsapp: string;
+    whatsappDisplay: string;
     email: string;
-    instagram: string; // e.g. "kikiirch"
-    linkedin?: string;
-    showreelUrl?: string; // YouTube/Vimeo showreel
-    cvPdfUrl?: string;
+    instagram: string;
+    linkedin: string;
+    showreelUrl: string;
+    cvPdfUrl: string;
   };
   stats: {
     totalProductions: string;
@@ -76,14 +53,10 @@ export interface ProfileData {
     musicVideos: string;
     experienceYears: string;
   };
-  availableForWork: boolean;
-  statusText: string;
 }
 
 export interface PortfolioData {
   profile: ProfileData;
   projects: Project[];
   filmography: FilmographyEntry[];
-  services: ServiceOffering[];
-  btsPhotos: BTSPhoto[];
 }
