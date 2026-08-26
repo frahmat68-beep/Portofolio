@@ -2,8 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { Project } from '@/types/portfolio';
-import { X, Images, ChevronLeft, ChevronRight } from 'lucide-react';
-import PlatformVideoEmbed from './PlatformVideoEmbed';
+import { X, Images, ChevronLeft, ChevronRight, ExternalLink, Play } from 'lucide-react';
 
 interface ProjectModalProps {
   project: Project | null;
@@ -37,6 +36,22 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
   if (!project) return null;
 
   const gallery = project.gallery || [];
+  const hasVideo = project.previewVideoUrl || (project.videos && project.videos.length > 0);
+
+  const getPlatformIcon = (platform: string) => {
+    switch (platform) {
+      case 'youtube':
+        return '▶ YouTube';
+      case 'tiktok':
+        return '▶ TikTok';
+      case 'instagram':
+        return '▶ Instagram';
+      case 'vimeo':
+        return '▶ Vimeo';
+      default:
+        return '▶ Watch';
+    }
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 animate-in fade-in duration-200">
@@ -61,52 +76,91 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
         {/* Scrollable Content */}
         <div className="overflow-y-auto overflow-x-hidden p-5 sm:p-8 space-y-6">
           
-          {/* Multi-Platform Video Embed Layer (or Poster if no video) */}
-          <PlatformVideoEmbed
-            videos={project.videos}
-            projectTitle={project.title}
-            posterUrl={project.posterUrl}
-          />
-
-          {/* Project Details (Clean, Minimal, Pure Info) */}
-          <div className="space-y-4 pt-2">
-            {/* Header: Title + Meta */}
-            <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 border-b border-white/10 pb-4">
-              <div>
-                <span className="t-mono text-[#C84B2F] text-[10px] tracking-widest uppercase font-bold">
-                  {project.category}
-                </span>
-                <h2 
-                  className="text-2xl sm:text-3xl font-black font-display text-white uppercase tracking-tight mt-1"
-                  style={{ fontFamily: 'var(--font-syne)' }}
-                >
+          {/* Hero Cover: Video loop or Poster */}
+          <div className="w-full aspect-video rounded-2xl overflow-hidden bg-black/60 relative">
+            {project.previewVideoUrl ? (
+              <video
+                src={project.previewVideoUrl}
+                muted
+                autoPlay
+                loop
+                playsInline
+                poster={project.posterUrl}
+                className="w-full h-full object-cover"
+              />
+            ) : project.posterUrl ? (
+              /* eslint-disable-next-line @next/next/no-img-element */
+              <img
+                src={project.posterUrl}
+                alt={project.title}
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center bg-[#161616]">
+                <span className="text-gray-500 font-mono text-sm uppercase tracking-widest">
                   {project.title}
-                </h2>
-                <div className="flex flex-wrap items-center gap-2.5 mt-2 text-xs text-gray-400 t-mono">
-                  {project.client && <span>Client/Studio: <strong className="text-gray-200">{project.client}</strong></span>}
-                  {project.year && <span>• {project.year}</span>}
-                  <span>• Role: <strong className="text-gray-200">{project.role}</strong></span>
-                </div>
+                </span>
+              </div>
+            )}
+          </div>
+
+          {/* Project Details */}
+          <div className="space-y-5">
+            {/* Header: Title + Meta */}
+            <div className="border-b border-white/10 pb-5">
+              <span className="t-mono text-[#C84B2F] text-[10px] tracking-widest uppercase font-bold">
+                {project.category}
+              </span>
+              <h2 
+                className="text-2xl sm:text-3xl font-black font-display text-white uppercase tracking-tight mt-1"
+                style={{ fontFamily: 'var(--font-syne)' }}
+              >
+                {project.title}
+              </h2>
+              <div className="flex flex-wrap items-center gap-2.5 mt-2 text-xs text-gray-400 t-mono">
+                {project.client && <span>{project.client}</span>}
               </div>
             </div>
 
-            {/* Synopsis / Description */}
+            {/* Description */}
             {project.description && (
-              <div>
-                <p className="text-sm text-gray-300 leading-relaxed font-sans whitespace-pre-line">
-                  {project.description}
-                </p>
+              <p className="text-sm text-gray-300 leading-relaxed font-sans">
+                {project.description}
+              </p>
+            )}
+
+            {/* External Video Links — Primary CTA Section */}
+            {project.videos && project.videos.length > 0 && (
+              <div className="space-y-3">
+                <span className="t-mono text-[10px] text-gray-400 uppercase tracking-wider font-semibold">
+                  WATCH
+                </span>
+                <div className="flex flex-wrap gap-2.5">
+                  {project.videos.map((video, i) => (
+                    <a
+                      key={i}
+                      href={video.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#C84B2F] hover:bg-[#D85A3F] text-white text-xs font-mono font-bold uppercase tracking-wider transition-all duration-200 hover:scale-[1.02] shadow-lg shadow-[#C84B2F]/20"
+                    >
+                      <Play className="w-3.5 h-3.5" />
+                      <span>{video.label}</span>
+                      <ExternalLink className="w-3 h-3 opacity-60" />
+                    </a>
+                  ))}
+                </div>
               </div>
             )}
 
-            {/* Production Stills & On-Set Gallery (if available) */}
+            {/* Production Stills Gallery */}
             {gallery.length > 0 && (
               <div className="pt-4 border-t border-white/10 space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Images className="w-4 h-4 text-[#C84B2F]" />
                     <span className="t-mono text-[10px] text-gray-300 uppercase tracking-wider font-semibold">
-                      PRODUCTION STILLS & ON-SET FRAMES ({gallery.length})
+                      PRODUCTION STILLS ({gallery.length})
                     </span>
                   </div>
                   <span className="text-[10px] text-gray-500 font-mono">Click to zoom</span>
@@ -117,7 +171,10 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                   {gallery.map((imgUrl, i) => (
                     <div
                       key={i}
-                      onClick={() => setActiveStillIdx(i)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setActiveStillIdx(i);
+                      }}
                       className="relative h-28 sm:h-36 aspect-[16/10] rounded-xl overflow-hidden cursor-pointer shrink-0 bg-black/80 border border-white/10 hover:border-[#C84B2F]/60 transition-all duration-300 hover:scale-105 group"
                     >
                       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -133,7 +190,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
               </div>
             )}
 
-            {/* Tags / Badges */}
+            {/* Tags */}
             {project.tags && project.tags.length > 0 && (
               <div className="flex flex-wrap gap-1.5 pt-2">
                 {project.tags.map((tag, i) => (

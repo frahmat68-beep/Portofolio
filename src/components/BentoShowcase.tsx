@@ -51,29 +51,13 @@ function ProjectCard({ project, idx, isHero, isTall, onOpenModal }: {
     };
   }, []);
 
-  const handleCardClick = (e: React.MouseEvent) => {
-    // If project has an external source link (YouTube, TikTok, Instagram, etc.), redirect directly
-    if (project.externalUrl) {
-      window.open(project.externalUrl, '_blank', 'noopener,noreferrer');
-    } else {
-      // Fallback to internal modal view
-      onOpenModal(project);
-    }
+  const handleCardClick = () => {
+    // Always open the modal for project overview first
+    onOpenModal(project);
   };
 
   const getPlatformLabel = () => {
-    switch (project.externalPlatform) {
-      case 'youtube':
-        return 'WATCH ON YOUTUBE';
-      case 'tiktok':
-        return 'WATCH ON TIKTOK';
-      case 'instagram':
-        return 'WATCH ON INSTAGRAM';
-      case 'vimeo':
-        return 'WATCH ON VIMEO';
-      default:
-        return project.externalUrl ? 'WATCH VIDEO' : 'VIEW DETAILS';
-    }
+    return 'VIEW PROJECT';
   };
 
   return (

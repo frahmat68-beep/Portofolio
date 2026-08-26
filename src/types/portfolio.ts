@@ -40,12 +40,23 @@ export interface BrandLogo {
   category: 'ph' | 'brand';
 }
 
+export type FilmographyType = 
+  | 'Short Film' 
+  | 'Feature Film'
+  | 'Series' 
+  | 'Mini Series'
+  | 'Music Video' 
+  | 'Commercial' 
+  | 'Campaign'
+  | 'Company Profile'
+  | 'Documentary';
+
 export interface FilmographyEntry {
   id: string;
-  year: string;
   title: string;
+  role: string;
   productionHouse: string;
-  type: 'Short Film' | 'Series' | 'Music Video' | 'Commercial' | 'Documentary';
+  type: FilmographyType;
 }
 
 export interface ProfileData {
