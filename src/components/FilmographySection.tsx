@@ -117,13 +117,15 @@ export default function FilmographySection() {
         >
           <div>
             <h2
-              className="text-ink font-display font-black uppercase leading-[0.95] sm:leading-none tracking-tight sm:tracking-tighter break-words"
+              className="text-ink font-display font-black uppercase leading-none tracking-tight sm:tracking-tighter"
               style={{
                 fontFamily: 'var(--font-syne)',
-                fontSize: 'clamp(2rem, 6.2vw, 4.8rem)',
+                fontSize: 'clamp(2.2rem, 7.5vw, 5.5rem)',
+                wordBreak: 'keep-all',
+                overflowWrap: 'normal',
               }}
             >
-              Production Archive
+              Archive
             </h2>
           </div>
 
