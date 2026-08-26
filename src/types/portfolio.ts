@@ -16,6 +16,8 @@ export interface Project {
   description: string;
   posterUrl?: string;
   previewVideoUrl?: string;
+  externalUrl?: string;
+  externalPlatform?: 'youtube' | 'tiktok' | 'instagram' | 'vimeo' | 'web';
   gallery?: string[];
   videos: ProjectVideo[];
   featured?: boolean;
@@ -31,14 +33,19 @@ export interface ProductionStill {
   aspect?: 'landscape' | 'portrait' | 'square';
 }
 
+export interface BrandLogo {
+  id: string;
+  name: string;
+  logoUrl: string;
+  category: 'ph' | 'brand';
+}
+
 export interface FilmographyEntry {
   id: string;
   year: string;
   title: string;
-  type: 'Short Film' | 'Series' | 'Music Video' | 'Commercial' | 'Documentary';
   productionHouse: string;
-  directorOrArtist?: string;
-  notes?: string;
+  type: 'Short Film' | 'Series' | 'Music Video' | 'Commercial' | 'Documentary';
 }
 
 export interface ProfileData {
@@ -49,19 +56,9 @@ export interface ProfileData {
   roles: string[];
   location: string;
   contact: {
-    whatsapp: string;
-    whatsappDisplay: string;
     email: string;
     instagram: string;
     linkedin: string;
-    showreelUrl: string;
-    cvPdfUrl: string;
-  };
-  stats: {
-    totalProductions: string;
-    shortFilms: string;
-    musicVideos: string;
-    experienceYears: string;
   };
 }
 
@@ -70,4 +67,5 @@ export interface PortfolioData {
   projects: Project[];
   filmography: FilmographyEntry[];
   productionStills: ProductionStill[];
+  logos: BrandLogo[];
 }
