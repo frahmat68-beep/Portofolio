@@ -149,13 +149,16 @@ export default function PlatformVideoEmbed({ videos, projectTitle, posterUrl }: 
 
         {/* Direct Local Video */}
         {currentVideo.platform === 'direct' && (
-          <video
-            src={currentVideo.url}
-            controls
-            autoPlay
-            className="w-full max-h-[65vh] object-contain rounded-2xl"
-            poster={posterUrl}
-          />
+          <div className="w-full aspect-video sm:aspect-[16/10] max-h-[70vh] bg-black flex items-center justify-center">
+            <video
+              src={currentVideo.url}
+              controls
+              autoPlay
+              playsInline
+              className="w-full h-full max-h-[70vh] object-contain rounded-2xl"
+              poster={posterUrl}
+            />
+          </div>
         )}
       </div>
 

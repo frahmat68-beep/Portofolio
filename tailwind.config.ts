@@ -46,7 +46,8 @@ const config: Config = {
       },
       animation: {
         "float": "float 4s ease-in-out infinite",
-        "marquee": "marquee 20s linear infinite",
+        "marquee": "marquee 35s linear infinite",
+        "marquee-reverse": "marquee-reverse 35s linear infinite",
       },
       keyframes: {
         float: {
@@ -56,6 +57,10 @@ const config: Config = {
         marquee: {
           "0%": { transform: "translateX(0)" },
           "100%": { transform: "translateX(-50%)" },
+        },
+        "marquee-reverse": {
+          "0%": { transform: "translateX(-50%)" },
+          "100%": { transform: "translateX(0)" },
         },
       },
     },

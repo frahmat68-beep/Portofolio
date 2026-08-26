@@ -1,5 +1,6 @@
 import HeroBio from "@/components/HeroBio";
 import BentoShowcase from "@/components/BentoShowcase";
+import StillsCarousel from "@/components/StillsCarousel";
 import FilmographySection from "@/components/FilmographySection";
 import ContactSection from "@/components/ContactSection";
 
@@ -12,10 +13,13 @@ export default function Home() {
       {/* 2. Featured Works (L&M Living Bento Video/Visual Grid) */}
       <BentoShowcase />
 
-      {/* 3. Production Archive Table (Complete Filmography Logbook) */}
+      {/* 3. Visual Vault — Flowing 35mm Stills & On-Set Archive Carousel */}
+      <StillsCarousel />
+
+      {/* 4. Production Archive Table (Complete Filmography Logbook) */}
       <FilmographySection />
 
-      {/* 4. Minimalist Footer with Identity Context & Social Links */}
+      {/* 5. Minimalist Footer with Identity Context & Social Links */}
       <ContactSection />
     </main>
   );

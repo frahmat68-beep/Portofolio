@@ -16,10 +16,19 @@ export interface Project {
   description: string;
   posterUrl?: string;
   previewVideoUrl?: string;
+  gallery?: string[];
   videos: ProjectVideo[];
   featured?: boolean;
   order?: number;
   tags?: string[];
+}
+
+export interface ProductionStill {
+  id: string;
+  imageUrl: string;
+  title: string;
+  project?: string;
+  aspect?: 'landscape' | 'portrait' | 'square';
 }
 
 export interface FilmographyEntry {
@@ -60,4 +69,5 @@ export interface PortfolioData {
   profile: ProfileData;
   projects: Project[];
   filmography: FilmographyEntry[];
+  productionStills: ProductionStill[];
 }
