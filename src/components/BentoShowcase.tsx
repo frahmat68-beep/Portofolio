@@ -23,36 +23,33 @@ function ProjectCard({ project, idx, isHero, onOpenModal }: {
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
-  const [shouldLoadVideo, setShouldLoadVideo] = useState(false);
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
-  // Smart Pre-Fetch IntersectionObserver: loads video only 250px before entering viewport
   useEffect(() => {
-    const card = cardRef.current;
-    if (!card || !project.previewVideoUrl) return;
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.play().catch(() => {});
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setShouldLoadVideo(true);
-          if (videoRef.current) {
-            videoRef.current.play().catch(() => {});
-          }
+          video.play().catch(() => {});
         } else {
-          if (videoRef.current) {
-            videoRef.current.pause();
-          }
+          video.pause();
         }
       },
-      { rootMargin: '250px 0px', threshold: 0.1 }
+      { rootMargin: '300px 0px', threshold: 0.05 }
     );
 
-    observer.observe(card);
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
+    }
 
     return () => {
       observer.disconnect();
     };
-  }, [project.previewVideoUrl]);
+  }, []);
 
   const isBrandLogo = project.posterUrl?.includes('logo-brand');
 
@@ -76,41 +73,59 @@ function ProjectCard({ project, idx, isHero, onOpenModal }: {
           : 'aspect-[16/10] sm:aspect-[16/10] lg:aspect-[16/10]'
       } rounded-2xl sm:rounded-3xl border border-black/10 shadow-sm group-hover:shadow-2xl transition-all duration-500 group-hover:scale-[1.015]`}>
 
-        {/* 1. Instant Poster Fallback (0ms paint, always instant) */}
-        {project.posterUrl && (
+        {project.previewVideoUrl ? (
+          <div className="w-full h-full relative">
+            {/* Instant Poster Layer */}
+            {project.posterUrl && (
+              /* eslint-disable-next-line @next/next/no-img-element */
+              <img
+                src={project.posterUrl}
+                alt={project.title}
+                loading={idx < 4 ? "eager" : "lazy"}
+                decoding="async"
+                className={`absolute inset-0 w-full h-full object-cover object-center transition-all duration-500 ease-out group-hover:scale-105 ${
+                  isVideoLoaded ? 'opacity-0 pointer-events-none' : 'opacity-100'
+                }`}
+              />
+            )}
+            
+            {/* Ultra-Fast Streamed Video Loop */}
+            <video
+              ref={videoRef}
+              src={project.previewVideoUrl}
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload={idx < 4 ? "auto" : "metadata"}
+              poster={project.posterUrl}
+              onCanPlay={() => setIsVideoLoaded(true)}
+              onPlaying={() => setIsVideoLoaded(true)}
+              className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+            />
+          </div>
+        ) : project.posterUrl ? (
           /* eslint-disable-next-line @next/next/no-img-element */
           <img
             src={project.posterUrl}
             alt={project.title}
-            loading="lazy"
+            loading={idx < 4 ? "eager" : "lazy"}
             decoding="async"
-            className={`absolute inset-0 w-full h-full ${
+            className={`w-full h-full ${
               isBrandLogo
                 ? 'object-contain p-8 sm:p-14 bg-[#121212]'
                 : 'object-cover object-center filter grayscale contrast-125 group-hover:grayscale-0 group-hover:contrast-100'
-            } transition-all duration-700 ease-out group-hover:scale-105 ${
-              isVideoPlaying ? 'opacity-0' : 'opacity-100'
-            }`}
+            } transition-all duration-700 ease-out group-hover:scale-105`}
           />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center bg-[#161616] p-6 text-center">
+            <span className="text-gray-500 font-mono text-xs uppercase tracking-widest">
+              {project.title}
+            </span>
+          </div>
         )}
 
-        {/* 2. Zero-Lag Streamed Video Layer (cross-fades in once ready) */}
-        {project.previewVideoUrl && shouldLoadVideo && (
-          <video
-            ref={videoRef}
-            src={project.previewVideoUrl}
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            onPlaying={() => setIsVideoPlaying(true)}
-            className={`absolute inset-0 w-full h-full object-cover object-center transition-all duration-700 ease-out group-hover:scale-105 ${
-              isVideoPlaying ? 'opacity-100' : 'opacity-0'
-            }`}
-          />
-        )}
-
-        {/* 3. Luxury Vignette & Interactive Editorial Glass Overlay */}
+        {/* Luxury Vignette & Interactive Editorial Glass Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/25 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-4 sm:p-7 pointer-events-none">
           
           {/* Top Row: Category Pill & Overview Action */}
