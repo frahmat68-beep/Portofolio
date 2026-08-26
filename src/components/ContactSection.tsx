@@ -56,23 +56,6 @@ export default function ContactSection() {
 
       {/* ─── 3. MAIN FOOTER CONTENT ─── */}
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 sm:pt-24 md:pt-32 pb-12 sm:pb-16 w-full">
-        
-        {/* Live Availability Beacon */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9, y: 15 }}
-          whileInView={{ opacity: 1, scale: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-8 sm:mb-12 shadow-lg"
-        >
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-          </span>
-          <span className="font-mono text-[10px] sm:text-xs text-gray-300 uppercase tracking-widest font-semibold">
-            AVAILABLE FOR PRODUCTIONS · JAKARTA &amp; WORLDWIDE
-          </span>
-        </motion.div>
 
         {/* Main Minimalist Header Mirroring HeroBio Aesthetic with Kinetic Stagger */}
         <motion.div
@@ -178,8 +161,8 @@ export default function ContactSection() {
           <div>
             © {new Date().getFullYear()} Kiki Rachmat. All Rights Reserved.
           </div>
-          <div className="flex items-center gap-2">
-            <span>Jakarta &amp; Depok, ID</span>
+          <div>
+            Jakarta, Indonesia
           </div>
         </motion.div>
 

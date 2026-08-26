@@ -3,7 +3,7 @@ import { Project, FilmographyEntry, ProfileData, ProductionStill, BrandLogo } fr
 export const profileData: ProfileData = {
   name: "Kiki Rachmat",
   tagline: "Film Producer · Line Producer · UPM · Art Director",
-  bio: "Film Producer, Line Producer, Unit Production Manager, and Art Director based in Jakarta & Depok. Delivering cinematic narrative films, digital series, and high-impact brand campaigns.",
+  bio: "Film Producer, Line Producer, Unit Production Manager, and Art Director based in Jakarta, Indonesia. Delivering cinematic narrative films, digital series, and high-impact brand campaigns.",
   avatarUrl: "/assets/profile/favicon.png",
   roles: [
     "Film Producer",
@@ -11,7 +11,7 @@ export const profileData: ProfileData = {
     "Unit Production Manager (UPM)",
     "Art Director",
   ],
-  location: "Jakarta & Depok, Indonesia",
+  location: "Jakarta, Indonesia",
   contact: {
     email: "kikirachmat214@gmail.com",
     instagram: "https://instagram.com/kikiirch",
