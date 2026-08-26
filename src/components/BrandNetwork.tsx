@@ -19,12 +19,6 @@ export default function BrandNetwork() {
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12 sm:mb-16 border-b border-black/10 pb-8">
           <div>
-            <div className="flex items-center gap-2 mb-2">
-              <span className="w-2 h-2 rounded-full bg-[#C84B2F]" />
-              <p className="t-label text-inkLight text-[10px] sm:text-xs tracking-[0.25em]">
-                COLLABORATION ECOSYSTEM
-              </p>
-            </div>
             <h2
               className="text-ink font-display font-black uppercase leading-none"
               style={{
@@ -37,14 +31,14 @@ export default function BrandNetwork() {
             </h2>
           </div>
           <p className="font-mono text-inkLight text-xs sm:text-sm">
-            <strong className="text-ink font-bold">{logos.length}</strong> STUDIOS & COMMERCIAL PARTNERS
+            <strong className="text-ink font-bold">{logos.length}</strong> PARTNERS
           </p>
         </div>
 
         {/* 1. Production Houses Grid */}
         <div className="mb-12 sm:mb-16">
-          <p className="text-[11px] sm:text-xs font-mono uppercase tracking-widest text-[#C84B2F] font-bold mb-4 sm:mb-6">
-            PRODUCTION HOUSES & CREATIVE STUDIOS
+          <p className="text-[11px] sm:text-xs font-mono uppercase tracking-wider text-inkLight font-semibold mb-4 sm:mb-6">
+            Production Houses
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 lg:gap-6">
             {phLogos.map(item => (
@@ -69,8 +63,8 @@ export default function BrandNetwork() {
 
         {/* 2. Commercial Brands Grid */}
         <div>
-          <p className="text-[11px] sm:text-xs font-mono uppercase tracking-widest text-[#C84B2F] font-bold mb-4 sm:mb-6">
-            COMMERCIAL BRANDS & CLIENTS
+          <p className="text-[11px] sm:text-xs font-mono uppercase tracking-wider text-inkLight font-semibold mb-4 sm:mb-6">
+            Brands & Clients
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4 lg:gap-6">
             {brandLogos.map(item => (

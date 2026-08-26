@@ -99,12 +99,6 @@ export default function FilmographySection() {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 sm:mb-16 border-b border-black/10 pb-8">
           <div>
-            <div className="flex items-center gap-2 mb-2">
-              <span className="w-2 h-2 rounded-full bg-[#C84B2F] animate-pulse" />
-              <p className="t-label text-inkLight text-[10px] sm:text-xs tracking-[0.25em]">
-                PRODUCTION RECORD & FILMOGRAPHY
-              </p>
-            </div>
             <h2
               className="text-ink font-display font-black uppercase leading-none"
               style={{
@@ -113,7 +107,7 @@ export default function FilmographySection() {
                 letterSpacing: '-0.03em',
               }}
             >
-              Career Index
+              Filmography
             </h2>
           </div>
 

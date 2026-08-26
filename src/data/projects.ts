@@ -15,7 +15,6 @@ export const profileData: ProfileData = {
   contact: {
     email: "frahmat68@gmail.com",
     instagram: "https://instagram.com/kikiirch",
-    linkedin: "https://www.linkedin.com/in/fikrimulyarachmat",
   }
 };
 

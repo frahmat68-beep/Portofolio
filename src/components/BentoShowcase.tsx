@@ -92,11 +92,6 @@ function ProjectCard({ project, idx, isHero, onOpenModal }: {
               onLoadedData={() => setIsVideoLoaded(true)}
               className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
             />
-            {/* Subtle Live Video Badge */}
-            <div className="absolute top-3.5 right-3.5 z-10 hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-[9px] font-mono text-white/80">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#C84B2F] animate-pulse" />
-              <span>PREVIEW</span>
-            </div>
           </div>
         ) : project.posterUrl ? (
           /* eslint-disable-next-line @next/next/no-img-element */
@@ -121,7 +116,7 @@ function ProjectCard({ project, idx, isHero, onOpenModal }: {
         {/* Minimal Editorial Overlay on Hover / Touch */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-4 sm:p-7">
           
-          {/* Top Row: Category + Open Modal Cue */}
+          {/* Top Row: Category */}
           <div className="flex items-center justify-between gap-2">
             <span className="px-3 py-1 rounded-full bg-black/70 backdrop-blur-md text-[9px] sm:text-[10px] font-mono text-white/95 uppercase tracking-widest font-bold border border-white/10">
               {project.category}
@@ -189,12 +184,6 @@ export default function BentoShowcase() {
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10 sm:mb-14 border-b border-black/10 pb-8">
           <div>
-            <div className="flex items-center gap-2 mb-2">
-              <span className="w-2 h-2 rounded-full bg-[#C84B2F]" />
-              <p className="t-label text-inkLight text-[10px] sm:text-xs tracking-[0.25em]">
-                FEATURED PRODUCTIONS
-              </p>
-            </div>
             <h2
               className="text-ink font-display font-black uppercase leading-none"
               style={{
@@ -207,7 +196,7 @@ export default function BentoShowcase() {
             </h2>
           </div>
           <p className="font-mono text-inkLight text-xs sm:text-sm">
-            <strong className="text-ink font-bold">{filtered.length}</strong> PRODUCTIONS LOGGED
+            <strong className="text-ink font-bold">{filtered.length}</strong> PRODUCTIONS
           </p>
         </div>
 

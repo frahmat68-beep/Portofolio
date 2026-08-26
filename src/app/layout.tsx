@@ -30,7 +30,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: 'Fikri Mulya Rachmat | Film Producer & Line Producer Portfolio',
-  description: 'Official portfolio of Fikri Mulya Rachmat — Film Producer, Line Producer, and UPM with 30+ productions spanning narrative shorts, music videos, and commercial brand campaigns across Indonesia.',
+  description: 'Official portfolio of Fikri Mulya Rachmat — Film Producer, Line Producer, and UPM with 45 productions spanning narrative shorts, series, music videos, and commercial brand campaigns across Indonesia.',
   keywords: [
     'Fikri Mulya Rachmat', 'Kiki Rachmat',
     'Film Producer Jakarta', 'Line Producer Indonesia',

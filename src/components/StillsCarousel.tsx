@@ -22,12 +22,6 @@ export default function StillsCarousel() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 sm:mb-14">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-black/10 pb-8">
           <div>
-            <div className="flex items-center gap-2 mb-2">
-              <span className="w-2 h-2 rounded-full bg-[#C84B2F]" />
-              <p className="t-label text-inkLight text-[10px] sm:text-xs tracking-[0.25em]">
-                CINEMATOGRAPHY & ON-SET ARCHIVE
-              </p>
-            </div>
             <h2
               className="text-ink font-display font-black uppercase leading-none"
               style={{
@@ -40,7 +34,7 @@ export default function StillsCarousel() {
             </h2>
           </div>
           <p className="font-mono text-inkLight text-xs sm:text-sm">
-            <strong className="text-ink font-bold">{productionStills.length}</strong> FRAMES ARCHIVED
+            <strong className="text-ink font-bold">{productionStills.length}</strong> FRAMES
           </p>
         </div>
       </div>
