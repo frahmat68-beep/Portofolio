@@ -51,7 +51,7 @@ export default function ContactSection() {
         {/* Bottom Minimal Copyright */}
         <div className="pt-8 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-[11px] sm:text-xs font-mono text-gray-500">
           <div>
-            © {new Date().getFullYear()} Fikri Mulya Rachmat. All Rights Reserved.
+            © {new Date().getFullYear()} Kiki Rachmat. All Rights Reserved.
           </div>
           <div>
             Jakarta, ID

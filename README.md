@@ -1,6 +1,6 @@
-# 🎬 Fikri Mulya Rachmat – Cinematic Portfolio & Bio-Link Hub
+# 🎬 Kiki Rachmat – Film Producer & UPM Portfolio
 
-Website portofolio interaktif dan modern khusus **Film Producer, Line Producer, Unit Production Manager (UPM), & Art Director** untuk bio Instagram. Dilengkapi dengan **Admin CMS Dashboard** untuk mengelola proyek & info tanpa coding, serta siap dihubungkan ke **GitHub** dan **Vercel**.
+Website portofolio resmi **Kiki Rachmat** — Film Producer, Line Producer, Unit Production Manager (UPM), & Art Director. Minimalist editorial showcase terinspirasi standar Love & Money / Awwwards.
 
 ---
 

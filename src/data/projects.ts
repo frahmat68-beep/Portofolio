@@ -1,7 +1,7 @@
 import { Project, FilmographyEntry, ProfileData, ProductionStill, BrandLogo } from '@/types/portfolio';
 
 export const profileData: ProfileData = {
-  name: "Fikri Mulya Rachmat",
+  name: "Kiki Rachmat",
   tagline: "Film Producer · Line Producer · UPM · Art Director",
   bio: "Film Producer, Line Producer, Unit Production Manager, and Art Director based in Jakarta & Depok. Delivering cinematic narrative films, digital series, and high-impact brand campaigns.",
   avatarUrl: "/assets/profile/favicon.png",

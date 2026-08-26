@@ -29,7 +29,7 @@ export default function HeroBio() {
           className="space-y-6 max-w-5xl"
         >
           <p className="font-mono text-xs sm:text-sm text-gray-400 uppercase tracking-widest font-semibold">
-            FIKRI MULYA RACHMAT
+            KIKI RACHMAT
           </p>
 
           <h1
