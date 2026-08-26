@@ -53,7 +53,6 @@ export const projects: Project[] = [
     description:
       "Sebuah short film bergenre drama/horror lokal yang mengangkat kisah 'Nyai' dengan pendekatan sinematik. Kiki terlibat dalam proses produksi mulai dari perencanaan hingga eksekusi di lapangan.",
     posterUrl: "/assets/projects/darah-nyai-imajinarium-pictures/DSC00063.JPG",
-    previewVideoUrl: "/assets/projects/darah-nyai-imajinarium-pictures/YTDown.com_YouTube_Official-Trailer-DARAH-NYAI-Cinepolis-In_Media_xsxIyOvE26M_001_1080p.mp4",
     externalUrl: "https://youtu.be/xsxIyOvE26M",
     externalPlatform: "youtube",
     featured: true,
@@ -91,7 +90,7 @@ export const projects: Project[] = [
     description:
       "Web series 4 episode produksi Leo Pictures Official yang mengangkat cerita cinta dengan format mini-drama di TikTok.",
     posterUrl: "/assets/projects/anonymous-love-by-rejoice-leo-pictures/WhatsApp_Image_2025-03-14_at_01.58.46.jpg",
-    previewVideoUrl: "/assets/projects/anonymous-love-by-rejoice-leo-pictures/Ep1.mp4",
+    previewVideoUrl: "/assets/projects/anonymous-love-by-rejoice-leo-pictures/preview_clip.mp4",
     externalUrl: "https://www.tiktok.com/@leopicturesofficial/video/7481234654016851255",
     externalPlatform: "tiktok",
     featured: true,
@@ -151,8 +150,7 @@ export const projects: Project[] = [
     year: "2024",
     description:
       "Mini series antologi drama kehidupan karya Menjadi Manusia yang mengeksplorasi pilihan hidup dan kedewasaan dalam 5 episode.",
-    posterUrl: "/assets/projects/detik-detik-dalam-hidup-menjadi-manusia/Lupa_Memberi_Makan_Kucing.mp4",
-    previewVideoUrl: "/assets/projects/detik-detik-dalam-hidup-menjadi-manusia/Lupa_Memberi_Makan_Kucing.mp4",
+    previewVideoUrl: "/assets/projects/detik-detik-dalam-hidup-menjadi-manusia/preview_clip.mp4",
     externalUrl: "https://www.instagram.com/reel/C818wyZyw_E/",
     externalPlatform: "instagram",
     featured: true,
@@ -227,7 +225,7 @@ export const projects: Project[] = [
     year: "2023",
     description:
       "Official Music Video 'Jurus Jitu' oleh band Harra. Visual dinamis penuh warna dengan koreografi set dan blocking kamera energik.",
-    posterUrl: "/assets/projects/jurus-jitu-harra-bloom-pictures/Screenshot_2025-06-17_001722.png",
+    posterUrl: "/assets/projects/jurus-jitu-harra-bloom-pictures/Screenshot_2025-06-17_003522.png",
     previewVideoUrl: "/assets/projects/jurus-jitu-harra-bloom-pictures/preview_clip.mp4",
     externalUrl: "https://youtu.be/9xd-DQMDrHw?si=t-bcApYGSYEX8B_j",
     externalPlatform: "youtube",
@@ -235,7 +233,6 @@ export const projects: Project[] = [
     order: 7,
     tags: ["Music Video", "Bloom Pictures", "Harra"],
     gallery: [
-      "/assets/projects/jurus-jitu-harra-bloom-pictures/Screenshot_2025-06-17_001722.png",
       "/assets/projects/jurus-jitu-harra-bloom-pictures/Screenshot_2025-06-17_003522.png",
       "/assets/projects/jurus-jitu-harra-bloom-pictures/Screenshot_2025-06-17_003535.png",
       "/assets/projects/jurus-jitu-harra-bloom-pictures/Screenshot_2025-06-17_003547.png",
@@ -284,7 +281,7 @@ export const projects: Project[] = [
     description:
       "Music video resmi untuk brand campaign Allianz, memadukan narasi musikal dengan pesan perlindungan/asuransi dalam format storytelling yang emosional.",
     posterUrl: "/assets/logo-brand/Allianz.png",
-    previewVideoUrl: "/assets/projects/allianz-berimajinasi-ria/Allianz_-_Music_Video_202.mp4",
+    previewVideoUrl: "/assets/projects/allianz-berimajinasi-ria/preview_clip.mp4",
     externalUrl: "https://www.instagram.com/reel/DUKlQvXEptT/",
     externalPlatform: "instagram",
     featured: false,
@@ -430,7 +427,7 @@ export const projects: Project[] = [
     description:
       "Mini series 2 episode untuk lini produk premium Royale by Soklin, dengan eksekusi visual elevated.",
     posterUrl: "/assets/logo-brand/Royale_By_SoKlin.png",
-    previewVideoUrl: "/assets/projects/anonymous-love-by-rejoice-leo-pictures/Ep1.mp4",
+    previewVideoUrl: "/assets/projects/anonymous-love-by-rejoice-leo-pictures/preview_clip.mp4",
     externalUrl: "https://www.instagram.com/reel/DcDu2_5jekB/",
     externalPlatform: "instagram",
     featured: false,
