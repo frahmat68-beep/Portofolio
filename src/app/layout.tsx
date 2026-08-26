@@ -29,7 +29,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: 'Kiki Rachmat — Film Producer & UPM',
+  title: 'Kiki Rachmat',
   description: 'Official portfolio of Kiki Rachmat — Film Producer, Line Producer, and UPM with 45 productions spanning narrative shorts, series, music videos, and commercial brand campaigns across Indonesia.',
   keywords: [
     'Kiki Rachmat', 'Film Producer Jakarta',
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: 'Kiki Rachmat' }],
   openGraph: {
-    title: 'Kiki Rachmat — Film Producer & UPM',
+    title: 'Kiki Rachmat',
     description: 'Filmography, narrative films, music videos, and commercial productions.',
     type: 'website',
     locale: 'id_ID',
