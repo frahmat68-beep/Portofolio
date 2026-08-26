@@ -464,3 +464,56 @@ export const filmographyData: FilmographyEntry[] = [
     notes: "Action Automotive Short"
   }
 ];
+
+export const btsPhotosData = [
+  {
+    id: "bts-1",
+    title: "Darah Nyai: Set Production",
+    caption: "On-set production stills and cinematography monitoring for Darah Nyai with Imajinarium Pictures.",
+    imageUrl: "/assets/projects/darah-nyai_imajinarium-pictures/DSC00063.jpg",
+    tag: "Feature Film / Set"
+  },
+  {
+    id: "bts-2",
+    title: "PUMA x McLaren: Livery Launch",
+    caption: "Behind the scenes shooting PUMA x McLaren SEA campaign & collection launch di Senayan City.",
+    imageUrl: "/assets/projects/puma-x-mclaren_aman-studio/Built_for_the_grid_Styled.jpg",
+    tag: "Commercial / Fashion"
+  },
+  {
+    id: "bts-3",
+    title: "Bintang Fajar: On-Location Night Shoot",
+    caption: "Night exterior filming and camera department crew coordination for Bintang Fajar.",
+    imageUrl: "/assets/projects/bintang-fajar_sae-institute/WhatsApp_Image_2025-06-16_at_23_41_21.jpg",
+    tag: "SAE Institute / Night Set"
+  },
+  {
+    id: "bts-4",
+    title: "Neon Race: Automotive Rigging & Lighting",
+    caption: "High-speed automotive rigging and neon lighting aesthetics for Neon Race showcase.",
+    imageUrl: "/assets/projects/neon-race_sae-institute/shigeru_jpg_neoncar-168.jpg",
+    tag: "Action / Lighting"
+  },
+  {
+    id: "bts-5",
+    title: "Terimalah Salam Pamitku: Music Video Set",
+    caption: "Emotional narrative music video on-set scene capture and artist care.",
+    imageUrl: "/assets/projects/terimalah-salam-pamitku_sae-institute/WhatsApp_Image_2025-01-18_at_21_29_56.jpg",
+    tag: "Music Video / Narrative"
+  },
+  {
+    id: "bts-6",
+    title: "Anonymous Love: Branded Series Shoot",
+    caption: "Production crew logistics and set continuity for Rejoice branded mini-series.",
+    imageUrl: "/assets/projects/anonymous-love-by-rejoice_leo-pictures/WhatsApp_Image_2025-03-14_at_01_58_46.jpg",
+    tag: "Commercial / Set"
+  },
+  {
+    id: "bts-7",
+    title: "Reku: Commercial Pack Shoot",
+    caption: "Fintech commercial studio session and talent coordination for Reku app.",
+    imageUrl: "/assets/projects/reku-relaunch-pack_sunyata-studio/WhatsApp_Image_2025-08-06_at_16_22_01.jpg",
+    tag: "Brand Ads / Studio"
+  }
+];
+

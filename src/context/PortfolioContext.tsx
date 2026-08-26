@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext } from 'react';
 import { PortfolioData } from '@/types/portfolio';
-import { profileData, projects, filmographyData } from '@/data/projects';
+import { profileData, projects, filmographyData, btsPhotosData } from '@/data/projects';
 
 interface PortfolioContextType {
   data: PortfolioData;
@@ -11,8 +11,10 @@ interface PortfolioContextType {
 const staticPortfolioData: PortfolioData = {
   profile: profileData,
   projects: projects,
-  filmography: filmographyData
+  filmography: filmographyData,
+  btsPhotos: btsPhotosData
 };
+
 
 const PortfolioContext = createContext<PortfolioContextType>({
   data: staticPortfolioData
