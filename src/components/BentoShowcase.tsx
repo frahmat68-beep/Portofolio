@@ -101,7 +101,11 @@ function ProjectCard({ project, idx, isHero, isTall, onOpenModal }: {
             src={project.posterUrl}
             alt={project.title}
             loading="lazy"
-            className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105 filter grayscale contrast-125 group-hover:grayscale-0 group-hover:contrast-100 transition-all"
+            className={`w-full h-full ${
+              project.posterUrl.includes('logo-brand')
+                ? 'object-contain p-10 sm:p-14 bg-[#141414]'
+                : 'object-cover object-center filter grayscale contrast-125 group-hover:grayscale-0 group-hover:contrast-100'
+            } transition-all duration-700 ease-out group-hover:scale-105`}
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center bg-[#161616] p-6 text-center">

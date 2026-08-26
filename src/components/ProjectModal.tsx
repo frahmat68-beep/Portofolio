@@ -93,7 +93,11 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
               <img
                 src={project.posterUrl}
                 alt={project.title}
-                className="w-full h-full object-cover"
+                className={`w-full h-full ${
+                  project.posterUrl.includes('logo-brand')
+                    ? 'object-contain p-12 sm:p-16 bg-[#141414]'
+                    : 'object-cover'
+                }`}
               />
             ) : (
               <div className="w-full h-full flex items-center justify-center bg-[#161616]">
