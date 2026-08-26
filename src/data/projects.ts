@@ -3,7 +3,7 @@ import { Project, FilmographyEntry, ProfileData } from '@/types/portfolio';
 export const profileData: ProfileData = {
   name: "Fikri Mulya Rachmat",
   tagline: "Film Producer · Line Producer · UPM · Art Director",
-  bio: "Film Producer, Line Producer, Unit Production Manager, dan Art Director berbasis di Jakarta & Depok. Berfokus pada narrative short films, digital series, brand commercials, dan music videos.",
+  bio: "Film Producer, Line Producer, Unit Production Manager, dan Art Director berbasis di Jakarta & Depok. Berpengalaman dalam 30+ produksi karya naratif, digital series, brand campaigns, dan music videos.",
   avatarUrl: "/assets/profile/favicon.png",
   roles: [
     "Film Producer",
@@ -36,7 +36,7 @@ export const projects: Project[] = [
     title: "Darah Nyai",
     category: "Short Film",
     client: "Imajinarium Pictures",
-    role: "Production Team",
+    role: "Line Producer / UPM",
     year: "2024",
     description:
       "Sebuah short film bergenre drama/horror lokal yang mengangkat kisah 'Nyai' dengan pendekatan sinematik. Kiki terlibat dalam proses produksi mulai dari perencanaan hingga eksekusi di lapangan.",
@@ -53,11 +53,12 @@ export const projects: Project[] = [
     title: "Love By Rejoice",
     category: "Series",
     client: "Rejoice / Leo Pictures",
-    role: "Production Team",
+    role: "Line Producer / Production Team",
     year: "2024",
     description:
       "Web series 4 episode produksi Leo Pictures Official yang mengangkat cerita cinta dengan format mini-drama, dirilis berkelanjutan di TikTok sebagai strategi konten berseri.",
     posterUrl: "/assets/projects/anonymous-love-by-rejoice_leo-pictures/WhatsApp_Image_2025-03-14_at_01_58_46.jpg",
+    previewVideoUrl: "/assets/projects/anonymous-love-by-rejoice_leo-pictures/Ep1.mp4",
     featured: true,
     order: 2,
     tags: ["Series", "TikTok", "Rejoice", "Leo Pictures"],
@@ -73,11 +74,12 @@ export const projects: Project[] = [
     title: "Reku Relaunch Pack",
     category: "Commercial",
     client: "Reku / Sunyata Studio",
-    role: "Production Team",
+    role: "Production Assistant",
     year: "2023",
     description:
       "Campaign relaunch produk untuk Reku, terdiri dari serangkaian video testimoni/brand story (Raka, Mita, Devina) dan mini-series 'Detik-detik Dalam Hidup' 5 episode yang mengangkat momen personal para narasumber dalam mengelola aset & keputusan finansial mereka.",
     posterUrl: "/assets/projects/reku-relaunch-pack_sunyata-studio/WhatsApp_Image_2025-08-06_at_16_22_01.jpg",
+    previewVideoUrl: "/assets/projects/reku-relaunch-pack_sunyata-studio/Reku_Devina.mp4",
     featured: true,
     order: 3,
     tags: ["Commercial", "Fintech", "Reku", "Series"],
@@ -97,11 +99,12 @@ export const projects: Project[] = [
     title: "Puma x McLaren",
     category: "Commercial",
     client: "Puma x McLaren / Aman Studio",
-    role: "Production Team",
+    role: "Production & Styling Team",
     year: "2025",
     description:
       "Rangkaian konten campaign kolaborasi Puma x McLaren, menampilkan produk apparel & footwear dengan pendekatan visual dinamis bernuansa motorsport, dirilis dalam format reels & feed post.",
     posterUrl: "/assets/projects/puma-x-mclaren_aman-studio/Check_out_the_MCL40_and_t.jpg",
+    previewVideoUrl: "/assets/projects/puma-x-mclaren_aman-studio/The_new_PUMA_x_McLaren_Ra.mp4",
     featured: true,
     order: 4,
     tags: ["Commercial", "Fashion", "PUMA", "McLaren F1"],
@@ -118,11 +121,12 @@ export const projects: Project[] = [
     title: "The Forestine — Ciputra CitraGarden City",
     category: "Commercial",
     client: "Ciputra CitraGarden City / Berimajinasi Ria",
-    role: "Production Team",
+    role: "Production Team / UPM",
     year: "2025",
     description:
       "Konten promosi properti untuk klaster The Forestine, Ciputra CitraGarden City — menonjolkan konsep hunian asri dan suasana lingkungan lewat pendekatan sinematik.",
     posterUrl: "/assets/projects/the-forestine-ciputra-citygarden_berimajinasi-ria/images.jpeg",
+    previewVideoUrl: "/assets/projects/the-forestine-ciputra-citygarden_berimajinasi-ria/Ciputra_-_The_Forestine_D.mp4",
     featured: false,
     order: 5,
     tags: ["Commercial", "Property", "Ciputra"],
@@ -135,11 +139,12 @@ export const projects: Project[] = [
     title: "Allianz — Official Music Video",
     category: "Music Video",
     client: "Allianz / Berimajinasi Ria",
-    role: "Production Team",
+    role: "Line Producer / UPM",
     year: "2026",
     description:
       "Music video resmi untuk brand campaign Allianz, memadukan narasi musikal dengan pesan perlindungan/asuransi dalam format storytelling yang emosional.",
     posterUrl: "/assets/projects/allianz_berimajinasi-ria/hvfeIL15AY4ZehkQrkI7FNSOf.png",
+    previewVideoUrl: "/assets/projects/allianz_berimajinasi-ria/Music_Video_for_Allianz_2.mp4",
     featured: false,
     order: 6,
     tags: ["Music Video", "Allianz", "Brand Campaign"],
@@ -153,11 +158,12 @@ export const projects: Project[] = [
     title: "My Love Bedcover",
     category: "Commercial",
     client: "My Love Bedcover / Berimajinasi Ria",
-    role: "Production Team",
+    role: "Line Producer / UPM",
     year: "2025",
     description:
       "Konten iklan produk bedcover dengan pendekatan visual homey dan lifestyle, menonjolkan tekstur & kenyamanan produk.",
     posterUrl: "/assets/projects/my-love-bedcover_berimajinasi-rua/images_1.jpeg",
+    previewVideoUrl: "/assets/projects/my-love-bedcover_berimajinasi-rua/TVC_for_My_Love_mylovebed.mp4",
     featured: false,
     order: 7,
     tags: ["Commercial", "TVC", "My Love"],
@@ -170,11 +176,12 @@ export const projects: Project[] = [
     title: "Kopi Kenangan x Drink Beng-beng",
     category: "Commercial",
     client: "Kopi Kenangan x Beng-beng / Aman Studio",
-    role: "Production Team",
+    role: "Production Team / UPM",
     year: "2025",
     description:
       "Konten kolaborasi Kopi Kenangan x Drink Beng-beng, kampanye produk cross-brand dengan eksekusi visual playful dan cepat sesuai gaya konten media sosial.",
     posterUrl: "/assets/projects/kopken-x-bengbeng_aman-studio/639905945_184269055961841.jpg",
+    previewVideoUrl: "/assets/projects/kopken-x-bengbeng_aman-studio/Nikmati_rasa_cokelat_ikon.mp4",
     featured: false,
     order: 8,
     tags: ["Commercial", "Digital Ads", "Kopi Kenangan"],
@@ -192,11 +199,97 @@ export const projects: Project[] = [
     description:
       "Brand film manifesto Kopi Kenangan — pendekatan naratif yang lebih dalam untuk menyampaikan nilai dan visi brand, di luar format iklan produk biasa.",
     posterUrl: "/assets/projects/manifesto-kopi-kenangan_aman-studio/images.png",
+    previewVideoUrl: "/assets/projects/manifesto-kopi-kenangan_aman-studio/Manifesto_Kopi_Kenangan.mp4",
     featured: false,
     order: 9,
     tags: ["Commercial", "Brand Film", "Kopi Kenangan"],
     videos: [
       { platform: "youtube", url: "https://youtu.be/HAWMCxWKBgk", label: "Manifesto Film" },
+    ],
+  },
+  {
+    slug: "harra-jurus-jitu",
+    title: "Harra – Jurus Jitu",
+    category: "Music Video",
+    client: "Bloom Pictures",
+    role: "Unit Production Manager",
+    year: "2023",
+    description:
+      "Official Music Video 'Jurus Jitu' oleh band Harra. Visual dinamis penuh warna dengan koreografi set dan blocking kamera yang energik.",
+    posterUrl: "/assets/projects/jurus-jitu-harra_bloom-pictures/Screenshot_2025-06-17_001722.png",
+    featured: true,
+    order: 10,
+    tags: ["Music Video", "Bloom Pictures", "Harra"],
+    videos: [
+      { platform: "youtube", url: "https://youtu.be/9xd-DQMDrHw?si=t-bcApYGSYEX8B_j", label: "Official MV" },
+    ],
+  },
+  {
+    slug: "selfi-yamma-firasat",
+    title: "Selfi Yamma – Firasat",
+    category: "Music Video",
+    client: "3D Entertainment / Sunyata Studio",
+    role: "Line Producer",
+    year: "2023",
+    description:
+      "Official Music Video lagu 'Firasat' oleh penyanyi Selfi Yamma di bawah label 3D Entertainment. Produksi bernuansa dramatis dengan tata artistik dan pencahayaan sinematik kuat.",
+    posterUrl: "/assets/projects/firasat-selfi-yamma_sunyata-studio/Screenshot_2025-06-17_205521.png",
+    featured: true,
+    order: 11,
+    tags: ["Music Video", "3D Entertainment", "Selfi Yamma"],
+    videos: [
+      { platform: "youtube", url: "https://youtu.be/yqi4CVUdPIk?si=EydaSdt260MEd79r", label: "Official MV" },
+    ],
+  },
+  {
+    slug: "terimalah-salam-pamitku",
+    title: "Terimalah Salam Pamitku",
+    category: "Music Video",
+    client: "SAE Institute Jakarta",
+    role: "Producer",
+    year: "2024",
+    description:
+      "Karya video musik naratif emosional bertema perpisahan dan penerimaan dengan pendekatan visual intim dan manajemen set terencana.",
+    posterUrl: "/assets/projects/terimalah-salam-pamitku_sae-institute/WhatsApp_Image_2025-01-18_at_21_29_56.jpg",
+    featured: false,
+    order: 12,
+    tags: ["Music Video", "SAE Institute", "Narrative"],
+    videos: [
+      { platform: "youtube", url: "https://youtu.be/vhJbjb4P1Cc?si=HMwsXlCv2YMRu4jK", label: "Official MV" },
+    ],
+  },
+  {
+    slug: "bintang-fajar",
+    title: "Bintang Fajar",
+    category: "Short Film",
+    client: "SAE Institute Jakarta",
+    role: "Line Producer",
+    year: "2023",
+    description:
+      "Film pendek fiksi naratif yang mengeksplorasi perjuangan dan dinamika metropolitan dengan pendekatan visual atmosferik malam hari.",
+    posterUrl: "/assets/projects/bintang-fajar_sae-institute/WhatsApp_Image_2025-06-16_at_23_41_21.jpg",
+    featured: false,
+    order: 13,
+    tags: ["Short Film", "SAE Institute", "Drama"],
+    videos: [
+      // TODO: video link belum ada, minta ke Kiki
+    ],
+  },
+  {
+    slug: "neon-race",
+    title: "Neon Race",
+    category: "Short Film",
+    client: "SAE Institute Jakarta",
+    role: "Clapper / 2nd AC",
+    year: "2022",
+    description:
+      "Karya otomotif aksi dinamis dengan pencahayaan neon malam hari dan teknik rigging kamera berkecepatan tinggi.",
+    posterUrl: "/assets/projects/neon-race_sae-institute/shigeru_jpg_neoncar-168.jpg",
+    featured: false,
+    order: 14,
+    tags: ["Short Film", "Action", "Automotive"],
+    videos: [
+      // TODO: video link belum ada, minta ke Kiki
     ],
   },
   {
@@ -208,9 +301,8 @@ export const projects: Project[] = [
     year: "2024",
     description:
       "Mini series 4 episode untuk produk Top Coffee Cappuccino, dikemas dalam format cerita berseri yang ringan dan relatable untuk audiens media sosial.",
-    posterUrl: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=800&auto=format&fit=crop",
     featured: false,
-    order: 10,
+    order: 15,
     tags: ["Series", "Top Coffee", "Mini Series"],
     videos: [
       { platform: "instagram", url: "https://www.instagram.com/reel/DaVAqiDBrOm/", label: "Eps 1" },
@@ -228,9 +320,8 @@ export const projects: Project[] = [
     year: "2024",
     description:
       "Mini series 3 episode untuk Soklin Pewangi, menonjolkan momen keseharian rumah tangga dengan sentuhan storytelling ringan khas konten seri sosial media.",
-    posterUrl: "https://images.unsplash.com/photo-1582735689369-4fe89db7114c?q=80&w=800&auto=format&fit=crop",
     featured: false,
-    order: 11,
+    order: 16,
     tags: ["Series", "Soklin", "Mini Series"],
     videos: [
       { platform: "instagram", url: "https://www.instagram.com/reel/DbxtMx3h1_Z/", label: "Eps 1" },
@@ -247,64 +338,12 @@ export const projects: Project[] = [
     year: "2024",
     description:
       "Mini series 2 episode untuk lini produk premium Royale by Soklin, dengan eksekusi visual yang lebih elevated dibanding lini Soklin reguler.",
-    posterUrl: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800&auto=format&fit=crop",
     featured: false,
-    order: 12,
+    order: 17,
     tags: ["Series", "Royale by Soklin", "Mini Series"],
     videos: [
       { platform: "instagram", url: "https://www.instagram.com/reel/DcDu2_5jekB/", label: "Eps 1" },
       { platform: "instagram", url: "https://www.instagram.com/reel/DcP0rDVAPfS/", label: "Eps 2" },
-    ],
-  },
-  {
-    slug: "harra-jurus-jitu",
-    title: "Harra – Jurus Jitu",
-    category: "Music Video",
-    client: "Bloom Pictures",
-    role: "Unit Production Manager",
-    year: "2023",
-    description:
-      "Official Music Video 'Jurus Jitu' oleh band Harra. Visual dinamis penuh warna dengan koreografi set dan blocking kamera yang energik.",
-    posterUrl: "/assets/projects/jurus-jitu-harra_bloom-pictures/Screenshot_2025-06-17_001722.png",
-    featured: false,
-    order: 13,
-    tags: ["Music Video", "Bloom Pictures", "Harra"],
-    videos: [
-      { platform: "youtube", url: "https://youtu.be/9xd-DQMDrHw?si=t-bcApYGSYEX8B_j", label: "Official MV" },
-    ],
-  },
-  {
-    slug: "selfi-yamma-firasat",
-    title: "Selfi Yamma – Firasat",
-    category: "Music Video",
-    client: "3D Entertainment / Sunyata Studio",
-    role: "Line Producer",
-    year: "2023",
-    description:
-      "Official Music Video lagu 'Firasat' oleh penyanyi Selfi Yamma di bawah label 3D Entertainment. Produksi bernuansa dramatis dengan tata artistik dan pencahayaan sinematik kuat.",
-    posterUrl: "/assets/projects/firasat-selfi-yamma_sunyata-studio/Screenshot_2025-06-17_205521.png",
-    featured: false,
-    order: 14,
-    tags: ["Music Video", "3D Entertainment", "Selfi Yamma"],
-    videos: [
-      { platform: "youtube", url: "https://youtu.be/yqi4CVUdPIk?si=EydaSdt260MEd79r", label: "Official MV" },
-    ],
-  },
-  {
-    slug: "terimalah-salam-pamitku",
-    title: "Terimalah Salam Pamitku",
-    category: "Music Video",
-    client: "SAE Institute Jakarta",
-    role: "Producer",
-    year: "2024",
-    description:
-      "Karya video musik naratif emosional bertema perpisahan dan penerimaan dengan pendekatan visual intim dan manajemen set terencana.",
-    posterUrl: "/assets/projects/terimalah-salam-pamitku_sae-institute/WhatsApp_Image_2025-01-18_at_21_29_56.jpg",
-    featured: false,
-    order: 15,
-    tags: ["Music Video", "SAE Institute", "Narrative"],
-    videos: [
-      { platform: "youtube", url: "https://youtu.be/vhJbjb4P1Cc?si=HMwsXlCv2YMRu4jK", label: "Official MV" },
     ],
   },
 ];
@@ -464,56 +503,3 @@ export const filmographyData: FilmographyEntry[] = [
     notes: "Action Automotive Short"
   }
 ];
-
-export const btsPhotosData = [
-  {
-    id: "bts-1",
-    title: "Darah Nyai: Set Production",
-    caption: "On-set production stills and cinematography monitoring for Darah Nyai with Imajinarium Pictures.",
-    imageUrl: "/assets/projects/darah-nyai_imajinarium-pictures/DSC00063.jpg",
-    tag: "Feature Film / Set"
-  },
-  {
-    id: "bts-2",
-    title: "PUMA x McLaren: Livery Launch",
-    caption: "Behind the scenes shooting PUMA x McLaren SEA campaign & collection launch di Senayan City.",
-    imageUrl: "/assets/projects/puma-x-mclaren_aman-studio/Built_for_the_grid_Styled.jpg",
-    tag: "Commercial / Fashion"
-  },
-  {
-    id: "bts-3",
-    title: "Bintang Fajar: On-Location Night Shoot",
-    caption: "Night exterior filming and camera department crew coordination for Bintang Fajar.",
-    imageUrl: "/assets/projects/bintang-fajar_sae-institute/WhatsApp_Image_2025-06-16_at_23_41_21.jpg",
-    tag: "SAE Institute / Night Set"
-  },
-  {
-    id: "bts-4",
-    title: "Neon Race: Automotive Rigging & Lighting",
-    caption: "High-speed automotive rigging and neon lighting aesthetics for Neon Race showcase.",
-    imageUrl: "/assets/projects/neon-race_sae-institute/shigeru_jpg_neoncar-168.jpg",
-    tag: "Action / Lighting"
-  },
-  {
-    id: "bts-5",
-    title: "Terimalah Salam Pamitku: Music Video Set",
-    caption: "Emotional narrative music video on-set scene capture and artist care.",
-    imageUrl: "/assets/projects/terimalah-salam-pamitku_sae-institute/WhatsApp_Image_2025-01-18_at_21_29_56.jpg",
-    tag: "Music Video / Narrative"
-  },
-  {
-    id: "bts-6",
-    title: "Anonymous Love: Branded Series Shoot",
-    caption: "Production crew logistics and set continuity for Rejoice branded mini-series.",
-    imageUrl: "/assets/projects/anonymous-love-by-rejoice_leo-pictures/WhatsApp_Image_2025-03-14_at_01_58_46.jpg",
-    tag: "Commercial / Set"
-  },
-  {
-    id: "bts-7",
-    title: "Reku: Commercial Pack Shoot",
-    caption: "Fintech commercial studio session and talent coordination for Reku app.",
-    imageUrl: "/assets/projects/reku-relaunch-pack_sunyata-studio/WhatsApp_Image_2025-08-06_at_16_22_01.jpg",
-    tag: "Brand Ads / Studio"
-  }
-];
-

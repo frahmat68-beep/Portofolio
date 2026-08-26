@@ -1,34 +1,22 @@
 import HeroBio from "@/components/HeroBio";
-import StatsBar from "@/components/StatsBar";
 import BentoShowcase from "@/components/BentoShowcase";
-import BTSGallerySection from "@/components/BTSGallerySection";
 import FilmographySection from "@/components/FilmographySection";
 import ContactSection from "@/components/ContactSection";
-import StickyMobileBar from "@/components/StickyMobileBar";
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-background text-gray-100 flex flex-col items-center selection:bg-[#C84B2F]/20 selection:text-[#C84B2F]">
-      {/* 1. Hero Section (Showcase Entry) */}
+      {/* 1. Hero Section with Full-Bleed Video Ambience & Massive Typography */}
       <HeroBio />
 
-      {/* 2. Stats Bar */}
-      <StatsBar />
-
-      {/* 3. Core Showcase (Films, Commercials, MVs) */}
+      {/* 2. Featured Works (L&M Living Bento Video/Visual Grid) */}
       <BentoShowcase />
 
-      {/* 4. On-Set BTS Raw Collage Grid */}
-      <BTSGallerySection />
-
-      {/* 5. Production Archive Table (Condensed Filmography) */}
+      {/* 3. Production Archive Table (Complete Filmography Logbook) */}
       <FilmographySection />
 
-      {/* 6. Minimal Footer with Identity Context & Contacts */}
+      {/* 4. Minimalist Footer with Identity Context & Social Links */}
       <ContactSection />
-
-      {/* Sticky Mobile Bar for quick access */}
-      <StickyMobileBar />
     </main>
   );
 }

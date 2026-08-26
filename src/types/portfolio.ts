@@ -15,6 +15,7 @@ export interface Project {
   year?: string;
   description: string;
   posterUrl?: string;
+  previewVideoUrl?: string;
   videos: ProjectVideo[];
   featured?: boolean;
   order?: number;
@@ -55,18 +56,8 @@ export interface ProfileData {
   };
 }
 
-export interface BTSPhoto {
-  id: string;
-  title: string;
-  caption: string;
-  imageUrl: string;
-  tag?: string;
-}
-
 export interface PortfolioData {
   profile: ProfileData;
   projects: Project[];
   filmography: FilmographyEntry[];
-  btsPhotos: BTSPhoto[];
 }
-
