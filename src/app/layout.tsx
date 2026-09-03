@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { Syne, Space_Grotesk, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { PortfolioProvider } from '@/context/PortfolioContext';
+import Analytics from '@/components/Analytics';
 
 const syne = Syne({
   subsets: ['latin'],
@@ -56,6 +57,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="bg-background text-gray-100 font-sans min-h-screen antialiased overflow-x-hidden">
         <PortfolioProvider>
           {children}
+          <Analytics />
         </PortfolioProvider>
       </body>
     </html>
