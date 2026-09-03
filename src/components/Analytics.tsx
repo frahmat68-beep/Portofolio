@@ -2,9 +2,9 @@
 
 import { useEffect } from 'react';
 import Script from 'next/script';
-import { Analytics as VercelAnalytics } from '@vercel/analytics/react';
+import { Analytics as VercelAnalytics } from '@vercel/analytics/next';
 
-const CLARITY_PROJECT_ID = process.env.NEXT_PUBLIC_CLARITY_ID || '';
+const CLARITY_PROJECT_ID = process.env.NEXT_PUBLIC_CLARITY_ID || 'ycpr6i6f15';
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_ID || '';
 
 export default function Analytics() {
